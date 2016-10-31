@@ -10,9 +10,9 @@ Part 4: Map Builder (Lucas)
 Intermediate Project Due Monday Nov. 7th
 
 Stuff to do:
-•	Various objects and enemy classes (Character)
-•	Inventory pane, edit equipment (Character/Items)
-•	Character movement, square by square (Character/Map)
-•	Character interaction with objects in map (Map)
-•	Implementing some game rules (General)
-•	Main menu with options to create or play (General)
+-Various objects and enemy classes (Character)
+-Inventory pane, edit equipment (Character/Items)
+-Character movement, square by square (Character/Map)
+-Character interaction with objects in map (Map)
+-Implementing some game rules (General)
+-Main menu with options to create or play (General)
