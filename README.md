@@ -1,6 +1,6 @@
 # seaplusplus
 
-Assignment /#2 Due Friday Nov. 4th
+Assignment #2 Due Friday Nov. 4th
 
 Part 1: Character Oberver (Spam)
 Part 2: Map Observer (Adam)
