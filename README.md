@@ -12,7 +12,7 @@ Assignment #2 Due Friday Nov. 4th
   Part 4: Map Builder (Lucas)
 
 
- Intermediate Project Due Monday Nov. 7th
+ Intermediate Project Due Thursday Nov. 10th
 
 
 Stuff to do:
