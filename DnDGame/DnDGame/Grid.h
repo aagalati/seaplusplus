@@ -1,9 +1,11 @@
 #pragma once
 #include <vector>
 #include <iostream>
+#include "Observer.h"
+#include "MapObserver.h"
 using namespace std;
 
-class Grid
+class Grid : public Observer
 {
 public:
 
@@ -18,6 +20,8 @@ public:
 	void resizeMap(int width, int height);
 	void setCell(int col, int row, int set);
 	void setDoors();
+	int getCellValue(int width, int height);
+	void update();
 	
 	inline int getWidth();
 	inline int getHeight();
@@ -28,7 +32,7 @@ public:
 	//void addExtraCol(int set);
 	//void getWidth();
 	//void getHeight();
-	//~Grid();
+	~Grid();
 	//generate stack for the shortest distance
 	//use objects/cell class for cells
 
@@ -41,7 +45,11 @@ private:
 	int _exit_row;
 	int _exit_col;
 	int dir;
+	int _prevcell;
 	bool isValid;
+
+	MapObserver *_grid;
+
 
 	vector< vector<int> > _gridData;
 };

@@ -6,6 +6,12 @@ MapObserver::MapObserver()
 {
 }
 
+void MapObserver::changeToGrid() {
+
+	Notify();
+
+}
+
 
 MapObserver::~MapObserver()
 {

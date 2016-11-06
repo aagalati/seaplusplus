@@ -12,6 +12,10 @@ Grid::Grid(int width, int height, bool blank) //constructor
 	_height = height;
 	sizeMap();
 	if (!blank) fillMapRandom(); //if the user wants the map to be blank then the map is not filled randomly
+	MapObserver *_gridObserver = new MapObserver();
+	_grid = _gridObserver;
+	_grid->Attach(this);
+
 
 }
 
@@ -42,8 +46,8 @@ void Grid::fillMapRandom()  //this method fills the map randomly with walls, obj
 	} while (_entrance_col == _exit_col && _entrance_row == _exit_row);
 
 
-	_gridData[_entrance_col][_entrance_row] = -1;
-	_gridData[_exit_col][_exit_row] = -2;
+	_gridData[_entrance_col][_entrance_row] = 3;
+	_gridData[_exit_col][_exit_row] = 4;
 
 }
 
@@ -62,7 +66,7 @@ bool Grid::checkValid(int row, int col, int dir) {
 	//int t; //testing purposes
 	//cin >> t;
 
-	if (_gridData[row][col] == -2) { //base case, if exit is found, return true
+	if (_gridData[row][col] == 4) { //base case, if exit is found, return true
 		//cout << "Found the exit, returning true" << endl;
 		return true;
 	}
@@ -281,7 +285,24 @@ void Grid::resizeMap(int width, int height) {
 
 }
 
+int Grid::getCellValue(int width, int height) {
 
-/*Grid::~Grid()
-{
-}*/
+	return _gridData[width][height];
+
+}
+
+//void move
+//change....
+//changetomap
+//
+
+void Grid::update() {
+
+
+
+}
+
+
+Grid::~Grid()
+	{
+	}

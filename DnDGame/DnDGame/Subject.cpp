@@ -8,7 +8,6 @@ Subject::Subject()
 	_observers = new list<Observer*>;
 }
 
-
 Subject::~Subject()
 {
 	delete _observers;
