@@ -8,6 +8,7 @@
 	{
 		Character *conan = new Character(12, 12, 12, 12, 12, 12);
 		CPPUNIT_ASSERT(conan->validateNewCharacter());
+		delete conan;
 	}
 
 	//! test method to test the validateNewCharacter() method of the Character class 
@@ -17,6 +18,7 @@
 	{
 		Character *conan = new Character(20, 12, 12, 12, 12, 12);
 		CPPUNIT_ASSERT(conan->validateNewCharacter() == false);
+		delete conan;
 	}
 
 	//! test method to test the hit() method of the Map class 
@@ -27,7 +29,10 @@
 		Character *conan = new Character(12, 12, 12, 12, 12, 12);
 		conan->hit(4);
 		CPPUNIT_ASSERT(conan->getHitPoints() == 6);
+		delete conan;
 	}
+
+	//THE 2 FOLLOWING FUNCTIONS ARE PERTINANT TO ASSIGNMENT 1, PLEASE SCROLL DOWN TO LINE <> FOR ASSIGNMENT 2 TEST CASES
 	//! test method to test the abilityPointsGenerator() method of the Character class
 	//! Test Case: the generator should give the highest roll to the strength attribute
 	//! Tested item: Character::abilityScoreGenerator
@@ -39,6 +44,7 @@
 					   conan->getStrength() > conan->getIntelligence() &&
 					   conan->getStrength() > conan->getWisdom() &&
 					   conan->getStrength() > conan->getCharisma());
+		delete conan;
 	}
 	//! test method to test the  hitPointGenerator() method of the Character class
 	//! Test Case: the character at level 2 should have no less than 19 hp and no more than 28
@@ -47,4 +53,16 @@
 	{
 		Character *conan = new Character(2, "conan");
 		CPPUNIT_ASSERT((conan->getHitPoints() >= 19) && (conan->getHitPoints() <= 28));
+		delete conan;
+	}
+
+	//!test method to test the invocation of the update method through the Observer pattern
+	//!Test case: Boolean value updating should only be true if update is invoked through the observer pattern
+	//!Test intem: Character::Update()
+	void CharacterTest::testUpdate()
+	{
+		Character* conan = new Character(2, "conan");
+		conan->setStrength(16);
+		CPPUNIT_ASSERT(conan->updating == true);
+		delete conan;
 	}
