@@ -21,6 +21,9 @@
 #include <cppunit/CompilerOutputter.h>
 #include <cppunit/XmlOutputter.h>
 #include "Character.h"
+#include "Subject.h"
+#include "Observer.h"
+
 	using namespace CppUnit;
 	using namespace std;
 
@@ -33,19 +36,26 @@
 		CPPUNIT_TEST(testInvalidNewCharacter);
 		CPPUNIT_TEST(testHit);
 		
-		//!Added test cases
+		//!Added test cases (Assignment 1)
 		CPPUNIT_TEST(testHighestStat);
 		CPPUNIT_TEST(testHitPointGenerator);
-		
+
+		//!Added test cases(Assignment 2)
+		CPPUNIT_TEST(testObserverList);
+		CPPUNIT_TEST(testUpdate)
 		CPPUNIT_TEST_SUITE_END();
 	protected:
 		void testValidNewCharacter();
 		void testInvalidNewCharacter();
 		
 		void testHit();
-		//!Added test cases
+		//!Added test cases (Assignment 1)
 		void testHighestStat();
 		void testHitPointGenerator();
+
+		//!Added test cases(Assignment 2)
+		void testObserverList();
+		void testUpdate();
 
 	};
 
