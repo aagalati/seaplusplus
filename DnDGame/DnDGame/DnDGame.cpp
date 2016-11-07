@@ -34,11 +34,12 @@ Important info:
 
 						2- After downloading, extract the files onto the C drive
 
-						3- The file is typically named SFML-2.4.1 however in this application rename it to SFML 2.4.1 (ex. C:\\SFML 2.4.1)
+						3- The file is typically named SFML-2.4.1 however in this application rename it to SFML 2.4.1 (ex. C:\SFML 2.4.1)
 
 						4-The code should now work, if the error persists it could be an issue with include or library path
 						  If the code cannot be run after troubleshooting, contact galati_ator@msn.com (my email) if you would
-						  like to get it to work.
+						  like to get it to work. 
+						 (This tutorial is extremely helpful http://www.cplusplus.com/forum/beginner/95295/#msg511543 see 9) Configure Visual Studio)
 
 
 Relevant changes since Assignment 1:
