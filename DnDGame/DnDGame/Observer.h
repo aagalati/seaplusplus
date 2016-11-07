@@ -1,9 +1,9 @@
 #pragma once
-class Observer
+class Observer  //abstract class
 {
 public:
 	~Observer();
-	virtual void update() = 0;
+	virtual void update() = 0; 
 
 protected:
 	Observer();

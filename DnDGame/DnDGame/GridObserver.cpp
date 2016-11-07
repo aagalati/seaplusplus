@@ -9,7 +9,7 @@ GridObserver::GridObserver()
 void GridObserver::changeToGrid() {
 
 	//std::cout << "Notify is called" << std::endl;
-	Notify();
+	Notify(); //uses Subject::Notify
 
 }
 

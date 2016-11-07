@@ -1,3 +1,4 @@
+
 #include "stdafx.h"
 #include "Grid.h"
 #include <iostream>
@@ -63,7 +64,7 @@ bool Grid::checkValid() {
 
 bool Grid::checkValid(int row, int col, int dir) {
 
-	cout << "Checking at (" << row << "," << col << ") = " << _gridData[row][col] << endl;
+	//cout << "Checking at (" << row << "," << col << ") = " << _gridData[row][col] << endl;
 	
 	srand(time(NULL));
 
@@ -80,7 +81,7 @@ bool Grid::checkValid(int row, int col, int dir) {
 	}
 	else {
 			//cout << "Checking empty space at (" << row << "," << col << ")" << endl;  //this code is for testing purposes
-			printMapImage(row, col);
+			//printMapImage(row, col);
 
 			//cout << "Direction = " << dir << endl;
 
@@ -281,6 +282,19 @@ void Grid::sizeMap() {  //changing the size of the map
 
 }
 
+bool Grid::needRefresh() {  //needs GUI to refresh
+
+	if (refresh) {
+		refresh = false;
+		return true;
+	}
+
+	else {
+		return false;
+	}
+
+}
+
 void Grid::resizeMap(int width, int height) {
 
 	_width = width;
@@ -292,7 +306,7 @@ void Grid::resizeMap(int width, int height) {
 int Grid::getCellValue(int width, int height) {
 
 
-		return (width < 0 || height < 0 || width > _width - 1 || height > _height -1) ? -1 : _gridData[width][height];
+		return (width < 0 || height < 0 || width > _width - 1 || height > _height -1) ? -1 : _gridData[width][height];  //check for bounds
 
 }
 
@@ -308,28 +322,9 @@ int Grid::getEntranceY() {
 
 }
 
-
-bool Grid::needRefresh() {
-
-	if (refresh) {
-		refresh = false;
-		return true;
-	}
-
-	else {
-		return false;
-	}
-
-}
-
-//void move
-//change....
-//changetomap
-//
-
 void Grid::move(int currentX, int  currentY, int nextX, int nextY) {
 
-	int temp;
+	int temp;  //swap values to move player
 	temp = _currentcell;
 
 	_currentcell = _gridData[nextX][nextY];
@@ -353,4 +348,7 @@ void Grid::update() {
 
 Grid::~Grid()
 	{
+
+		_grid = NULL; //destroy observer
+
 	}
