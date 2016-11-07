@@ -107,6 +107,7 @@ namespace std
 		string ring;
 		string helmet;
 
+		//Variables relevant to assignment 2
 		CharacterObserver* _char;
 		bool inConstructor;
 
@@ -183,6 +184,7 @@ namespace std
 
 		inline string getName();
 
+		
 		inline bool getInConstructor();
 
 		inline string getArmor();
@@ -210,14 +212,16 @@ namespace std
 
 		//!Other Methods
 		bool validateNewCharacter();
+		static bool validateStatistic(int);
 		void hit(int);
 
 		//!Printing Information 
 		void printCharacter();
 		
-		
+		//!New Methods Relevant to Assignment 2
 		void checkState();
 		void update();
+		bool updating = false;
 	};
 };
 #endif //CHARACTER_H

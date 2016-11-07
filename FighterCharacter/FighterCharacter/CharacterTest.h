@@ -40,9 +40,9 @@
 		CPPUNIT_TEST(testHighestStat);
 		CPPUNIT_TEST(testHitPointGenerator);
 
-		//!Added test cases(Assignment 2)
-		CPPUNIT_TEST(testObserverList);
-		CPPUNIT_TEST(testUpdate)
+		//!Added test case(Assignment 2)
+		CPPUNIT_TEST(testUpdate);
+		
 		CPPUNIT_TEST_SUITE_END();
 	protected:
 		void testValidNewCharacter();
@@ -53,8 +53,8 @@
 		void testHighestStat();
 		void testHitPointGenerator();
 
-		//!Added test cases(Assignment 2)
-		void testObserverList();
+		//!Added test case(Assignment 2)
+		
 		void testUpdate();
 
 	};

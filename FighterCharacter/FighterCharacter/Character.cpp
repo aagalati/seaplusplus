@@ -14,47 +14,69 @@ namespace std {
 	//!Ability Scores and Level
 	
 
+	//The mutators have been modified from assignment 1 with the addition of a checkState() method, which is what triggers the Observer pattern
 	void Character::setLevel(int l)
 	{
-		level = l;
-		checkState();
+		if (validateStatistic(l))
+		{
+			level = l;
+			checkState();
+		}
 		
 	}
 
 	void Character::setStrength(int s)
 	{
-		strength = s;
-		checkState();
+		if (validateStatistic(s))
+		{
+			strength = s;
+			checkState();
+		}
 	}
 
 	void Character::setConstitution(int c)
 	{
-		constitution = c;
-		checkState();
+		if (validateStatistic(c))
+		{
+			constitution = c;
+			checkState();
+		}
 	}
 
 	void Character::setDexterity(int d)
 	{
-		dexterity = d;
-		checkState();
+		if (validateStatistic(d))
+		{
+			dexterity = d;
+			checkState();
+		}
 	}
 
 	void Character::setWisdom(int w)
 	{
-		wisdom = w;
-		checkState();
+		if (validateStatistic(w))
+		{
+			wisdom = w;
+			checkState();
+		}
 	}
 
 	void Character::setCharisma(int ch)
 	{
-		charisma = ch;
-		checkState();
+		if (validateStatistic(ch))
+		{
+			charisma = ch;
+			checkState();
+		}
 	}
 
 	void Character::setIntelligence(int i)
 	{
-		intelligence = i;
-		checkState();
+		if (validateStatistic(i))
+		{
+			intelligence = i;
+			checkState();
+		}
 	}
 
 	//!Ability Modifiers
@@ -333,8 +355,11 @@ namespace std {
 	//!Constructor////////
 	Character::Character() 
 	{
+		//This is done so the mutators will not trigger the Observer Pattern.
 		setInConstructor(true);
 
+		//Every new character is attached to the _char CharacterObserver object, which is a subclass of Subject.
+		//This algorithm is repeated in all of the constructors. 
 		CharacterObserver *_charObservers = new CharacterObserver();
 		_char = _charObservers;
 	    _char->Attach(this);
@@ -649,6 +674,14 @@ namespace std {
 		else
 			return true;
 	}
+
+	bool Character::validateStatistic(int s)
+	{
+		if (s > 18 || s < 3)
+			return false;
+		else
+			return true;
+	}
 	//Setting the equipment is done through strings. This simple implementation
 	//was done after discussing with Dr. Taleb.
 	void Character::setEquipment()
@@ -661,7 +694,8 @@ namespace std {
 		setHelmet("None");
 	}
 	
-	void Character::printCharacter() {
+	void Character::printCharacter()
+	{
 
 		cout << "*******  " << getName() << " *******\n\n"
 			<< "Level: " << getLevel() << endl
@@ -682,11 +716,16 @@ namespace std {
 			<< "Helmet: " << getHelmet() << endl;
 
 	}
+	//Character being observable, this is the method which is invoked in Subject when the concrete subject is notified.
 	void Character::update() {
-
+		//The boolean value updating is only used for the sake of test cases.
+		updating = true;
 		printCharacter();
 	}
 	
+	//This method is used to ensure that the Observer pattern is only triggered when the program is not using the mutators within the constructor.
+	//If not in the constructor, the CharacterObserver pointer attribute of the Character class invokes the changeToCharacter method to trigger the
+	//Observer pattern.
 	void Character::checkState()
 	{
 		if (!getInConstructor())

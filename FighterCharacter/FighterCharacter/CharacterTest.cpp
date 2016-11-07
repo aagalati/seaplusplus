@@ -32,7 +32,7 @@
 		delete conan;
 	}
 
-	//THE 2 FOLLOWING FUNCTIONS ARE PERTINANT TO ASSIGNMENT 1, PLEASE SCROLL DOWN TO LINE <> FOR ASSIGNMENT 2 TEST CASES
+	//THE 2 FOLLOWING FUNCTIONS ARE PERTINANT TO ASSIGNMENT 1, PLEASE SCROLL DOWN TO LINE 59 FOR ASSIGNMENT 2 TEST CASES
 	//! test method to test the abilityPointsGenerator() method of the Character class
 	//! Test Case: the generator should give the highest roll to the strength attribute
 	//! Tested item: Character::abilityScoreGenerator

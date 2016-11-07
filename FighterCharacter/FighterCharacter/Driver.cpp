@@ -10,6 +10,7 @@
 
 using namespace std;
 
+//Main method from assignment 1, go to line 46 for main from assignment 2.
 	/*int main()
 	{
 	//!This character will be named Johnny One Eye and will be level 1.
@@ -42,6 +43,7 @@ using namespace std;
 
 	}*/
 
+//Take not that after change the Ability values, the character will be displayed without calling the printCharacter method directly from this driver.
 void main()
 {
 	string name;
@@ -53,6 +55,7 @@ void main()
 	int str;
 	cout << "Change the strength statistic:" << endl;
 	cin >> str;
+	
 	ex1.setStrength(str);
 	cout << "Do it again" << endl;
 	cin >> str;
@@ -62,7 +65,7 @@ void main()
 	cin >> name;
 	Character ex2(1, name);
 	ex2.printCharacter();
-	cout << "Chantge the dex stat:" << endl;
+	cout << "Change the dex stat:" << endl;
 	cin >> str;
 	ex2.setDexterity(str);
 
