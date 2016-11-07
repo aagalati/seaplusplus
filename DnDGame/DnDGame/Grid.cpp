@@ -287,14 +287,30 @@ void Grid::resizeMap(int width, int height) {
 
 int Grid::getCellValue(int width, int height) {
 
-	return _gridData[width][height];
+
+		return (width < 0 || height < 0 || width > _width - 1 || height > _height -1) ? -1 : _gridData[width][height];
 
 }
+
+inline int Grid::getEntranceX() {
+
+	return _entrance_col;
+
+}
+
+inline int Grid::getEntranceY() {
+
+	return _entrance_row;
+
+}
+
 
 //void move
 //change....
 //changetomap
 //
+
+
 
 void Grid::update() {
 

@@ -24,6 +24,8 @@ int main()
 
 	std::vector< std::vector<sf::Sprite> > tilemap;
 
+
+
 	int width, height;
 
 	const int BORDER_SIZE = 1;
@@ -31,10 +33,12 @@ int main()
 
 	const int PADDING = 32;
 
+	Grid *grid = new Grid(10, 15, false);
+
 	width = 10 + BORDER;
 	height = 15 + BORDER;
 
-	Grid *grid = new Grid(10, 15, false);
+	
 
 
 	//sf::CircleShape shape(200.f);
@@ -129,6 +133,8 @@ int main()
 	}
 
 
+	//std::cout << "Get cell value: " << grid->getCellValue(-1, -1);
+
 	//playtile.setTexture(tileTexture);
 	//playtile.setPosition(100, 100);
 
@@ -142,8 +148,16 @@ int main()
 				window.close();
 
 			if (sf::Event::KeyPressed) {
-				if (event.key.code == sf::Keyboard::Up)
-					tilesource.y = Object;
+				switch (event.key.code) {
+
+				//case sf::Keyboard::Up: 
+					//if(grid->getCellValue()
+					//break;
+
+
+
+				}
+					
 			}
 
 

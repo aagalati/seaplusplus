@@ -20,11 +20,15 @@ public:
 	void resizeMap(int width, int height);
 	void setCell(int col, int row, int set);
 	void setDoors();
-	int getCellValue(int width, int height);
+	
 	void update();
 	
+	int getCellValue(int width, int height);
+
 	inline int getWidth();
 	inline int getHeight();
+	inline int getEntranceX();
+	inline int getEntranceY();
 
 	//void setRow(int row, int set);
 	//void setCol(int col, int set);
