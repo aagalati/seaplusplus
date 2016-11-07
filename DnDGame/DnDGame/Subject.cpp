@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Subject.h"
+#include <iostream>
 
 using namespace std;
 
@@ -25,6 +26,7 @@ void Subject::Detach(Observer* o)
 
 void Subject::Notify()
 {
+	//std::cout << "Notifying Observers" << std::endl;
 	list<Observer *>::iterator i = _observers->begin();
 	for (i; i != _observers->end(); i++)
 		(*i)->update();

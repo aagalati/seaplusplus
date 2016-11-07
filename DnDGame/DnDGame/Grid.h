@@ -2,7 +2,7 @@
 #include <vector>
 #include <iostream>
 #include "Observer.h"
-#include "MapObserver.h"
+#include "GridObserver.h"
 using namespace std;
 
 class Grid : public Observer
@@ -21,14 +21,17 @@ public:
 	void setCell(int col, int row, int set);
 	void setDoors();
 	
+	void move(int currentX, int  currentY, int nextX, int nextY);
 	void update();
-	
+	bool needRefresh();
+
+
 	int getCellValue(int width, int height);
 
 	inline int getWidth();
 	inline int getHeight();
-	inline int getEntranceX();
-	inline int getEntranceY();
+	int getEntranceX();
+	int getEntranceY();
 
 	//void setRow(int row, int set);
 	//void setCol(int col, int set);
@@ -49,10 +52,11 @@ private:
 	int _exit_row;
 	int _exit_col;
 	int dir;
-	int _prevcell;
+	int _currentcell;
 	bool isValid;
+	bool refresh;
 
-	MapObserver *_grid;
+	GridObserver *_grid;
 
 
 	vector< vector<int> > _gridData;

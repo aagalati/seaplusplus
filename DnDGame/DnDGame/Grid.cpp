@@ -12,10 +12,11 @@ Grid::Grid(int width, int height, bool blank) //constructor
 	_height = height;
 	sizeMap();
 	if (!blank) fillMapRandom(); //if the user wants the map to be blank then the map is not filled randomly
-	MapObserver *_gridObserver = new MapObserver();
+	GridObserver *_gridObserver = new GridObserver();
 	_grid = _gridObserver;
 	_grid->Attach(this);
-
+	refresh = false;
+	
 
 }
 
@@ -48,6 +49,9 @@ void Grid::fillMapRandom()  //this method fills the map randomly with walls, obj
 
 	_gridData[_entrance_col][_entrance_row] = 3;
 	_gridData[_exit_col][_exit_row] = 4;
+
+	_currentcell = 3; //current cell is the door when you come into the map
+	_gridData[_entrance_col][_entrance_row] = 5;
 
 }
 
@@ -292,29 +296,57 @@ int Grid::getCellValue(int width, int height) {
 
 }
 
-inline int Grid::getEntranceX() {
+int Grid::getEntranceX() {
 
 	return _entrance_col;
 
 }
 
-inline int Grid::getEntranceY() {
+int Grid::getEntranceY() {
 
 	return _entrance_row;
 
 }
 
 
+bool Grid::needRefresh() {
+
+	if (refresh) {
+		refresh = false;
+		return true;
+	}
+
+	else {
+		return false;
+	}
+
+}
+
 //void move
 //change....
 //changetomap
 //
 
+void Grid::move(int currentX, int  currentY, int nextX, int nextY) {
 
+	int temp;
+	temp = _currentcell;
+
+	_currentcell = _gridData[nextX][nextY];
+	_gridData[nextX][nextY] = 5;
+	_gridData[currentX][currentY] = temp;
+
+	//std::cout << "Calling change to grid" << std::endl;
+
+	_grid->changeToGrid();
+
+}
 
 void Grid::update() {
 
-
+	printMapImage();
+	//std::cout << "Updating Grid" << std::endl;
+	refresh == true;
 
 }
 

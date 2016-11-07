@@ -16,7 +16,9 @@ int main()
 
 	sf::RenderWindow window(sf::VideoMode(1000, 600), "Dungeons and Dragons");
 
-	enum tiletype {Space, Wall, Object, Entrance, Exit};
+	window.setKeyRepeatEnabled(false);
+
+	enum tiletype {Space, Wall, Object, Entrance, Exit, Player};
 	enum bordertype {tlcorner, top, trcorner, right, brcorner, bottom, blcorner, left};
 
 	sf::Vector2i tilesource(32, Wall);
@@ -24,22 +26,31 @@ int main()
 
 	std::vector< std::vector<sf::Sprite> > tilemap;
 
-
-
 	int width, height;
+	int playerX, playerY;
+	int cellValue;
+	int frames = 0;
+	bool refresh = false;
 
 	const int BORDER_SIZE = 1;
 	const int BORDER = BORDER_SIZE * 2;
 
 	const int PADDING = 32;
 
-	Grid *grid = new Grid(10, 15, false);
+	width = 5;
+	height = 5;
 
-	width = 10 + BORDER;
-	height = 15 + BORDER;
+	Grid *grid = new Grid(width, height, false);
 
-	
+	width += BORDER;
+	height += BORDER;
 
+	while (!grid->checkValid()) {
+		grid->fillMapRandom();
+	}
+
+	playerX = grid->getEntranceX();
+	playerY = grid->getEntranceY();
 
 	//sf::CircleShape shape(200.f);
 	//shape.setFillColor(sf::Color::Blue);
@@ -52,7 +63,7 @@ int main()
 	else
 		std::cout << "Tile texture loaded" << std::endl;
 
-	if (!borderTexture.loadFromFile("texture/red.png"))
+	if (!borderTexture.loadFromFile("texture/wall.png"))
 		std::cout << "Error: Border texture not loaded" << std::endl;
 	else
 		std::cout << "Border texture loaded" << std::endl;
@@ -106,16 +117,19 @@ int main()
 
 				tilemap[i][j].setTexture(tileTexture);
 				std::cout << "Creating tile at " << i << ", " << j << std::endl;
-				if (grid->getCellValue(i - 1, j - 1) == Space)
+				cellValue = grid->getCellValue(i - 1, j - 1);
+				if (cellValue == Space)
 					tilesource.y = Space;
-				else if (grid->getCellValue(i - 1, j - 1) == Wall)
+				else if (cellValue == Wall)
 					tilesource.y = Wall;
-				else if (grid->getCellValue(i - 1, j - 1) == Object)
+				else if (cellValue == Object)
 					tilesource.y = Space;
-				else if (grid->getCellValue(i - 1, j - 1) == Entrance)
+				else if (cellValue == Entrance)
 					tilesource.y = Entrance;
-				else if (grid->getCellValue(i - 1, j - 1) == Exit)
+				else if (cellValue == Exit)
 					tilesource.y = Exit;
+				else if (cellValue == Player)
+					tilesource.y = Player;
 
 				std::cout << "Texture will be " << tilesource.y << std::endl;
 
@@ -124,8 +138,6 @@ int main()
 
 			tilemap[i][j].setPosition(tilesize.x * i + PADDING, tilesize.y * j + PADDING);
 			//tilemap[i][j].setTextureRect(sf::IntRect(tilesource.x, 64, 32, 32));
-			
-
 
 		}
 
@@ -138,8 +150,29 @@ int main()
 	//playtile.setTexture(tileTexture);
 	//playtile.setPosition(100, 100);
 
+	for (int i = 0; i < width; i++) {
+
+		for (int j = 0; j < height; j++) {
+
+
+			//if (!(i == 0 || j == 0 || i == width - 1 || j == height - 1))
+			//tilemap[i][j].setTextureRect(sf::IntRect(tilesource.x, tilesource.y * 32, 32, 32));
+
+			//std::cout << "Drawing tilemap at " << i << ", " << j << std::endl;
+			window.draw(tilemap[i][j]);
+
+		}
+
+
+	}
+
+	window.display();
+
 	while (window.isOpen())
 	{
+
+		
+
 		sf::Event event;
 
 		while (window.pollEvent(event))
@@ -150,11 +183,41 @@ int main()
 			if (sf::Event::KeyPressed) {
 				switch (event.key.code) {
 
-				//case sf::Keyboard::Up: 
-					//if(grid->getCellValue()
-					//break;
+				case sf::Keyboard::Up: 
+					if (grid->getCellValue(playerX, playerY - 1) == 0 || grid->getCellValue(playerX, playerY - 1) == 2) {
+						grid->move(playerX, playerY, playerX, playerY - 1);
+						playerY--;
+						std::cout << "Up" << std::endl;
+						refresh = true;
+					}
+					break;
 
+				case sf::Keyboard::Down:
+					if (grid->getCellValue(playerX, playerY + 1) == 0 || grid->getCellValue(playerX, playerY + 1) == 2) {
+						grid->move(playerX, playerY, playerX, playerY + 1);
+						playerY++;
+						std::cout << "Down" << std::endl;
+						refresh = true;
+					}
+					break;
 
+				case sf::Keyboard::Left:
+					if (grid->getCellValue(playerX - 1, playerY) == 0 || grid->getCellValue(playerX - 1, playerY) == 2) {
+						grid->move(playerX, playerY, playerX - 1, playerY);
+						playerX--;
+						std::cout << "Left" << std::endl;
+						refresh = true;
+					}
+					break;
+
+				case sf::Keyboard::Right:
+					if (grid->getCellValue(playerX + 1, playerY) == 0 || grid->getCellValue(playerX + 1, playerY) == 2) {
+						grid->move(playerX, playerY, playerX + 1, playerY);
+						playerX++;
+						std::cout << "Right" << std::endl;
+						refresh = true;
+					}
+					break;
 
 				}
 					
@@ -163,22 +226,49 @@ int main()
 
 		}
 
-		for (int i = 0; i < width; i++) {
+		
+		if (refresh) {
 
-			for (int j = 0; j < height; j++) {
+			std::cout << frames++ << std::endl;
 
+			std::cout << "Refreshing..";
 
-				//if (!(i == 0 || j == 0 || i == width - 1 || j == height - 1))
-					//tilemap[i][j].setTextureRect(sf::IntRect(tilesource.x, tilesource.y * 32, 32, 32));
+			for (int i = 0; i < width; i++) {
 
-				//std::cout << "Drawing tilemap at " << i << ", " << j << std::endl;
-				window.draw(tilemap[i][j]);
+				for (int j = 0; j < height; j++) {
 
+					if (!(i == 0 || j == 0 || i == width - 1 || j == height - 1)) {
+
+						cellValue = grid->getCellValue(i - 1, j - 1);
+						if (cellValue == Space)
+							tilesource.y = Space;
+						else if (cellValue == Wall)
+							tilesource.y = Wall;
+						else if (cellValue == Object)
+							tilesource.y = Space;
+						else if (cellValue == Entrance)
+							tilesource.y = Entrance;
+						else if (cellValue == Exit)
+							tilesource.y = Exit;
+						else if (cellValue == Player)
+							tilesource.y = Player;
+
+						//std::cout << "Texture will be " << tilesource.y << std::endl;
+
+						tilemap[i][j].setTextureRect(sf::IntRect(0, tilesource.y * 32, 32, 32));
+						
+					}
+
+					window.draw(tilemap[i][j]);
+				}
+
+				refresh = false;
 			}
+
+			window.display();
 
 
 		}
-
 		
 
 		//window.draw(tilemap[0][0]);
@@ -186,7 +276,7 @@ int main()
 		//playtile.setTextureRect(sf::IntRect(tilesource.x, tilesource.y * 32, 32, 32));
 		//window.clear();
 		//window.draw(playtile);
-		window.display();
+		
 
 	}
 

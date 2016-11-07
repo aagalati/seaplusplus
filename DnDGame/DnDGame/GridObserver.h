@@ -2,11 +2,11 @@
 #include "Subject.h"
 #include "Observer.h"
 
-class MapObserver : public Subject
+class GridObserver : public Subject
 {
 public:
-	MapObserver();
+	GridObserver();
 	void changeToGrid();
-	~MapObserver();
+	~GridObserver();
 };
 
