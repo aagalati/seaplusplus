@@ -17,12 +17,8 @@ namespace std {
 	//The mutators have been modified from assignment 1 with the addition of a checkState() method, which is what triggers the Observer pattern
 	void Character::setLevel(int l)
 	{
-		if (validateStatistic(l))
-		{
 			level = l;
 			checkState();
-		}
-		
 	}
 
 	void Character::setStrength(int s)
@@ -437,9 +433,40 @@ namespace std {
 		setInConstructor(false);
 	}
 
+	Character::Character(Character &c)
+	{
+		setInConstructor(true);
+
+		CharacterObserver *_charObservers = new CharacterObserver();
+		_char = _charObservers;
+		_char->Attach(this);
+
+		setLevel(c.getLevel());
+		setName(c.getName());
+		setStrength(c.getStrength());
+		setDexterity(c.getDexterity());
+		setConstitution(c.getConstitution());
+		setIntelligence(c.getIntelligence());
+		setWisdom(c.getWisdom());
+		setCharisma(c.getCharisma());
+		
+		setStrengthModifier(c.getStrengthModifier());
+		setDexterityModifier(c.getDexterityModifier());
+		setConstitutionModifier(c.getConstitutionModifier());
+		setIntelligenceModifier(c.getIntelligenceModifier());
+		setWisdomModifier(c.getWisdomModifier());
+		setCharismaModifier(c.getCharismaModifier());
+
+		setHitPoints(c.getHitPoints());
+		setCurrentHitPoints(c.getCurrentHitPoints());
+
+		setInConstructor(false);
+
+	}
+
 	Character::~Character()
 	{
-		
+		delete _char;
 	}
 
 
@@ -699,15 +726,15 @@ namespace std {
 
 		cout << "*******  " << getName() << " *******\n\n"
 			<< "Level: " << getLevel() << endl
-			<< "Strength:  " << getStrength() << " (+" << getStrengthModifier() << ")\n"
-			<< "Dexterity:  " << getDexterity() << " (+" << getDexterityModifier() << ")\n"
-			<< "Constitution:  " << getConstitution() << " (+" << getConstitutionModifier() << ")\n"
-			<< "Intelligence:  " << getIntelligence() << " (+" << getIntelligenceModifier() << ")\n"
-			<< "Wisdom:  " << getWisdom() << " (+" << getWisdomModifier() << ")\n"
-			<< "Charisma:  " << getCharisma() << " (+" << getCharismaModifier() << ")\n"
+			<< "Strength:  " << getStrength() << modOP(getStrengthModifier()) << getStrengthModifier() << ")\n"
+			<< "Dexterity:  " << getDexterity() << modOP(getDexterityModifier()) << getDexterityModifier() << ")\n"
+			<< "Constitution:  " << getConstitution() << modOP(getConstitutionModifier()) << getConstitutionModifier() << ")\n"
+			<< "Intelligence:  " << getIntelligence() << modOP(getIntelligenceModifier()) << getIntelligenceModifier() << ")\n"
+			<< "Wisdom:  " << getWisdom() << modOP(getWisdomModifier()) << getWisdomModifier() << ")\n"
+			<< "Charisma:  " << getCharisma() << modOP(getCharismaModifier()) << getCharismaModifier() << ")\n"
 			<< "Hit Points: " << getCurrentHitPoints() << "     Armor Class: " << getArmorClass() << endl
-			<< "Melee Attack Bonus: " << getMeleeAttackBonus() << "   Melee Damage Bonus: " << getMeleeAttackDamage() << endl
-			<< "Ranged Attack Bonus: " << getRangedAttackBonus() << "   Ranged Damage Bonus: " << getRangedAttackBonus() << endl
+			<< "Melee Attack Bonus: +" << getMeleeAttackBonus() << "   Melee Damage Bonus: +" << getMeleeAttackDamage() << endl
+			<< "Ranged Attack Bonus: +" << getRangedAttackBonus() << "   Ranged Damage Bonus: +" << getRangedAttackBonus() << endl
 			<< "Equipment: \nArmor: " << getArmor() << endl
 			<< "Shield: " << getShield() << endl
 			<< "Weapon: " << getWeapon() << endl
@@ -716,6 +743,15 @@ namespace std {
 			<< "Helmet: " << getHelmet() << endl;
 
 	}
+	//method to print a "+" or "-" depending on value of modifier
+	string Character::modOP(int m)
+	{
+		if (m >= 0)
+			return (" (+");
+		else
+			return (" (-");
+	}
+	
 	//Character being observable, this is the method which is invoked in Subject when the concrete subject is notified.
 	void Character::update() {
 		//The boolean value updating is only used for the sake of test cases.
@@ -739,21 +775,25 @@ namespace std {
 		if (arch.IsStoring())
 		{
 			CString n(name.c_str());
-			arch << n << level << strength << dexterity << constitution << wisdom
-				<< intelligence << charisma << strengthModifier << dexterityModifier
-				<< constitutionModifier << wisdomModifier << intelligenceModifier
-				<< charismaModifier << hitPoints << armorClass << meleeAttackBonus
+			arch << n << level << strength << dexterity << constitution << wisdom 
+				<< intelligence << charisma << strengthModifier << dexterityModifier 
+				<< constitutionModifier << wisdomModifier << intelligenceModifier 
+				<< charismaModifier << hitPoints << armorClass << meleeAttackBonus 
 				<< meleeAttackDamage << rangedAttackBonus << rangedAttackDamage;
 		}
 
 		else
 		{
-			CString n(name.c_str());
+			CString n;
 			arch >> n >> level >> strength >> dexterity >> constitution >> wisdom
 				>> intelligence >> charisma >> strengthModifier >> dexterityModifier
 				>> constitutionModifier >> wisdomModifier >> intelligenceModifier
 				>> charismaModifier >> hitPoints >> armorClass >> meleeAttackBonus
 				>> meleeAttackDamage >> rangedAttackBonus >> rangedAttackDamage;
+			
+			CT2CA converter(n);
+			string nameTemp(converter);
+			name = nameTemp;
 		}
 	}
 
@@ -764,15 +804,17 @@ namespace std {
 		save.Open(_T("CharacterSave.txt"), CFile::modeCreate | CFile::modeWrite);
 		CArchive archie(&save, CArchive::store);
 
-		Character* _character = this;
+		Character* _character = new Character(*this);
 		_character->Serialize(archie);
 
-		save.Close();
-		archie.Close();
 		delete _character;
-		
+		archie.Close();
+		save.Close();
 		
 	}
+	
+
+	
 	 Character* Character::load()
 	{
 		CFile load;
@@ -782,11 +824,10 @@ namespace std {
 		Character* _character = new Character();
 		_character->Serialize(archie);
 		
-		load.Close();
 		archie.Close();
+		load.Close();
 		return _character;
 		
-
 	}
 
 }

@@ -78,8 +78,11 @@ ex2.setDexterity(str);
 void main()
 {
 	Character billy(1, "billy");
+	billy.printCharacter();
 	billy.save();
 	
 
-	Character* billy2 = Character::load();
+	//Character* billy2 = Character::load();
+	//cout << "test" << endl;
+	//billy2->printCharacter();
 }

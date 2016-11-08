@@ -206,6 +206,7 @@ namespace std
 		Character(int);
 		Character(int, string);
 		Character(int, int, int, int, int, int);
+		Character(Character &c);
 		~Character();
 
 		
@@ -223,6 +224,7 @@ namespace std
 
 		//!Printing Information 
 		void printCharacter();
+		string modOP(int);
 		
 		//!New Methods Relevant to Assignment 2
 		void checkState();
