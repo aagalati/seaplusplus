@@ -1,9 +1,11 @@
 #pragma once
 #include <vector>
 #include <iostream>
+#include "Observer.h"
+#include "GridObserver.h"
 using namespace std;
 
-class Grid
+class Grid : public Observer
 {
 public:
 
@@ -19,8 +21,17 @@ public:
 	void setCell(int col, int row, int set);
 	void setDoors();
 	
+	void move(int currentX, int  currentY, int nextX, int nextY);
+	void update();
+	bool needRefresh();
+
+
+	int getCellValue(int width, int height);
+
 	inline int getWidth();
 	inline int getHeight();
+	int getEntranceX();
+	int getEntranceY();
 
 	//void setRow(int row, int set);
 	//void setCol(int col, int set);
@@ -28,7 +39,7 @@ public:
 	//void addExtraCol(int set);
 	//void getWidth();
 	//void getHeight();
-	//~Grid();
+	~Grid();
 	//generate stack for the shortest distance
 	//use objects/cell class for cells
 
@@ -41,7 +52,12 @@ private:
 	int _exit_row;
 	int _exit_col;
 	int dir;
+	int _currentcell;
 	bool isValid;
+	bool refresh;
+
+	GridObserver *_grid;
+
 
 	vector< vector<int> > _gridData;
 };

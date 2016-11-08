@@ -1,3 +1,4 @@
+
 #include "stdafx.h"
 #include "Grid.h"
 #include <iostream>
@@ -12,6 +13,11 @@ Grid::Grid(int width, int height, bool blank) //constructor
 	_height = height;
 	sizeMap();
 	if (!blank) fillMapRandom(); //if the user wants the map to be blank then the map is not filled randomly
+	GridObserver *_gridObserver = new GridObserver();
+	_grid = _gridObserver;
+	_grid->Attach(this);
+	refresh = false;
+	
 
 }
 
@@ -42,8 +48,11 @@ void Grid::fillMapRandom()  //this method fills the map randomly with walls, obj
 	} while (_entrance_col == _exit_col && _entrance_row == _exit_row);
 
 
-	_gridData[_entrance_col][_entrance_row] = -1;
-	_gridData[_exit_col][_exit_row] = -2;
+	_gridData[_entrance_col][_entrance_row] = 3;
+	_gridData[_exit_col][_exit_row] = 4;
+
+	_currentcell = 3; //current cell is the door when you come into the map
+	_gridData[_entrance_col][_entrance_row] = 5;
 
 }
 
@@ -55,14 +64,14 @@ bool Grid::checkValid() {
 
 bool Grid::checkValid(int row, int col, int dir) {
 
-	cout << "Checking at (" << row << "," << col << ") = " << _gridData[row][col] << endl;
+	//cout << "Checking at (" << row << "," << col << ") = " << _gridData[row][col] << endl;
 	
 	srand(time(NULL));
 
 	//int t; //testing purposes
 	//cin >> t;
 
-	if (_gridData[row][col] == -2) { //base case, if exit is found, return true
+	if (_gridData[row][col] == 4) { //base case, if exit is found, return true
 		//cout << "Found the exit, returning true" << endl;
 		return true;
 	}
@@ -72,7 +81,7 @@ bool Grid::checkValid(int row, int col, int dir) {
 	}
 	else {
 			//cout << "Checking empty space at (" << row << "," << col << ")" << endl;  //this code is for testing purposes
-			printMapImage(row, col);
+			//printMapImage(row, col);
 
 			//cout << "Direction = " << dir << endl;
 
@@ -273,6 +282,19 @@ void Grid::sizeMap() {  //changing the size of the map
 
 }
 
+bool Grid::needRefresh() {  //needs GUI to refresh
+
+	if (refresh) {
+		refresh = false;
+		return true;
+	}
+
+	else {
+		return false;
+	}
+
+}
+
 void Grid::resizeMap(int width, int height) {
 
 	_width = width;
@@ -281,7 +303,52 @@ void Grid::resizeMap(int width, int height) {
 
 }
 
+int Grid::getCellValue(int width, int height) {
 
-/*Grid::~Grid()
-{
-}*/
+
+		return (width < 0 || height < 0 || width > _width - 1 || height > _height -1) ? -1 : _gridData[width][height];  //check for bounds
+
+}
+
+int Grid::getEntranceX() {
+
+	return _entrance_col;
+
+}
+
+int Grid::getEntranceY() {
+
+	return _entrance_row;
+
+}
+
+void Grid::move(int currentX, int  currentY, int nextX, int nextY) {
+
+	int temp;  //swap values to move player
+	temp = _currentcell;
+
+	_currentcell = _gridData[nextX][nextY];
+	_gridData[nextX][nextY] = 5;
+	_gridData[currentX][currentY] = temp;
+
+	//std::cout << "Calling change to grid" << std::endl;
+
+	_grid->changeToGrid();
+
+}
+
+void Grid::update() {
+
+	printMapImage();
+	//std::cout << "Updating Grid" << std::endl;
+	refresh == true;
+
+}
+
+
+Grid::~Grid()
+	{
+
+		_grid = NULL; //destroy observer
+
+	}
