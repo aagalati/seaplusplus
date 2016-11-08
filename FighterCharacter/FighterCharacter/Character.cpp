@@ -8,7 +8,7 @@
 
 namespace std {
 
-
+	IMPLEMENT_SERIAL(Character, CObject, 1)
 	
 	////////Statistics Mutators////////
 	//!Ability Scores and Level
@@ -731,6 +731,64 @@ namespace std {
 		if (!getInConstructor())
 			_char->changeToCharacter();
 	}
+
+	void Character::Serialize(CArchive& arch)
+	{
+		CObject::Serialize(arch);
+
+		if (arch.IsStoring())
+		{
+			CString n(name.c_str());
+			arch << n << level << strength << dexterity << constitution << wisdom
+				<< intelligence << charisma << strengthModifier << dexterityModifier
+				<< constitutionModifier << wisdomModifier << intelligenceModifier
+				<< charismaModifier << hitPoints << armorClass << meleeAttackBonus
+				<< meleeAttackDamage << rangedAttackBonus << rangedAttackDamage;
+		}
+
+		else
+		{
+			CString n(name.c_str());
+			arch >> n >> level >> strength >> dexterity >> constitution >> wisdom
+				>> intelligence >> charisma >> strengthModifier >> dexterityModifier
+				>> constitutionModifier >> wisdomModifier >> intelligenceModifier
+				>> charismaModifier >> hitPoints >> armorClass >> meleeAttackBonus
+				>> meleeAttackDamage >> rangedAttackBonus >> rangedAttackDamage;
+		}
+	}
+
+	void Character::save()
+	{
+		
+		CFile save;
+		save.Open(_T("CharacterSave.txt"), CFile::modeCreate | CFile::modeWrite);
+		CArchive archie(&save, CArchive::store);
+
+		Character* _character = this;
+		_character->Serialize(archie);
+
+		save.Close();
+		archie.Close();
+		delete _character;
+		
+		
+	}
+	 Character* Character::load()
+	{
+		CFile load;
+		load.Open(_T("CharacterSave.txt"), CFile::modeRead);
+		CArchive archie(&load, CArchive::load);
+
+		Character* _character = new Character();
+		_character->Serialize(archie);
+		
+		load.Close();
+		archie.Close();
+		return _character;
+		
+
+	}
+
 }
 
 

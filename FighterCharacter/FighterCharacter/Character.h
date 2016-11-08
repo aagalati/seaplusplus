@@ -62,6 +62,7 @@
 
 #ifndef CHARACTER_H
 #define CHARACTER_H
+#define _AFXDLL
 #include <cstdlib>
 using std::rand;
 
@@ -71,10 +72,15 @@ using std::cout;
 #include "CharacterObserver.h"
 #include "Observer.h"
 
+//Serialization library
+#include <afx.h>
+#
+
 namespace std
 
 {
-	class Character: public Observer 
+	
+	class Character : public Observer , public CObject
 	{
 	private:
 		//!Statistics 
@@ -124,7 +130,7 @@ namespace std
 
 	public:
 		
-		
+		DECLARE_SERIAL(Character)
 		//!Statistics Mutators
 		void setLevel(int);
 		void setStrength(int);
@@ -222,6 +228,11 @@ namespace std
 		void checkState();
 		void update();
 		bool updating = false;
+
+		//!Method relevant to serialization
+		virtual void Serialize(CArchive& ar);
+		void save();
+		static Character* load();
 	};
 };
 #endif //CHARACTER_H
