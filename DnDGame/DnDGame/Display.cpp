@@ -141,6 +141,7 @@ void Display::update() {
 
 	std::cout << "Update called in display" << std::endl;
 	std::cout << "PlayerX: " << _playerX << ", Player Y: " << _playerY << std::endl;
+	grid->printMapImage();
 
 	for (int i = 0; i < _width; i++) {
 

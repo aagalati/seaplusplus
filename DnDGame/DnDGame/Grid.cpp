@@ -361,7 +361,7 @@ void Grid::move(int currentX, int  currentY, int nextX, int nextY) {
 
 void Grid::update() {
 
-	printMapImage();
+	//printMapImage();
 	std::cout << "Updating Grid in Grid" << std::endl;
 	refresh == true;
 
