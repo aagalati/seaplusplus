@@ -1,6 +1,8 @@
 #pragma once
 #include "DNDObject.h"
+#include <string>
 
+using namespace std;
 class Treasure : public DNDObject
 {
 private:
@@ -13,5 +15,6 @@ public:
 	~Treasure();
 
 	int type();
+	string toString();
 };
 

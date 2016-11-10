@@ -802,9 +802,10 @@ namespace std {
 		setBoots("Leather Boots");
 		setRing("None");
 		setHelmet("None");
+
 	}
 	
-	void Character::printCharacter()
+	/*void Character::printCharacter()
 	{
 
 		cout << "*******  " << getName() << " *******\n\n"
@@ -825,7 +826,58 @@ namespace std {
 			<< "Ring: " << getRing()  << endl
 			<< "Helmet: " << getHelmet() << endl;
 
+	}*/
+	
+	/*string Character::toString()
+	{
+		string info;
+		
+		info = "*******  " + getName() + " *******\n\n"
+			+ "Level: " + getLevel() + "\n"
+			+ "Strength:  " + getStrength() + modOP(getStrengthModifier()) + getStrengthModifier() + ")\n"
+			+ "Dexterity:  "  + getDexterity() + modOP(getDexterityModifier()) + getDexterityModifier() + ")\n"
+			+ "Constitution:  " + getConstitution() + modOP(getConstitutionModifier()) + getConstitutionModifier() + ")\n"
+			+ "Intelligence:  " + getIntelligence() + modOP(getIntelligenceModifier()) + getIntelligenceModifier() + ")\n"
+			+ "Wisdom:  " + getWisdom() + modOP(getWisdomModifier()) + getWisdomModifier() + ")\n"
+			+ "Charisma:  " + getCharisma() + modOP(getCharismaModifier()) + getCharismaModifier() + ")\n"
+			+ "Hit Points: " + getCurrentHitPoints() + "     Armor Class: " + getArmorClass() + endl
+			+ "Melee Attack Bonus: +" + getMeleeAttackBonus() + "   Melee Damage Bonus: +" + getMeleeAttackDamage() + "\n"
+			+ "Ranged Attack Bonus: +" + getRangedAttackBonus() + "   Ranged Damage Bonus: +" + getRangedAttackBonus() + "\n"
+			+ "Equipment: \nArmor: " + getArmor() + "\n"
+			+ "Shield: " + getShield() + "\n"
+			+ "Weapon: " + getWeapon() + "\n"
+			+ "Boots: " + getBoots() + "\n"
+			+ "Ring: " + getRing() + "\n"
+			+ "Helmet: " + getHelmet() + "\n";
+
+		
+	}*/
+
+	void Character::printCharacter(string info)
+	{
+		cout << info << endl;
 	}
+
+	string Character::toString()
+	{
+		string info = "";
+		info.append("********* " + getName() + "********\n ");
+		info.append("Level: " + getLevel());
+		info.append("\nStrength: " + getStrength() + modOP(getStrengthModifier())); info.append(getStrengthModifier() + ")\t");
+		info.append("Dexterity: " + getDexterity() + modOP(getDexterityModifier())); info.append(getDexterityModifier() + ")\n");
+		info.append("Constitution: " + getConstitution() + modOP(getConstitutionModifier())); info.append(getConstitutionModifier() + ")\t");
+		info.append("Intelligence: " + getIntelligence() + modOP(getIntelligenceModifier())); info.append(getIntelligenceModifier() + ")\n");
+		info.append("Wisdom: " + getWisdom() + modOP(getWisdomModifier())); info.append(getWisdomModifier() + ")\t");
+		info.append("Charisma: " + getCharisma() + modOP(getCharismaModifier())); info.append(getCharismaModifier() + ")\n");
+		info.append("HitPoints: " + getCurrentHitPoints()); info.append("//" + getHitPoints()); 
+		info.append("\tArmorClass: " + getArmorClass());
+		info.append("\nMelee Attack Bonus +" + getMeleeAttackBonus()); info.append("    Melee Damage Bonus: +" + getMeleeAttackDamage());
+		info.append("\Ranged Attack Bonus: +" + getRangedAttackBonus()); info.append("    Ranged Damage Bonus: +" + getRangedAttackDamage());
+		return info;
+
+		
+	}
+	
 	//method to print a "+" or "-" depending on value of modifier
 	string Character::modOP(int m)
 	{
@@ -839,7 +891,7 @@ namespace std {
 	void Character::update() {
 		//The boolean value updating is only used for the sake of test cases.
 		updating = true;
-		printCharacter();
+		printCharacter(toString());
 	}
 	
 	//This method is used to ensure that the Observer pattern is only triggered when the program is not using the mutators within the constructor.

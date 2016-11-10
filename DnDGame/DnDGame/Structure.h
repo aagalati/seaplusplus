@@ -1,5 +1,7 @@
 #pragma once
 #include "DNDObject.h"
+#include <string>
+using namespace std;
 class Structure : public DNDObject
 {
 
@@ -10,6 +12,7 @@ private:
 public:
 
 	int type();
+	string toString();
 	
 	Structure();
 	Structure(int);

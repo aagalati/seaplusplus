@@ -27,3 +27,15 @@ int Structure::type()
 {
 	return typeOfStructure;
 }
+
+string Structure::toString()
+{
+	if (typeOfStructure = 0)
+		return "Floor";
+	if (typeOfStructure = 1)
+		return "Wall";
+	if (typeOfStructure = 3)
+		return "Entrance";
+	if (typeOfStructure = 4)
+		return "Exit";
+}

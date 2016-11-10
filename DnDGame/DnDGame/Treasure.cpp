@@ -17,3 +17,8 @@ int Treasure::type()
 {
 	return _type;
 }
+
+string Treasure::toString()
+{
+	return "Treasure";
+}
