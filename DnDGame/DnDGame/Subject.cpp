@@ -16,6 +16,7 @@ Subject::~Subject()
 
 void Subject::Attach(Observer* o)
 {
+	std::cout << "Attaching new obersver" << std::endl;
 	_observers->push_back(o);
 }
 
@@ -26,8 +27,11 @@ void Subject::Detach(Observer* o)
 
 void Subject::Notify()
 {
-	//std::cout << "Notifying Observers" << std::endl;
+	std::cout << "Notifying Observers" << std::endl;
 	list<Observer *>::iterator i = _observers->begin();
-	for (i; i != _observers->end(); i++)
+	for (i; i != _observers->end(); i++) {
 		(*i)->update();
+		std::cout << "Notifyuu";
+	}
+
 }

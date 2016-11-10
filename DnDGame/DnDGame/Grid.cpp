@@ -17,20 +17,42 @@ Grid::Grid(int width, int height, bool blank) //constructor
 	_grid = _gridObserver;
 	_grid->Attach(this);
 	refresh = false;
-	
 
 }
 
-inline int Grid::getWidth() {
+Grid::Grid(Grid *grid) {
+
+	this->_width = _width;
+	this->_height = _height;
+	this->_gridData = _gridData;
+	this->_entrance_col = _entrance_col;
+	this->_entrance_row = _entrance_row;
+	this->_exit_col = _exit_col;
+	this->_exit_row = _exit_row;
+
+	GridObserver *_gridObserver = new GridObserver();
+	_grid = _gridObserver;
+	_grid->Attach(this);
+	refresh = false;
+
+}
+
+int Grid::getWidth() {
 	return _width;
 }
 
-inline int Grid::getHeight() {
+int Grid::getHeight() {
 	return _height;
+}
+
+void Grid::validRandom() {
+	while (!checkValid())
+		fillMapRandom();
 }
 
 void Grid::fillMapRandom()  //this method fills the map randomly with walls, objects and open spaces
 {
+
 	srand( time(NULL) );  //using srand for random numbers everytime
 
 	for (int i = 0; i < _width; i++) { //iterating through the whole 2d matrix and inserting random numbers
@@ -331,7 +353,7 @@ void Grid::move(int currentX, int  currentY, int nextX, int nextY) {
 	_gridData[nextX][nextY] = 5;
 	_gridData[currentX][currentY] = temp;
 
-	//std::cout << "Calling change to grid" << std::endl;
+	std::cout << "Calling change to grid" << std::endl;
 
 	_grid->changeToGrid();
 
@@ -340,7 +362,7 @@ void Grid::move(int currentX, int  currentY, int nextX, int nextY) {
 void Grid::update() {
 
 	printMapImage();
-	//std::cout << "Updating Grid" << std::endl;
+	std::cout << "Updating Grid in Grid" << std::endl;
 	refresh == true;
 
 }

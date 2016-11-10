@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Observer.h"
 #include "GridObserver.h"
+
 using namespace std;
 
 class Grid : public Observer
@@ -10,7 +11,9 @@ class Grid : public Observer
 public:
 
 	Grid(int width, int height, bool blank);
+	Grid(Grid *grid);
 	void fillMapRandom();
+	void validRandom();
 	bool checkValid();
 	bool checkValid(int col, int row, int dir);
 	void printMapValues();
@@ -28,8 +31,8 @@ public:
 
 	int getCellValue(int width, int height);
 
-	inline int getWidth();
-	inline int getHeight();
+	int getWidth();
+	int getHeight();
 	int getEntranceX();
 	int getEntranceY();
 
