@@ -82,7 +82,7 @@ void main()
 	Grid *grid = new Grid(10, 10, false);
 
 	//Display *game = new Display(grid);
-	
+
 	while (menu->windowOpen()) {
 
 		menu->run();
