@@ -157,11 +157,11 @@ namespace std {
 		checkState();
 	}
 
-	void Character::setState(int st)
+	void Character::setCharacterType(int st)
 	{
-		if (st < 0 || st > 2)
-			state = 0;
-		else state = 0;
+		if (st < 5 || st > 7)
+			characterType = 0;
+		else characterType = st;
 	}
 
 	//!Other Information
@@ -312,10 +312,6 @@ namespace std {
 		return rangedAttackDamage;
 	}
 
-	inline int Character::getState()
-	{
-		return state;
-	}
 
 	//!Other Information Accessor
 	inline string Character::getName()
@@ -358,6 +354,11 @@ namespace std {
 	{
 		return helmet;
 	}
+
+	int Character::type()
+	{
+		return characterType;
+	}
 	
 
 	//!Constructor////////
@@ -371,7 +372,7 @@ namespace std {
 		CharacterObserver *_charObservers = new CharacterObserver();
 		_char = _charObservers;
 	    _char->Attach(this);
-		setState(0);
+		setCharacterType(0);
 		setName("Default Joe");
 		setLevel(1);
 		abilityScoreGenerator(1);
@@ -381,6 +382,7 @@ namespace std {
 		setEquipment();
 
 		setInConstructor(false);
+		delete _charObservers;
 	}
 
 	Character::Character(int level) 
@@ -404,7 +406,7 @@ namespace std {
 			level = 1;
 		}
 
-		setState(0);
+		setCharacterType(5);
 		setLevel(level);
 		abilityScoreGenerator(level);
 		setModifiers();
@@ -413,6 +415,7 @@ namespace std {
 		setEquipment();
 
 		setInConstructor(false);
+		delete _charObservers;
 		
 	}
 
@@ -426,7 +429,7 @@ namespace std {
 	Character::Character(int level, string name, int state) : Character(level, name)
 	{
 		setInConstructor(true);
-		setState(state);
+		setCharacterType(state);
 		setInConstructor(false);
 	}
 
@@ -438,7 +441,7 @@ namespace std {
 		_char = _charObservers;
 		_char->Attach(this);
 
-		setState(0);
+		setCharacterType(5);
 		setName("Billy");
 		setEquipment();
 		setLevel(1);
@@ -453,6 +456,12 @@ namespace std {
 		setCurrentHitPoints(getHitPoints());
 		
 		setInConstructor(false);
+		delete _charObservers;
+	}
+	
+	Character::Character(int s, int d, int c, int i, int w, int ch, int t) : Character(s, d, c, i, w, ch, t)
+	{
+		setCharacterType(t);
 	}
 
 	Character::Character(Character &c)
@@ -463,7 +472,7 @@ namespace std {
 		_char = _charObservers;
 		_char->Attach(this);
 
-		setState(c.getState());
+		setCharacterType(c.type());
 		setLevel(c.getLevel());
 		setName(c.getName());
 		setStrength(c.getStrength());
@@ -482,8 +491,16 @@ namespace std {
 
 		setHitPoints(c.getHitPoints());
 		setCurrentHitPoints(c.getCurrentHitPoints());
+		setArmorClass(c.getArmorClass());
+		setMeleeAttackBonus(c.getMeleeAttackBonus());
+		setMeleeAttackDamage(c.getMeleeAttackDamage());
+		setRangedAttackBonus(c.getRangedAttackBonus());
+		setRangedAttackDamage(c.getRangedAttackDamage());
+
+		setEquipment();
 
 		setInConstructor(false);
+		delete _charObservers;
 
 	}
 
@@ -499,6 +516,11 @@ namespace std {
 	int Character::hitPointsGenerator(int lvl) 
 	{
 		int hP = 0;
+		if (lvl == 0)
+		{
+			hP = hP + rand() % 10 + getConstitutionModifier();
+		}
+		
 		for (int i = 0; i < lvl; i++)
 		{
 			if (i == 0)
@@ -709,7 +731,6 @@ namespace std {
 	{
 		int lvl = getLevel();
 		setLevel(lvl++);
-		setHitPoints(getHitPoints() + hitPointsGenerator(lvl) );
 		if (lvl == 4 || lvl == 6 || lvl == 8 || lvl == 12 || lvl == 14 || lvl == 16 || lvl == 19)
 		{
 			for (int i = 0; i < 2; i++)
@@ -735,6 +756,8 @@ namespace std {
 				}
 			}
 		}
+		setModifiers();
+		setHitPoints(getHitPoints() + hitPointsGenerator(0));
 
 	}
 	void Character::levelUp(int x)
@@ -809,7 +832,7 @@ namespace std {
 		if (m >= 0)
 			return (" (+");
 		else
-			return (" (-");
+			return (" (");
 	}
 	
 	//Character being observable, this is the method which is invoked in Subject when the concrete subject is notified.

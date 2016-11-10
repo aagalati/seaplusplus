@@ -5,6 +5,10 @@
 #include "Subject.h"
 #include "CharacterObserver.h"
 #include "Observer.h"
+#include "Treasure.h"
+#include "Structure.h"
+#include "DNDObject.h"
+#include "Builder.h"
 
 
 
@@ -75,14 +79,22 @@ ex2.setDexterity(str);
 
 }
 */
+/*void main()
+{
+Character billy(1, "billy");
+billy.printCharacter();
+billy.save();
+
+
+//Character* billy2 = Character::load();
+//cout << "test" << endl;
+//billy2->printCharacter();
+}*/
+
 void main()
 {
-	Character billy(1, "billy");
-	billy.printCharacter();
-	billy.save();
+	Builder i;
+	DNDObject * chara = i.build(5);
 	
 
-	//Character* billy2 = Character::load();
-	//cout << "test" << endl;
-	//billy2->printCharacter();
 }

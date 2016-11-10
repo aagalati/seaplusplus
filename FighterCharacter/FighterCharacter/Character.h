@@ -71,6 +71,7 @@ using std::cout;
 #include <string>
 #include "CharacterObserver.h"
 #include "Observer.h"
+#include "DnDObject.h"
 
 //Serialization library
 #include <afx.h>
@@ -80,7 +81,7 @@ namespace std
 
 {
 	
-	class Character : public Observer , public CObject
+	class Character : public Observer , public CObject, public DNDObject
 	{
 	private:
 		//!Statistics 
@@ -105,7 +106,7 @@ namespace std
 		int rangedAttackBonus;
 		int rangedAttackDamage;
 
-		int state;
+		int characterType;
 		
 		//!Equipment
 		string armor;
@@ -154,7 +155,8 @@ namespace std
 		void setMeleeAttackDamage(int);
 		void setRangedAttackBonus(int);
 		void setRangedAttackDamage(int);
-		void setState(int);
+		
+		void setCharacterType(int);
 
 		void setName(string);
 
@@ -191,8 +193,8 @@ namespace std
 		inline int getRangedAttackBonus();
 		inline int getRangedAttackDamage();
 
-		//State of Characters -> 0 is Player, 1 is Enemy NPC, 2 is Friendly NPC
-		inline int getState();
+		//State of Characters -> 5 is Player, 6 is Enemy NPC, 7 is Friendly NPC
+		int type();
 
 		inline string getName();
 
