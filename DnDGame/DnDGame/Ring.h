@@ -3,7 +3,7 @@
 #define RING_H
 
 #include "Item.h"
-
+using namespace std;
 class Ring : public Item
 {
 public:

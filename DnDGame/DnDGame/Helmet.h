@@ -4,7 +4,7 @@
 #define HELMET_H
 
 #include "Item.h"
-
+using namespace std;
 class Helmet : public Item
 {
 public:

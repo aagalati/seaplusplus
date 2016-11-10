@@ -2,7 +2,7 @@
 #include "Treasure.h"
 
 
-Treasure::Treasure()
+Treasure::Treasure() : ItemContainer(1)
 {
 	
 }
@@ -20,5 +20,15 @@ int Treasure::type()
 
 string Treasure::toString()
 {
-	return "Treasure";
+	if (!accessible)
+		return "Treasure";
+	
+	else
+	{
+		/*string content = "";
+		while (contained);
+		{
+			content += contained.iter.toString();
+		}*/
+	}
 }

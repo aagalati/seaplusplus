@@ -4,7 +4,7 @@
 #define SHIELD_H
 
 #include "Item.h"
-
+using namespace std;
 class Shield : public Item
 {
 public:

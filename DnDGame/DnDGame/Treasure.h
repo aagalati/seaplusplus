@@ -1,9 +1,10 @@
 #pragma once
 #include "DNDObject.h"
+#include "ItemContainer.h"
 #include <string>
 
 using namespace std;
-class Treasure : public DNDObject
+class Treasure : public DNDObject, public ItemContainer
 {
 private:
 	

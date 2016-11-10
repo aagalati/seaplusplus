@@ -14,7 +14,7 @@ public:
 	DNDObject();
 	~DNDObject();
 	
-	virtual int type() = 0;
+	virtual int type();
 	virtual string toString();
 };
 

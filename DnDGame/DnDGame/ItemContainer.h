@@ -14,6 +14,7 @@ public:
 	ItemContainer();
 	virtual ~ItemContainer();
 	ItemContainer(string containerName);
+	ItemContainer(int);
 	int getContainerSize();
 
 
@@ -26,6 +27,8 @@ public:
 
 	vector<Item> contained;
 	string containerName;
+	bool accessible;
+
 };
 
 

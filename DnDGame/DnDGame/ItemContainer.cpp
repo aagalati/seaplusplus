@@ -4,6 +4,7 @@
 
 ItemContainer::ItemContainer()
 {
+	accessible = true;
 }
 
 
@@ -12,10 +13,16 @@ ItemContainer::~ItemContainer()
 }
 
 ItemContainer::ItemContainer(string containerName) {
+	accessible = true;
 	this->containerName = containerName;
 }
 int ItemContainer::getContainerSize(){
 	return contained.size();
+}
+
+ItemContainer::ItemContainer(int i)
+{
+	accessible = false;
 }
 
 

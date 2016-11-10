@@ -108,6 +108,8 @@ string Item::toString()
 		item += "Ranged Damage (+ " + getEnhancementBonus();
 		break;
 	}
+
+	return item;
 }
 
 void Item::displayItem() {

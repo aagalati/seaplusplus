@@ -221,7 +221,7 @@ namespace std
 		inline Shield getShield();
 		inline Weapon getWeapon();
 		inline Boots getBoots();
-		inline Belt setBelt();
+		inline Belt getBelt();
 		inline Ring getRing();
 		inline Helmet getHelmet();
 

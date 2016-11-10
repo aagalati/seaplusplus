@@ -355,7 +355,7 @@ namespace std {
 		return boots;
 	}
 
-	inline Belt Character::setBelt()
+	inline Belt Character::getBelt()
 	{
 		return belt;
 	}
@@ -849,8 +849,8 @@ namespace std {
 		
 		for (int i = 0; i < 7; i++)
 		{
-			int type = equipment.contained[i].getEnhancementType;
-			int bonus = equipment.contained[i].getEnhancementBonus;
+			int type = equipment.contained[i].getEnhancementType();
+			int bonus = equipment.contained[i].getEnhancementBonus();
 			switch (type)
 			{
 			case 0:
@@ -908,7 +908,10 @@ namespace std {
 		i += ("\t ArmorClass: " + to_string(getArmorClass()));
 		i += ("\n Melee Attack Bonus +" + to_string(getMeleeAttackBonus())); i += ("    Melee Damage Bonus: +" + to_string(getMeleeAttackDamage()));
 		i += ("\n Ranged Attack Bonus: +" + to_string(getRangedAttackBonus())); i += ("    Ranged Damage Bonus: +" + to_string(getRangedAttackDamage()));
-		i += ("\n Equipment:\n" + "Armor: ";
+		i += ("\n Equipment:\n Armor: "); i += getArmor().toString();
+		i += ("\n Shield: " + getShield().toString()); i += ("\n Weapon: " + getWeapon().toString());
+		i += ("\n Boots: " + getBoots().toString()); i += ("\n Belt: " + getBelt().toString());
+		i += ("\n Ring: " + getRing().toString()); i += ("\n Helmet: " + getHelmet().toString());
 		return i;
 
 		

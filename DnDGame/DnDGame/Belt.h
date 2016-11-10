@@ -4,7 +4,7 @@
 #define BELT_H
 
 #include "Item.h"
-
+using namespace std;
 class Belt : public Item
 {
 public:

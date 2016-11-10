@@ -4,7 +4,7 @@
 #define BOOTS_H
 
 #include "Item.h"
-
+using namespace std;
 class Boots : public Item
 {
 public:

@@ -4,7 +4,7 @@
 #define ARMOR_H
 
 #include "Item.h"
-
+using namespace std;
 class Armor : public Item 
 {
 public:
