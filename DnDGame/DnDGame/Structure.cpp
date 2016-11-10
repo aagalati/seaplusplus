@@ -12,8 +12,8 @@ Structure::Structure()
 }
 
 Structure::Structure(int st)
-{		//floor     wall        entrance   exit
-	if (st == 0 || st == 1 || st == 3 || st == 4)
+{		//outofmap   floor     wall       entrance   exit
+	if (st == -1 || st == 0 || st == 1 || st == 3 || st == 4)
 		typeOfStructure = st;
 	else
 		cout << "Wrong integer value for structure" << endl;
@@ -30,12 +30,24 @@ int Structure::type()
 
 string Structure::toString()
 {
-	if (typeOfStructure = 0)
+	switch (typeOfStructure) {
+
+	case 0: 
 		return "Floor";
-	if (typeOfStructure = 1)
+		break;
+	case 1:
 		return "Wall";
-	if (typeOfStructure = 3)
+		break;
+	case 3:
 		return "Entrance";
-	if (typeOfStructure = 4)
+		break;
+	case 4:
 		return "Exit";
+		break;
+	default: 
+		return "Hover over objects to view stats";
+		break;
+
+
+	}
 }

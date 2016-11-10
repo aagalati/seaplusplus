@@ -23,6 +23,11 @@ DNDObject* Builder::build(int i)
 
 	switch (t)
 	{
+	case -1:
+		{
+			Structure* floor = new Structure(-1);
+			return floor;
+		}
 	case 0:
 		{
 				Structure* floor = new Structure(0);

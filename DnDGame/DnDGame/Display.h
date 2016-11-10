@@ -3,7 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
+#include <string>
 #include "Grid.h"
+#include "DNDObject.h"
 
 class Display : public Observer
 {
@@ -21,7 +23,7 @@ public:
 	bool windowOpen();
 	void run();
 
-	void showInfo(int type);
+	void showInfo(DNDObject* hover);
 	void gridHover(int x, int y);
 	void keyPressed(sf::Event event);
 

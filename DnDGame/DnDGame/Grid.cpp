@@ -56,13 +56,14 @@ void Grid::fillMapRandom()  //this method fills the map randomly with walls, obj
 
 	int t;
 	Builder *build = new Builder();
+	DNDObject *make;
 
 	srand( time(NULL) );  //using srand for random numbers everytime
 
 	for (int i = 0; i < _width; i++) { //iterating through the whole 2d matrix and inserting random numbers
 		for (int j = 0; j < _height; j++) {
 			t = rand() % 3;
-			DNDObject *make = build->build(t);
+			 make = build->build(t);
 			_gridData[i][j] = make;
 
 		}
@@ -76,11 +77,15 @@ void Grid::fillMapRandom()  //this method fills the map randomly with walls, obj
 		_exit_row = rand() % _height;
 	} while (_entrance_col == _exit_col && _entrance_row == _exit_row);
 
-	_gridData[_entrance_col][_entrance_row] = 3;
-	_gridData[_exit_col][_exit_row] = 4;
+	make = build->build(3);
+	_gridData[_entrance_col][_entrance_row] = make;
 
-	_currentcell = 3; //current cell is the door when you come into the map
-	_gridData[_entrance_col][_entrance_row] = 5;
+	make = build->build(4);
+	_gridData[_exit_col][_exit_row] = make;
+
+	_currentcell = _gridData[_entrance_col][_entrance_row]; //current cell is the door when you come into the map
+	make = build->build(5);
+	_gridData[_entrance_col][_entrance_row] = make;
 
 }
 
@@ -99,11 +104,11 @@ bool Grid::checkValid(int row, int col, int dir) {
 	//int t; //testing purposes
 	//cin >> t;
 
-	if (_gridData[row][col] == 4) { //base case, if exit is found, return true
+	if (_gridData[row][col]->type() == 4) { //base case, if exit is found, return true
 		//cout << "Found the exit, returning true" << endl;
 		return true;
 	}
-	else if (_gridData[row][col] == 1) { //case that there is a wall we return false
+	else if (_gridData[row][col]->type() == 1) { //case that there is a wall we return false
 		//cout << "Wall in the way, returning false" << endl;
 		return false;
 	}
@@ -189,7 +194,7 @@ void Grid::printMapImage() {  //prints the map as an image, Wall = $ = 1, Open s
 		cout << "#";
 
 		for (int j = 0; j < _width; j++) {
-			switch (_gridData[j][i]) {
+			switch (_gridData[j][i]->type()) {
 
 				case 0: cout << " "; //open space
 						break;
@@ -232,7 +237,7 @@ void Grid::printMapImage(int row, int col) {  //this overloaded version of print
 			if (i == row && j == col)
 				cout << "$";
 			else {
-				switch (_gridData[j][i]) {
+				switch (_gridData[j][i]->type()) {
 
 				case 0: cout << " ";
 					break;
@@ -289,8 +294,13 @@ void Grid::setDoors() {
 
 void Grid::setCell(int col, int row, int set) {  //set a cell as a desired col and  row
 
-	if (col <= _width && row <= _height)
-		_gridData[col][row] = set;
+	Builder *build = new Builder();
+	DNDObject *make;
+
+	if (col <= _width && row <= _height) {
+		make = build->build(set);
+		_gridData[col][row] = make;
+	}
 	else {
 		cout << "Error: Cell doesn't exist in the map (out of bounds)" << endl;
 		cout << "       Cell (" << col << "," << row << ") is not in the map" << endl;
@@ -331,10 +341,10 @@ void Grid::resizeMap(int width, int height) {
 
 }
 
-int Grid::getCellValue(int width, int height) {
+DNDObject* Grid::getCellValue(int width, int height) {
 
-
-		return (width < 0 || height < 0 || width > _width - 1 || height > _height -1) ? -1 : _gridData[width][height];  //check for bounds
+		Builder *build = new Builder();
+		return (width < 0 || height < 0 || width > _width - 1 || height > _height -1) ? build->build(-1) : _gridData[width][height];  //check for bounds
 
 }
 
@@ -352,14 +362,14 @@ int Grid::getEntranceY() {
 
 void Grid::move(int currentX, int  currentY, int nextX, int nextY) {
 
-	int temp;  //swap values to move player
+	DNDObject *temp;
 	temp = _currentcell;
 
 	_currentcell = _gridData[nextX][nextY];
-	_gridData[nextX][nextY] = 5;
+	_gridData[nextX][nextY] = _gridData[currentX][currentY];
 	_gridData[currentX][currentY] = temp;
 
-	std::cout << "Calling change to grid" << std::endl;
+	//std::cout << "Calling change to grid" << std::endl;
 
 	_grid->changeToGrid();
 

@@ -30,7 +30,7 @@ public:
 	bool needRefresh();
 
 
-	int getCellValue(int width, int height);
+	DNDObject* getCellValue(int width, int height);
 
 	int getWidth();
 	int getHeight();
@@ -56,13 +56,15 @@ private:
 	int _exit_row;
 	int _exit_col;
 	int dir;
-	int _currentcell;
+	
 	bool isValid;
 	bool refresh;
 
 	GridObserver *_grid;
 
+	DNDObject *_currentcell;
 
 	vector< vector<DNDObject*> > _gridData;
+
 };
 

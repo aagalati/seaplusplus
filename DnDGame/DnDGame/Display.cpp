@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Display.h"
 #include "Grid.h"
+#include "DNDObject.h"
+#include <string>
 
 
 Display::Display(Grid *grid)   //!!GAME
@@ -166,7 +168,7 @@ void Display::loadSprites() {
 				_tilemap[i][j].setTexture(tileTexture);
 				//std::cout << "Creating tile at " << i << ", " << j << std::endl;
 				int cellValue;
-				cellValue = grid->getCellValue(i - 1, j - 1);   //using enum types, refer to grid to apply corresponding textures
+				cellValue = grid->getCellValue(i - 1, j - 1)->type();   //using enum types, refer to grid to apply corresponding textures
 				if (cellValue == Space)
 					_tilesource.y = Space;
 				else if (cellValue == Wall)
@@ -215,7 +217,7 @@ void Display::update() {
 
 				if (!(i == 0 || j == 0 || i == _width - 1 || j == _height - 1)) {
 
-					cellValue = grid->getCellValue(i - 1, j - 1);  //refreshing map, rechecking all values
+					cellValue = grid->getCellValue(i - 1, j - 1)->type();  //refreshing map, rechecking all values
 					if (cellValue == Space)
 						_tilesource.y = Space;
 					else if (cellValue == Wall)
@@ -285,16 +287,25 @@ void Display::gridHover(int x, int y) { //this function needs the actual object 
 
 	//std::cout << "Hover X: " << (x - PADDINGX - BORDER_SIZE*_tilesize.x)/_tilesize.x << " Hover Y: " << (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y << std::endl;
 
-	std::cout << grid->getCellValue((x - PADDINGX - BORDER_SIZE*_tilesize.x) / _tilesize.x, (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y) << std::endl;
+	//std::cout << grid->getCellValue((x - PADDINGX - BORDER_SIZE*_tilesize.x) / _tilesize.x, (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y) << std::endl;
+
 	showInfo(grid->getCellValue((x - PADDINGX - BORDER_SIZE*_tilesize.x) / _tilesize.x, (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y));
 
 } 
 
-void Display::showInfo(int type) {
+void Display::showInfo(DNDObject* hover) {
 
 	text.setFont(font);
+	if (hover->type() != -1) {
+		text.setString(hover->toString());
+		_window.clear();
+	}
+	else {
+		text.setString("Hover over objects to view stats");
+		_window.clear();
+	}
 
-	switch (type) {
+	/* switch () {
 
 	case 5: 
 		text.setString("Player: Arnold\nStats: 2good4u\nClass: classyaf");
@@ -306,7 +317,7 @@ void Display::showInfo(int type) {
 		_window.clear();
 		break;
 
-	}
+	} */
 
 	text.setCharacterSize(16);
 	//text.setColor(sf::Color::White);
@@ -324,7 +335,7 @@ void Display::keyPressed(sf::Event event) {
 							   //Checking if moving will be valid, if so, it will trigger the move function which will trigger Subject::Notify
 
 	case sf::Keyboard::Up:
-		if (grid->getCellValue(_playerX, _playerY - 1) == 0 || grid->getCellValue(_playerX, _playerY - 1) == 2) {  //checking if next cell is open space or object, if so, player can move
+		if (grid->getCellValue(_playerX, _playerY - 1)->type() == 0 || grid->getCellValue(_playerX, _playerY - 1)->type() == 2) {  //checking if next cell is open space or object, if so, player can move
 			grid->move(_playerX, _playerY, _playerX, _playerY - 1);
 			_playerY--;
 			update();
@@ -333,7 +344,7 @@ void Display::keyPressed(sf::Event event) {
 		break;
 
 	case sf::Keyboard::Down:
-		if (grid->getCellValue(_playerX, _playerY + 1) == 0 || grid->getCellValue(_playerX, _playerY + 1) == 2) { //checking if next cell is open space or object, if so, player can move
+		if (grid->getCellValue(_playerX, _playerY + 1)->type() == 0 || grid->getCellValue(_playerX, _playerY + 1)->type() == 2) { //checking if next cell is open space or object, if so, player can move
 			grid->move(_playerX, _playerY, _playerX, _playerY + 1);
 			_playerY++;
 			update();
@@ -342,7 +353,7 @@ void Display::keyPressed(sf::Event event) {
 		break;
 
 	case sf::Keyboard::Left:
-		if (grid->getCellValue(_playerX - 1, _playerY) == 0 || grid->getCellValue(_playerX - 1, _playerY) == 2) { //checking if next cell is open space or object, if so, player can move
+		if (grid->getCellValue(_playerX - 1, _playerY)->type() == 0 || grid->getCellValue(_playerX - 1, _playerY)->type() == 2) { //checking if next cell is open space or object, if so, player can move
 			grid->move(_playerX, _playerY, _playerX - 1, _playerY);
 			_playerX--;
 			update();
@@ -351,7 +362,7 @@ void Display::keyPressed(sf::Event event) {
 		break;
 
 	case sf::Keyboard::Right:
-		if (grid->getCellValue(_playerX + 1, _playerY) == 0 || grid->getCellValue(_playerX + 1, _playerY) == 2) { //checking if next cell is open space or object, if so, player can move
+		if (grid->getCellValue(_playerX + 1, _playerY)->type() == 0 || grid->getCellValue(_playerX + 1, _playerY)->type() == 2) { //checking if next cell is open space or object, if so, player can move
 			grid->move(_playerX, _playerY, _playerX + 1, _playerY);
 			_playerX++;
 			update();
