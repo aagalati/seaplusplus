@@ -506,7 +506,7 @@ namespace std {
 
 	Character::~Character()
 	{
-		delete _char;
+		//delete _char;
 	}
 
 
@@ -805,75 +805,29 @@ namespace std {
 
 	}
 	
-	/*void Character::printCharacter()
-	{
-
-		cout << "*******  " << getName() << " *******\n\n"
-			<< "Level: " << getLevel() << endl
-			<< "Strength:  " << getStrength() << modOP(getStrengthModifier()) << getStrengthModifier() << ")\n"
-			<< "Dexterity:  " << getDexterity() << modOP(getDexterityModifier()) << getDexterityModifier() << ")\n"
-			<< "Constitution:  " << getConstitution() << modOP(getConstitutionModifier()) << getConstitutionModifier() << ")\n"
-			<< "Intelligence:  " << getIntelligence() << modOP(getIntelligenceModifier()) << getIntelligenceModifier() << ")\n"
-			<< "Wisdom:  " << getWisdom() << modOP(getWisdomModifier()) << getWisdomModifier() << ")\n"
-			<< "Charisma:  " << getCharisma() << modOP(getCharismaModifier()) << getCharismaModifier() << ")\n"
-			<< "Hit Points: " << getCurrentHitPoints() << "     Armor Class: " << getArmorClass() << endl
-			<< "Melee Attack Bonus: +" << getMeleeAttackBonus() << "   Melee Damage Bonus: +" << getMeleeAttackDamage() << endl
-			<< "Ranged Attack Bonus: +" << getRangedAttackBonus() << "   Ranged Damage Bonus: +" << getRangedAttackBonus() << endl
-			<< "Equipment: \nArmor: " << getArmor() << endl
-			<< "Shield: " << getShield() << endl
-			<< "Weapon: " << getWeapon() << endl
-			<< "Boots: " << getBoots() << endl
-			<< "Ring: " << getRing()  << endl
-			<< "Helmet: " << getHelmet() << endl;
-
-	}*/
 	
-	/*string Character::toString()
-	{
-		string info;
-		
-		info = "*******  " + getName() + " *******\n\n"
-			+ "Level: " + getLevel() + "\n"
-			+ "Strength:  " + getStrength() + modOP(getStrengthModifier()) + getStrengthModifier() + ")\n"
-			+ "Dexterity:  "  + getDexterity() + modOP(getDexterityModifier()) + getDexterityModifier() + ")\n"
-			+ "Constitution:  " + getConstitution() + modOP(getConstitutionModifier()) + getConstitutionModifier() + ")\n"
-			+ "Intelligence:  " + getIntelligence() + modOP(getIntelligenceModifier()) + getIntelligenceModifier() + ")\n"
-			+ "Wisdom:  " + getWisdom() + modOP(getWisdomModifier()) + getWisdomModifier() + ")\n"
-			+ "Charisma:  " + getCharisma() + modOP(getCharismaModifier()) + getCharismaModifier() + ")\n"
-			+ "Hit Points: " + getCurrentHitPoints() + "     Armor Class: " + getArmorClass() + endl
-			+ "Melee Attack Bonus: +" + getMeleeAttackBonus() + "   Melee Damage Bonus: +" + getMeleeAttackDamage() + "\n"
-			+ "Ranged Attack Bonus: +" + getRangedAttackBonus() + "   Ranged Damage Bonus: +" + getRangedAttackBonus() + "\n"
-			+ "Equipment: \nArmor: " + getArmor() + "\n"
-			+ "Shield: " + getShield() + "\n"
-			+ "Weapon: " + getWeapon() + "\n"
-			+ "Boots: " + getBoots() + "\n"
-			+ "Ring: " + getRing() + "\n"
-			+ "Helmet: " + getHelmet() + "\n";
 
-		
-	}*/
-
-	void Character::printCharacter(string info)
+	void Character::printCharacter()
 	{
-		cout << info << endl;
+		cout << toString() << endl;
 	}
 
 	string Character::toString()
 	{
-		string info = "";
-		info.append("********* " + getName() + "********\n ");
-		info.append("Level: " + getLevel());
-		info.append("\nStrength: " + getStrength() + modOP(getStrengthModifier())); info.append(getStrengthModifier() + ")\t");
-		info.append("Dexterity: " + getDexterity() + modOP(getDexterityModifier())); info.append(getDexterityModifier() + ")\n");
-		info.append("Constitution: " + getConstitution() + modOP(getConstitutionModifier())); info.append(getConstitutionModifier() + ")\t");
-		info.append("Intelligence: " + getIntelligence() + modOP(getIntelligenceModifier())); info.append(getIntelligenceModifier() + ")\n");
-		info.append("Wisdom: " + getWisdom() + modOP(getWisdomModifier())); info.append(getWisdomModifier() + ")\t");
-		info.append("Charisma: " + getCharisma() + modOP(getCharismaModifier())); info.append(getCharismaModifier() + ")\n");
-		info.append("HitPoints: " + getCurrentHitPoints()); info.append("//" + getHitPoints()); 
-		info.append("\tArmorClass: " + getArmorClass());
-		info.append("\nMelee Attack Bonus +" + getMeleeAttackBonus()); info.append("    Melee Damage Bonus: +" + getMeleeAttackDamage());
-		info.append("\Ranged Attack Bonus: +" + getRangedAttackBonus()); info.append("    Ranged Damage Bonus: +" + getRangedAttackDamage());
-		return info;
+		string i = "";
+		i += ("********* " + getName() + "********\n ");
+		i += (" Level: "  + to_string(getLevel()));
+		i += ("\n Strength: " + to_string(getStrength()) + modOP(getStrengthModifier())); i += (to_string(getStrengthModifier()) + ")\t");
+		i += (" Dexterity: " + to_string(getDexterity()) + modOP(getDexterityModifier())); i += (to_string(getDexterityModifier()) + ")\n");
+		i += (" Constitution: " + to_string(getConstitution()) + modOP(getConstitutionModifier())); i += (to_string(getConstitutionModifier()) + ")\t");
+		i += (" Intelligence: " + to_string(getIntelligence()) + modOP(getIntelligenceModifier())); i += (to_string(getIntelligenceModifier()) + ")\n");
+		i += (" Wisdom: " + to_string(getWisdom()) + modOP(getWisdomModifier())); i += (to_string(getWisdomModifier()) + ")\t");
+		i += (" Charisma: " + to_string(getCharisma()) + modOP(getCharismaModifier())); i += (to_string(getCharismaModifier()) + ")\n");
+		i += (" HitPoints: " + to_string(getCurrentHitPoints())); i += ("/" + to_string(getHitPoints()));
+		i += ("\t ArmorClass: " + to_string(getArmorClass()));
+		i += ("\n Melee Attack Bonus +" + to_string(getMeleeAttackBonus())); i += ("    Melee Damage Bonus: +" + to_string(getMeleeAttackDamage()));
+		i += ("\n Ranged Attack Bonus: +" + to_string(getRangedAttackBonus())); i += ("    Ranged Damage Bonus: +" + to_string(getRangedAttackDamage()));
+		return i;
 
 		
 	}
@@ -891,7 +845,7 @@ namespace std {
 	void Character::update() {
 		//The boolean value updating is only used for the sake of test cases.
 		updating = true;
-		printCharacter(toString());
+		printCharacter();
 	}
 	
 	//This method is used to ensure that the Observer pattern is only triggered when the program is not using the mutators within the constructor.

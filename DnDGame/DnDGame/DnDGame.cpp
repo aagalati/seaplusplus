@@ -76,7 +76,7 @@ Future goals:
 
 void main()
 {
-
+	
 	Display *menu = new Display();
 
 	Grid *grid = new Grid(10, 10, false);

@@ -167,8 +167,6 @@
     <ClInclude Include="DNDObject.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="GridObserver.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="ItemContainer.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Structure.h" />
@@ -185,8 +183,6 @@
     <ClCompile Include="DNDObject.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="GridObserver.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="ItemContainer.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

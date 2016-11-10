@@ -235,7 +235,7 @@ namespace std
 		void levelUp(int);
 
 		//!Printing Information 
-		void printCharacter(string);
+		void printCharacter();
 		string toString();
 		string modOP(int);
 		
