@@ -6,15 +6,17 @@
 
 #include <iostream>
 #include <string>
+#include "DNDObject.h"
 
 using namespace std;
 
-class Item    
+class Item : public DNDObject
 {
 public:
 
 	enum EnhancementType { 
-		Intelligence=0, Wisdom=1, Strength=2, Constitution=3, Charisma=4, Dexterity=5, ArmorClass=6, AttackBonus=7, DamageBonus=8 };
+		Intelligence=0, Wisdom=1, Strength=2, Constitution=3, Charisma=4, Dexterity=5,
+		ArmorClass=6, AttackBonus=7, DamageBonus=8 };
 	Item();
 	Item(string name, EnhancementType enhType, int enhBonus);
 	virtual ~Item();
@@ -29,6 +31,8 @@ public:
 	void setItemName(string itemName);
 	virtual void setEnhancement(EnhancementType enhanceType, int enhanceBonus);
 	virtual void displayItem();
+
+	string toString();
 
 protected:
 	string name;

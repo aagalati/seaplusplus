@@ -68,10 +68,20 @@ using std::rand;
 
 #include <iostream>
 using std::cout;
+
 #include <string>
 #include "CharacterObserver.h"
 #include "Observer.h"
 #include "DnDObject.h"
+#include "Item.h"
+#include "Armor.h"
+#include "Helmet.h"
+#include "Belt.h"
+#include "Boots.h"
+#include "Ring.h"
+#include "Shield.h"
+#include "Weapon.h"
+#include "itemContainer.h"
 
 //Serialization library
 #include <afx.h>
@@ -84,6 +94,8 @@ namespace std
 	class Character : public Observer , public CObject, public DNDObject
 	{
 	private:
+
+		
 		//!Statistics 
 		int level;
 		int strength;
@@ -109,12 +121,14 @@ namespace std
 		int characterType;
 		
 		//!Equipment
-		string armor;
-		string shield;
-		string weapon;
-		string boots;
-		string ring;
-		string helmet;
+		Armor armor;
+		Shield shield;
+		Weapon weapon;
+		Boots boots;
+		Belt belt;
+		Ring ring;
+		Helmet helmet;
+		ItemContainer equipment;
 
 		//Variables relevant to assignment 2
 		CharacterObserver* _char;
@@ -162,12 +176,14 @@ namespace std
 
 		void setInConstructor(bool);
 
-		void setArmor(string);
-		void setShield(string);
-		void setWeapon(string);
-		void setBoots(string);
-		void setRing(string);
-		void setHelmet(string);
+		void setArmor(Armor);
+		void setShield(Shield);
+		void setWeapon(Weapon);
+		void setBoots(Boots);
+		void setBelt(Belt);
+		void setRing(Ring);
+		void setHelmet(Helmet);
+		void setEquipment(ItemContainer);
 
 		//!Statistics Accessors
 		inline int getLevel();
@@ -201,12 +217,15 @@ namespace std
 		
 		inline bool getInConstructor();
 
-		inline string getArmor();
-		inline string getShield();
-		inline string getWeapon();
-		inline string getBoots();
-		inline string getRing();
-		inline string getHelmet();
+		inline Armor getArmor();
+		inline Shield getShield();
+		inline Weapon getWeapon();
+		inline Boots getBoots();
+		inline Belt setBelt();
+		inline Ring getRing();
+		inline Helmet getHelmet();
+
+		inline ItemContainer getEquipment();
 
 
 		//!Constructor
@@ -222,10 +241,12 @@ namespace std
 		
 		//!Functions for modifiers
 		void setModifiers();
+		void setEquipmentModifiers();
 		int modifierCalculation(int);
 		
 		
-		void setEquipment();
+		void defaultEquip();
+		void equip(Item*);
 
 		//!Other Methods
 		bool validateNewCharacter();

@@ -5,7 +5,7 @@
 
 #include "Item.h"
 
-class Armor : public Item
+class Armor : public Item 
 {
 public:
 	Armor(string name, EnhancementType enhType, int enhBonus);

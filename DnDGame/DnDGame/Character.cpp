@@ -176,34 +176,44 @@ namespace std {
 	}
 
 	//!Equipment
-	void Character::setArmor(string a)
+	void Character::setArmor(Armor a)
 	{
 		armor = a;
 	}
 
-	void Character::setShield(string s)
+	void Character::setShield(Shield s)
 	{
 		shield = s;
 	}
 
-	void Character::setWeapon(string w)
+	void Character::setWeapon(Weapon w)
 	{
 		weapon = w;
 	}
 
-	void Character::setBoots(string b)
+	void Character::setBoots(Boots b)
 	{
 		boots = b;
 	}
 
-	void Character::setRing(string r)
+	void Character::setBelt(Belt b)
+	{
+		belt = b;
+	}
+
+	void Character::setRing(Ring r)
 	{
 		ring = r;
 	}
 
-	void Character::setHelmet(string h)
+	void Character::setHelmet(Helmet h)
 	{
 		helmet = h;
+	}
+
+	void Character::setEquipment(ItemContainer e)
+	{
+		equipment = e;
 	}
 
 	
@@ -325,34 +335,44 @@ namespace std {
 	}
 
 	//!Equipment
-	inline string Character::getArmor()
+	inline Armor Character::getArmor()
 	{
 		return armor;
 	}
 
-	inline string Character::getWeapon()
+	inline Weapon Character::getWeapon()
 	{
 		return weapon;
 	}
 
-	inline string Character::getShield()
+	inline Shield Character::getShield()
 	{
 		return shield;
 	}
 
-	inline string Character::getBoots()
+	inline Boots Character::getBoots()
 	{
 		return boots;
 	}
+
+	inline Belt Character::setBelt()
+	{
+		return belt;
+	}
 	
-	inline string Character::getRing()
+	inline Ring Character::getRing()
 	{
 		return ring;
 	}
 
-	inline string Character::getHelmet()
+	inline Helmet Character::getHelmet()
 	{
 		return helmet;
+	}
+
+	inline ItemContainer Character::getEquipment()
+	{
+		return equipment;
 	}
 
 	int Character::type()
@@ -379,7 +399,8 @@ namespace std {
 		setModifiers();
 		setHitPoints(hitPointsGenerator(getLevel()));
 		setCurrentHitPoints(getHitPoints());
-		setEquipment();
+		
+		defaultEquip();
 
 		setInConstructor(false);
 		delete _charObservers;
@@ -412,7 +433,7 @@ namespace std {
 		setModifiers();
 		setHitPoints(hitPointsGenerator(getLevel()));
 		setCurrentHitPoints(getHitPoints());
-		setEquipment();
+		defaultEquip();
 
 		setInConstructor(false);
 		delete _charObservers;
@@ -443,7 +464,7 @@ namespace std {
 
 		setCharacterType(5);
 		setName("Billy");
-		setEquipment();
+		defaultEquip();
 		setLevel(1);
 		setStrength(s);
 		setDexterity(d);
@@ -497,7 +518,7 @@ namespace std {
 		setRangedAttackBonus(c.getRangedAttackBonus());
 		setRangedAttackDamage(c.getRangedAttackDamage());
 
-		setEquipment();
+		defaultEquip();
 
 		setInConstructor(false);
 		delete _charObservers;
@@ -672,7 +693,7 @@ namespace std {
 		setCharismaModifier  (modifierCalculation  (getCharisma()  )  );
 		setIntelligenceModifier  (modifierCalculation  (getIntelligence()  )  );
 
-		setArmorClass(10 + getDexterityModifier());
+		setArmorClass(16);
 		setMeleeAttackBonus(getStrengthModifier());
 		setMeleeAttackDamage(getStrengthModifier());
 		setRangedAttackBonus(getDexterityModifier());
@@ -792,17 +813,77 @@ namespace std {
 		else
 			return true;
 	}
-	//Setting the equipment is done through strings. This simple implementation
-	//was done after discussing with Dr. Taleb.
-	void Character::setEquipment()
+	
+	void Character::defaultEquip()
 	{
-		setArmor("Chain Mail");
-		setShield("Shield");
-		setWeapon("Longsword & Light Crossbow");
-		setBoots("Leather Boots");
-		setRing("None");
-		setHelmet("None");
+		
+		Armor chainmail("Chain Mail", Item::ArmorClass, 0);
+		setArmorClass(16);
 
+		Weapon longsword("Longsword", Item::AttackBonus , 0);
+		Shield shield("Iron Shield", Item::ArmorClass, 1);
+		Boots boots("Leather Boots", Item::Dexterity, 0);
+		Ring ring("Papa's Ring", Item::Constitution, 1);
+		Belt belt("Mama's Belt", Item::Intelligence, 1);
+		Helmet helmet("Harambe's Wisdom", Item::Wisdom, 2);
+
+		setArmor(chainmail); setWeapon(longsword); setShield(shield);
+		setBoots(boots); setRing(ring); setBelt(belt); setHelmet(helmet);
+		
+		ItemContainer equip("Equipment");
+		setEquipment(equip);
+		equipment.storeItem(armor); equipment.storeItem(shield); equipment.storeItem(weapon);
+		equipment.storeItem(boots); equipment.storeItem(belt); equipment.storeItem(ring);
+		equipment.storeItem(helmet);
+
+	}
+
+	void Character::equip(Item* i)
+	{
+
+	}
+
+
+	void Character::setEquipmentModifiers()
+	{
+		
+		for (int i = 0; i < 7; i++)
+		{
+			int type = equipment.contained[i].getEnhancementType;
+			int bonus = equipment.contained[i].getEnhancementBonus;
+			switch (type)
+			{
+			case 0:
+				setIntelligenceModifier(getIntelligenceModifier() + bonus);
+				break;
+			case 1:
+				setWisdomModifier(getWisdomModifier() + bonus);
+				break;
+			case 2:
+				setStrengthModifier(getStrengthModifier() + bonus);
+				break;
+			case 3:
+				setConstitutionModifier(getConstitutionModifier() + bonus);
+				break;
+			case 4:
+				setCharismaModifier(getCharismaModifier() + bonus);
+				break;
+			case 5:
+				setDexterityModifier(getDexterityModifier() + bonus);
+				break;
+			case 6:
+				setArmorClass(getArmorClass() + bonus);
+				break;
+			case 7:
+				setMeleeAttackDamage(getMeleeAttackDamage() + bonus);
+				break;
+			case 8:
+				setRangedAttackDamage(getRangedAttackDamage() + bonus);
+			default:
+				break;
+			}
+		}
+		
 	}
 	
 	
@@ -827,6 +908,7 @@ namespace std {
 		i += ("\t ArmorClass: " + to_string(getArmorClass()));
 		i += ("\n Melee Attack Bonus +" + to_string(getMeleeAttackBonus())); i += ("    Melee Damage Bonus: +" + to_string(getMeleeAttackDamage()));
 		i += ("\n Ranged Attack Bonus: +" + to_string(getRangedAttackBonus())); i += ("    Ranged Damage Bonus: +" + to_string(getRangedAttackDamage()));
+		i += ("\n Equipment:\n" + "Armor: ";
 		return i;
 
 		

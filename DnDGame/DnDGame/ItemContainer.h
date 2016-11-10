@@ -23,7 +23,7 @@ public:
 	void displayContainer();
 	void displayAndDropItem();
 	
-protected:
+
 	vector<Item> contained;
 	string containerName;
 };

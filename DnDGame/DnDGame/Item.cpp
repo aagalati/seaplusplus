@@ -74,6 +74,42 @@ void Item::setEnhancement(EnhancementType enhanceType, int enhanceBonus)
 	enhBonus = enhanceBonus;
 }
 
+string Item::toString()
+{
+	string item = "";
+	item += getItemName() + " ";
+	switch (getEnhancementType())
+	{
+	case 0:
+		item += "Int (+ " + getEnhancementBonus();
+		break;
+	case 1:
+		item += "Wis (+ " + getEnhancementBonus();
+		break;
+	case 2:
+		item += "Str (+ " + getEnhancementBonus();
+		break;
+	case 3:
+		item += "Con (+ " + getEnhancementBonus();
+		break;
+	case 4:
+		item += "Cha (+ " + getEnhancementBonus();
+		break;
+	case 5:
+		item += "Dex (+ " + getEnhancementBonus();
+		break;
+	case 6:
+		item += "AC (+ " + getEnhancementBonus();
+		break;
+	case 7:
+		item += "Melee Damage (+ " + getEnhancementBonus();
+		break;
+	case 8:
+		item += "Ranged Damage (+ " + getEnhancementBonus();
+		break;
+	}
+}
+
 void Item::displayItem() {
 	cout << this->getItemType() << " | Name: " << this->getItemName() << " | Enhancement: " << this->getEnhancementTypeString() << " +" << this->getEnhancementBonus() << endl;
 } 
