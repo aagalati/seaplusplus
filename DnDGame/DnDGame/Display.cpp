@@ -261,6 +261,7 @@ void Display::run() {
 			switch (_event.type) {
 
 			case sf::Event::Closed:
+				delete this;
 				_window.close();
 				break;
 
@@ -296,14 +297,8 @@ void Display::gridHover(int x, int y) { //this function needs the actual object 
 void Display::showInfo(DNDObject* hover) {
 
 	text.setFont(font);
-	if (hover->type() != -1) {
-		text.setString(hover->toString());
-		_window.clear();
-	}
-	else {
-		text.setString("Hover over objects to view stats");
-		_window.clear();
-	}
+	text.setString(hover->toString());
+	_window.clear();
 
 	/* switch () {
 
