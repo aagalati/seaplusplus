@@ -70,25 +70,22 @@ Future goals:
 #include <vector>
 #include "Grid.h"
 #include "Display.h"
+#include "Character.h"
 
 
 
 void main()
 {
 
-	Grid *grid = new Grid(5, 5, false);
+	Display *menu = new Display();
 
-	Display *display = new Display(grid);
+	Grid *grid = new Grid(10, 10, false);
 
-	display->loadTextures();
-	display->loadFonts();
-	display->loadSprites();
+	//Display *game = new Display(grid);
 	
-	display->showInfo(1);
+	while (menu->windowOpen()) {
 
-	while (display->windowOpen()) {
-
-		display->run();
+		menu->run();
 
 	}
 

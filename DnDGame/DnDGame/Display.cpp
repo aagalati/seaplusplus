@@ -3,9 +3,10 @@
 #include "Grid.h"
 
 
-Display::Display(Grid *grid)
+Display::Display(Grid *grid)   //!!GAME
 {
 
+	_type = game;
 
 	BORDER_SIZE = 1;
 	BORDER = BORDER_SIZE * 2;
@@ -29,9 +30,63 @@ Display::Display(Grid *grid)
 	_windowsize.x = 1000;
 	_windowsize.y = 600;
 
+	loadFonts();
+	loadTextures();
+	loadSprites();
 
 	_window.create(sf::VideoMode(_windowsize.x, _windowsize.y), "Dungeouns and Dragons");
-	_window.setKeyRepeatEnabled(false);
+	//_window.setKeyRepeatEnabled(false);
+
+}
+
+Display::Display()   //!!MENU
+{
+
+	_type = menu;
+
+	BORDER_SIZE = 1;
+	BORDER = BORDER_SIZE * 2;
+	PADDINGX = 50;
+	PADDINGY = 50;
+
+	_tilesource.x = 32;
+	_tilesource.y = Wall;
+
+	_tilesize.x = 32;
+	_tilesize.y = 32;
+
+	_windowsize.x = 1000;
+	_windowsize.y = 600;
+
+	_headersize.x = _windowsize.x*0.5;
+	_headersize.y = _windowsize.y*0.1;
+
+	_headerposition.x = _windowsize.x*0.25;
+	_headerposition.y = _windowsize.y*0.05;
+
+	loadFonts();	
+
+	_window.create(sf::VideoMode(_windowsize.x, _windowsize.y), "Dungeons and Dragons (Menu)");
+	//_window.setKeyRepeatEnabled(false);
+
+	menuDisplay();
+
+}
+
+
+void Display::menuDisplay() {
+	
+	//header
+	//play game
+	//item encyclopedia
+	//map creator
+
+	sf::RectangleShape header(_headersize);
+	header.setPosition(sf::Vector2f(_headerposition));
+
+	_window.draw(header);
+
+	_window.display();
 
 }
 
@@ -54,7 +109,7 @@ void Display::loadFonts() {
 	if (!font.loadFromFile("texture/framd.ttf"))
 		std::cout << "Error: Font not loaded" << std::endl;
 	else
-		std::cout << "Font loaded";
+		std::cout << "Font loaded.. " << std::endl;
 
 }
 
@@ -146,39 +201,43 @@ void Display::loadSprites() {
 
 void Display::update() {
 
-	int cellValue;
+	if (_type = 1) {
 
-	std::cout << "Update called in display" << std::endl;
-	std::cout << "PlayerX: " << _playerX << ", Player Y: " << _playerY << std::endl;
-	grid->printMapImage();
+		int cellValue;
 
-	for (int i = 0; i < _width; i++) {
+		std::cout << "Update called in display" << std::endl;
+		std::cout << "PlayerX: " << _playerX << ", Player Y: " << _playerY << std::endl;
+		grid->printMapImage();
 
-		for (int j = 0; j < _height; j++) {
+		for (int i = 0; i < _width; i++) {
 
-			if (!(i == 0 || j == 0 || i == _width - 1 || j == _height - 1)) {
+			for (int j = 0; j < _height; j++) {
 
-				cellValue = grid->getCellValue(i - 1, j - 1);  //refreshing map, rechecking all values
-				if (cellValue == Space)
-					_tilesource.y = Space;
-				else if (cellValue == Wall)
-					_tilesource.y = Wall;
-				else if (cellValue == Object)
-					_tilesource.y = Space;
-				else if (cellValue == Entrance)
-					_tilesource.y = Entrance;
-				else if (cellValue == Exit)
-					_tilesource.y = Exit;
-				else if (cellValue == Player)
-					_tilesource.y = Player;
+				if (!(i == 0 || j == 0 || i == _width - 1 || j == _height - 1)) {
 
-				//std::cout << "Texture will be " << tilesource.y << std::endl;
+					cellValue = grid->getCellValue(i - 1, j - 1);  //refreshing map, rechecking all values
+					if (cellValue == Space)
+						_tilesource.y = Space;
+					else if (cellValue == Wall)
+						_tilesource.y = Wall;
+					else if (cellValue == Object)
+						_tilesource.y = Space;
+					else if (cellValue == Entrance)
+						_tilesource.y = Entrance;
+					else if (cellValue == Exit)
+						_tilesource.y = Exit;
+					else if (cellValue == Player)
+						_tilesource.y = Player;
 
-				_tilemap[i][j].setTextureRect(sf::IntRect(0, _tilesource.y * _tilesize.y, _tilesize.x, _tilesize.y));
+					//std::cout << "Texture will be " << tilesource.y << std::endl;
 
+					_tilemap[i][j].setTextureRect(sf::IntRect(0, _tilesource.y * _tilesize.y, _tilesize.x, _tilesize.y));
+
+				}
+
+				_window.draw(_tilemap[i][j]);
 			}
 
-			_window.draw(_tilemap[i][j]);
 		}
 
 	}
@@ -197,23 +256,26 @@ void Display::run() {
 
 	while (_window.pollEvent(_event)) {
 
-		switch (_event.type) {
+			switch (_event.type) {
 
-			case sf::Event::Closed: 
+			case sf::Event::Closed:
 				_window.close();
 				break;
 
-			case sf::Event::KeyPressed: 
-				keyPressed(_event);
-				break;
+			case sf::Event::KeyPressed:
+				if (_type == 1) {
+					keyPressed(_event);
+					break;
+				}
 
 			case sf::Event::MouseMoved:
-				std::cout << "X: " << _event.mouseMove.x << " Y: " << _event.mouseMove.y << std::endl;
-				gridHover(_event.mouseMove.x, _event.mouseMove.y);
-				break;
+				if (_type == 1) {
+					std::cout << "X: " << _event.mouseMove.x << " Y: " << _event.mouseMove.y << std::endl;
+					gridHover(_event.mouseMove.x, _event.mouseMove.y);
+					break;
+				}
 
-
-		}
+			}
 
 	}
 

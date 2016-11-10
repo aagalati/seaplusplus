@@ -9,15 +9,22 @@ class Display : public Observer
 {
 public:
 	Display(Grid *grid);
+	Display();
+
 	void loadFonts();
 	void loadTextures();
 	void loadSprites();
+
+	void menuDisplay();
+
 	void update();
 	bool windowOpen();
 	void run();
+
 	void showInfo(int type);
 	void gridHover(int x, int y);
 	void keyPressed(sf::Event event);
+
 	~Display();
 	
 private:
@@ -27,6 +34,12 @@ private:
 	sf::Vector2i _tilesource;
 	sf::Vector2i _tilesize;
 	sf::Vector2u _windowsize;
+
+	sf::Vector2f _buttonposition;
+	sf::Vector2f _buttonsize;
+
+	sf::Vector2f _headersize;
+	sf::Vector2f _headerposition;
 
 	sf::Texture tileTexture;
 	sf::Texture borderTexture;
@@ -40,7 +53,9 @@ private:
 
 	enum tiletype { Space, Wall, Object, Entrance, Exit, Player };
 	enum bordertype { tlcorner, top, trcorner, right, brcorner, bottom, blcorner, left };
+	enum windowtype {menu, game, itemcreator, mapcreator};
 
+	int _type;
 	int _width;
 	int _height;
 	int _playerX;
