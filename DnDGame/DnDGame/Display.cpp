@@ -9,7 +9,8 @@ Display::Display(Grid *grid)
 
 	BORDER_SIZE = 1;
 	BORDER = BORDER_SIZE * 2;
-	PADDING = 32; //need paddingx and paddingy in future
+	PADDINGX = 32;
+	PADDINGY = 32;
 
 	this->grid = new Grid(*grid);
 
@@ -28,7 +29,6 @@ Display::Display(Grid *grid)
 	_windowsize.x = 1000;
 	_windowsize.y = 600;
 
-	key = true;
 
 	_window.create(sf::VideoMode(_windowsize.x, _windowsize.y), "Dungeouns and Dragons");
 	_window.setKeyRepeatEnabled(false);
@@ -46,6 +46,15 @@ void Display::loadTextures() {
 		std::cout << "Error: Border texture not loaded" << std::endl;
 	else
 		std::cout << "Border texture loaded.." << std::endl;
+
+}
+
+void Display::loadFonts() {
+
+	if (!font.loadFromFile("texture/framd.ttf"))
+		std::cout << "Error: Font not loaded" << std::endl;
+	else
+		std::cout << "Font loaded";
 
 }
 
@@ -121,7 +130,7 @@ void Display::loadSprites() {
 				_tilemap[i][j].setTextureRect(sf::IntRect(0, _tilesource.y * _tilesize.y, _tilesize.x, _tilesize.x));
 			}
 
-			_tilemap[i][j].setPosition(_tilesize.x * i + PADDING, _tilesize.y * j + PADDING);  //setting position
+			_tilemap[i][j].setPosition(_tilesize.x * i + PADDINGX, _tilesize.y * j + PADDINGY);  //setting position
 
 		}
 
@@ -188,17 +197,61 @@ void Display::run() {
 
 	while (_window.pollEvent(_event)) {
 
-		if (_event.type == sf::Event::Closed)
-			_window.close();
+		switch (_event.type) {
 
-		if (sf::Event::KeyPressed) {
-			if (key)
+			case sf::Event::Closed: 
+				_window.close();
+				break;
+
+			case sf::Event::KeyPressed: 
 				keyPressed(_event);
-			else
-				key = true;
+				break;
+
+			case sf::Event::MouseMoved:
+				std::cout << "X: " << _event.mouseMove.x << " Y: " << _event.mouseMove.y << std::endl;
+				gridHover(_event.mouseMove.x, _event.mouseMove.y);
+				break;
+
+
 		}
 
 	}
+
+}
+
+void Display::gridHover(int x, int y) { //this function needs the actual object to display the info
+
+	//std::cout << "Hover X: " << (x - PADDINGX - BORDER_SIZE*_tilesize.x)/_tilesize.x << " Hover Y: " << (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y << std::endl;
+
+	std::cout << grid->getCellValue((x - PADDINGX - BORDER_SIZE*_tilesize.x) / _tilesize.x, (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y) << std::endl;
+	showInfo(grid->getCellValue((x - PADDINGX - BORDER_SIZE*_tilesize.x) / _tilesize.x, (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y));
+
+} 
+
+void Display::showInfo(int type) {
+
+	text.setFont(font);
+
+	switch (type) {
+
+	case 5: 
+		text.setString("Player: Arnold\nStats: 2good4u\nClass: classyaf");
+		_window.clear();
+		break;
+
+	default:
+		text.setString("Hover over objects to view stats");
+		_window.clear();
+		break;
+
+	}
+
+	text.setCharacterSize(16);
+	//text.setColor(sf::Color::White);
+	text.setPosition(_width*_tilesize.x + BORDER_SIZE + PADDINGX, BORDER_SIZE + PADDINGY);
+
+	_window.draw(text);
+	update();
 
 }
 
@@ -213,7 +266,6 @@ void Display::keyPressed(sf::Event event) {
 			grid->move(_playerX, _playerY, _playerX, _playerY - 1);
 			_playerY--;
 			update();
-			key = false;
 			std::cout << "Up" << std::endl;
 		}
 		break;
@@ -223,7 +275,6 @@ void Display::keyPressed(sf::Event event) {
 			grid->move(_playerX, _playerY, _playerX, _playerY + 1);
 			_playerY++;
 			update();
-			key = false;
 			std::cout << "Down" << std::endl;
 		}
 		break;
@@ -233,7 +284,6 @@ void Display::keyPressed(sf::Event event) {
 			grid->move(_playerX, _playerY, _playerX - 1, _playerY);
 			_playerX--;
 			update();
-			key = false;
 			std::cout << "Left" << std::endl;
 		}
 		break;
@@ -243,7 +293,6 @@ void Display::keyPressed(sf::Event event) {
 			grid->move(_playerX, _playerY, _playerX + 1, _playerY);
 			_playerX++;
 			update();
-			key = false;
 			std::cout << "Right" << std::endl;
 		}
 		break;

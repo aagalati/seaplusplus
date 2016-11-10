@@ -76,16 +76,21 @@ Future goals:
 void main()
 {
 
-	Grid *grid = new Grid(15, 10, false);
+	Grid *grid = new Grid(5, 5, false);
 
 	Display *display = new Display(grid);
 
 	display->loadTextures();
+	display->loadFonts();
 	display->loadSprites();
+	
+	display->showInfo(1);
 
-	while (display->windowOpen())
+	while (display->windowOpen()) {
+
 		display->run();
 
+	}
 
 }
 

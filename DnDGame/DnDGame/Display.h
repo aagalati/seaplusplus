@@ -9,11 +9,14 @@ class Display : public Observer
 {
 public:
 	Display(Grid *grid);
+	void loadFonts();
 	void loadTextures();
 	void loadSprites();
 	void update();
 	bool windowOpen();
 	void run();
+	void showInfo(int type);
+	void gridHover(int x, int y);
 	void keyPressed(sf::Event event);
 	~Display();
 	
@@ -27,6 +30,9 @@ private:
 
 	sf::Texture tileTexture;
 	sf::Texture borderTexture;
+
+	sf::Font font;
+	sf::Text text;
 
 	sf::Event _event;
 
@@ -44,9 +50,8 @@ private:
 
 	int BORDER_SIZE;
 	int BORDER;
-	int PADDING;
-
-	bool key;
+	int PADDINGX;
+	int PADDINGY;
 
 	Grid *grid;
 	GridObserver *gridObs;
