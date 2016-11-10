@@ -63,8 +63,14 @@ Display::Display()   //!!MENU
 	_headersize.x = _windowsize.x*0.5;
 	_headersize.y = _windowsize.y*0.1;
 
+	_buttonsize.x = _windowsize.x*0.30;
+	_buttonsize.y = _windowsize.y*0.05;
+
 	_headerposition.x = _windowsize.x*0.25;
 	_headerposition.y = _windowsize.y*0.05;
+
+	_buttonposition.x = _windowsize.x*0.5 - _buttonsize.x*0.5;
+	_buttonposition.y = PADDINGY + _headerposition.y;
 
 	loadFonts();	
 
@@ -84,10 +90,53 @@ void Display::menuDisplay() {
 	//map creator
 
 	sf::RectangleShape header(_headersize);
-	header.setPosition(sf::Vector2f(_headerposition));
+	header.setPosition(_headerposition);
+
+
+	sf::RectangleShape playgame(_buttonsize);
+	sf::RectangleShape item(_buttonsize);
+	sf::RectangleShape mapmaker(_buttonsize);
+	sf::RectangleShape exit(_buttonsize);
+
+	_buttonmap.push_back(playgame);
+	_buttonmap.push_back(item);
+	_buttonmap.push_back(mapmaker);
+	_buttonmap.push_back(exit);
+
+
+	sf::Text buttonname;
+	buttonname.setFont(font);
+	buttonname.setFillColor(sf::Color::Blue);
+
+
+	for (int i = 0; i < _buttonmap.size(); i++) {
+
+		std::cout << "drawing button: " << i << std::endl;
+
+		_buttonposition.y = PADDINGY + _buttonsize.y*i;
+		_buttonmap[i].setPosition(_buttonposition);
+		switch (i) {
+			case 0: buttonname.setString("Play Game");
+				break;
+			case 1: buttonname.setString("Item Encyclopedia");
+				break;
+			case 3: buttonname.setString("Map Maker");
+				break;
+			case 2: buttonname.setString("Exit");
+				break;
+		}
+		buttonname.setPosition(_buttonposition.x + 20, _buttonposition.y + _buttonsize.y*0.5 + buttonname.getCharacterSize());
+		buttonname.setCharacterSize(20);
+		
+
+		_buttonposition.y += _buttonsize.y + PADDINGY;
+
+		_window.draw(_buttonmap[i]);
+		_window.draw(buttonname);
+		_window.display();
+	}
 
 	_window.draw(header);
-
 	_window.display();
 
 }
@@ -261,7 +310,7 @@ void Display::run() {
 			switch (_event.type) {
 
 			case sf::Event::Closed:
-				delete this;
+				//delete this;
 				_window.close();
 				break;
 

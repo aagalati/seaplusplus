@@ -18,6 +18,8 @@ public:
 	void loadSprites();
 
 	void menuDisplay();
+	void buttonToRight();
+	void buttonToLeftBottom();
 
 	void update();
 	bool windowOpen();
@@ -51,6 +53,7 @@ private:
 
 	sf::Event _event;
 
+	std::vector< sf::RectangleShape > _buttonmap;
 	std::vector< std::vector<sf::Sprite> > _tilemap;
 
 	enum tiletype { Space, Wall, Object, Entrance, Exit, Player };
