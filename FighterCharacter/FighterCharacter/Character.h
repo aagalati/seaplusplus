@@ -104,6 +104,8 @@ namespace std
 		int meleeAttackDamage;
 		int rangedAttackBonus;
 		int rangedAttackDamage;
+
+		int state;
 		
 		//!Equipment
 		string armor;
@@ -122,7 +124,7 @@ namespace std
 
 
 		//!Methods used for character generation
-		int hitPointsGenerator();
+		int hitPointsGenerator(int);
 		void abilityScoreGenerator(int);
 		int extraPoints(int);
 		
@@ -152,6 +154,7 @@ namespace std
 		void setMeleeAttackDamage(int);
 		void setRangedAttackBonus(int);
 		void setRangedAttackDamage(int);
+		void setState(int);
 
 		void setName(string);
 
@@ -188,6 +191,9 @@ namespace std
 		inline int getRangedAttackBonus();
 		inline int getRangedAttackDamage();
 
+		//State of Characters -> 0 is Player, 1 is Enemy NPC, 2 is Friendly NPC
+		inline int getState();
+
 		inline string getName();
 
 		
@@ -205,7 +211,9 @@ namespace std
 		Character();
 		Character(int);
 		Character(int, string);
+		Character(int, string, int);
 		Character(int, int, int, int, int, int);
+		Character(int, int, int, int, int, int, int);
 		Character(Character &c);
 		~Character();
 
@@ -221,6 +229,8 @@ namespace std
 		bool validateNewCharacter();
 		static bool validateStatistic(int);
 		void hit(int);
+		void levelUp();
+		void levelUp(int);
 
 		//!Printing Information 
 		void printCharacter();

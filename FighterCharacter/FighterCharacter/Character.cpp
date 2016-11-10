@@ -157,6 +157,13 @@ namespace std {
 		checkState();
 	}
 
+	void Character::setState(int st)
+	{
+		if (st < 0 || st > 2)
+			state = 0;
+		else state = 0;
+	}
+
 	//!Other Information
 	void Character::setName(string n)
 	{
@@ -305,6 +312,11 @@ namespace std {
 		return rangedAttackDamage;
 	}
 
+	inline int Character::getState()
+	{
+		return state;
+	}
+
 	//!Other Information Accessor
 	inline string Character::getName()
 	{
@@ -359,12 +371,12 @@ namespace std {
 		CharacterObserver *_charObservers = new CharacterObserver();
 		_char = _charObservers;
 	    _char->Attach(this);
-
+		setState(0);
 		setName("Default Joe");
 		setLevel(1);
 		abilityScoreGenerator(1);
 		setModifiers();
-		setHitPoints(hitPointsGenerator());
+		setHitPoints(hitPointsGenerator(getLevel()));
 		setCurrentHitPoints(getHitPoints());
 		setEquipment();
 
@@ -392,10 +404,11 @@ namespace std {
 			level = 1;
 		}
 
+		setState(0);
 		setLevel(level);
 		abilityScoreGenerator(level);
 		setModifiers();
-		setHitPoints(hitPointsGenerator());
+		setHitPoints(hitPointsGenerator(getLevel()));
 		setCurrentHitPoints(getHitPoints());
 		setEquipment();
 
@@ -405,7 +418,16 @@ namespace std {
 
 	Character::Character(int level, string name) : Character(level)
 	{
+		setInConstructor(true);
 		setName(name);
+		setInConstructor(false);
+	}
+
+	Character::Character(int level, string name, int state) : Character(level, name)
+	{
+		setInConstructor(true);
+		setState(state);
+		setInConstructor(false);
 	}
 
 	Character::Character(int s, int d, int c, int i, int w, int ch)
@@ -416,7 +438,7 @@ namespace std {
 		_char = _charObservers;
 		_char->Attach(this);
 
-
+		setState(0);
 		setName("Billy");
 		setEquipment();
 		setLevel(1);
@@ -441,6 +463,7 @@ namespace std {
 		_char = _charObservers;
 		_char->Attach(this);
 
+		setState(c.getState());
 		setLevel(c.getLevel());
 		setName(c.getName());
 		setStrength(c.getStrength());
@@ -473,10 +496,10 @@ namespace std {
 	//!Generators///////
 	/*!The hitpoints are generated as per the rules of dungeon and dragons and
 	int accordance to the level provided.*/
-	int Character::hitPointsGenerator() 
+	int Character::hitPointsGenerator(int lvl) 
 	{
 		int hP = 0;
-		for (int i = 0; i < getLevel(); i++)
+		for (int i = 0; i < lvl; i++)
 		{
 			if (i == 0)
 				hP = 10 + getConstitutionModifier();
@@ -573,7 +596,6 @@ namespace std {
 	
 	int Character::extraPoints(int lvl)
 	{
-		int points = 0;
 		switch (lvl)
 		{
 		case 4:
@@ -681,6 +703,44 @@ namespace std {
 	void Character::hit(int dmg)
 	{
 		currentHitPoints = currentHitPoints - dmg;
+	}
+
+	void Character::levelUp()
+	{
+		int lvl = getLevel();
+		setLevel(lvl++);
+		setHitPoints(getHitPoints() + hitPointsGenerator(lvl) );
+		if (lvl == 4 || lvl == 6 || lvl == 8 || lvl == 12 || lvl == 14 || lvl == 16 || lvl == 19)
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				int point = rand() % 6;
+				switch (point)
+				{
+				case 0:
+					setStrength(getStrength() + 1);
+				case 1:
+					setDexterity(getDexterity() + 1);
+
+				case 2:
+					setConstitution(getConstitution() + 1);
+				case 3:
+					setIntelligence(getIntelligence() + 1);
+				case 4:
+					setWisdom(getWisdom() + 1);
+				case 5:
+					setCharisma(getCharisma() + 1);
+				default:
+						 break;
+				}
+			}
+		}
+
+	}
+	void Character::levelUp(int x)
+	{
+		for (int i = 0; i < x; i++)
+			levelUp();
 	}
 
 	//This checks that the attributes of a character respect the DnD guidelines 
