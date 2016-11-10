@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <ctime>
+#include "Builder.h"
 
 using namespace std;
 
@@ -53,11 +54,17 @@ void Grid::validRandom() {
 void Grid::fillMapRandom()  //this method fills the map randomly with walls, objects and open spaces
 {
 
+	int t;
+	Builder *build = new Builder();
+
 	srand( time(NULL) );  //using srand for random numbers everytime
 
 	for (int i = 0; i < _width; i++) { //iterating through the whole 2d matrix and inserting random numbers
 		for (int j = 0; j < _height; j++) {
-			_gridData[i][j] = rand() % 3;
+			t = rand() % 3;
+			DNDObject *make = build->build(t);
+			_gridData[i][j] = make;
+
 		}
 	}
 	
@@ -68,7 +75,6 @@ void Grid::fillMapRandom()  //this method fills the map randomly with walls, obj
 		_exit_col = rand() % _width;
 		_exit_row = rand() % _height;
 	} while (_entrance_col == _exit_col && _entrance_row == _exit_row);
-
 
 	_gridData[_entrance_col][_entrance_row] = 3;
 	_gridData[_exit_col][_exit_row] = 4;

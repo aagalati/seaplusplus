@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Observer.h"
 #include "GridObserver.h"
+#include "DNDObject.h"
 
 using namespace std;
 
@@ -62,6 +63,6 @@ private:
 	GridObserver *_grid;
 
 
-	vector< vector<int> > _gridData;
+	vector< vector<DNDObject*> > _gridData;
 };
 
