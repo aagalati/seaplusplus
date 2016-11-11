@@ -19,6 +19,7 @@ public:
 	Grid(int width, int height, bool blank);
 	Grid(Grid* grid);
 	void fillMapRandom();
+	void fillMapBlank();
 	void validRandom();
 	bool checkValid();
 	bool checkValid(int col, int row, int dir);

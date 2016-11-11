@@ -24,7 +24,10 @@ Grid::Grid(int width, int height, bool blank) //constructor
 	_width = width;  //set values 
 	_height = height;
 	sizeMap();
-	if (!blank) fillMapRandom(); //if the user wants the map to be blank then the map is not filled randomly
+	if (blank)
+		fillMapBlank();
+	else
+		fillMapRandom(); //if the user wants the map to be blank then the map is not filled randomly
 	GridObserver *_gridObserver = new GridObserver();
 	_grid = _gridObserver;
 	_grid->Attach(this);
@@ -41,6 +44,7 @@ Grid::Grid(Grid* grid) {
 	this->_entrance_row = grid->_entrance_row;
 	this->_exit_col = grid->_exit_col;
 	this->_exit_row = grid->_exit_row;
+	this->_currentcell = grid->_currentcell;
 
 	GridObserver *_gridObserver = new GridObserver();
 	_grid = _gridObserver;
@@ -60,6 +64,19 @@ int Grid::getHeight() {
 void Grid::validRandom() {
 	while (!checkValid())
 		fillMapRandom();
+}
+
+void Grid::fillMapBlank() {
+
+	Builder *build = new Builder();
+	DNDObject *make = build->build(0);
+
+	for (int i = 0; i < _width; i++) { //iterating through the whole 2d matrix and inserting random numbers
+		for (int j = 0; j < _height; j++) {
+			_gridData[i][j] = make;
+		}
+	}
+
 }
 
 void Grid::fillMapRandom()  //this method fills the map randomly with walls, objects and open spaces
@@ -355,7 +372,8 @@ void Grid::resizeMap(int width, int height) {
 DNDObject* Grid::getCellValue(int width, int height) {
 
 		Builder *build = new Builder();
-		return (width < 0 || height < 0 || width > _width - 1 || height > _height -1) ? build->build(-1) : _gridData[width][height];  //check for bounds
+		DNDObject *make = build->build(-1);
+		return (width < 0 || height < 0 || width > _width - 1 || height > _height -1) ? make : _gridData[width][height];  //check for bounds
 
 }
 

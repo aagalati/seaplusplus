@@ -42,7 +42,7 @@ Display::Display(Grid *grid, int type)   //!!GAME
 	_window.create(sf::VideoMode(_windowsize.x, _windowsize.y), "Dungeouns and Dragons");
 	//_window.setKeyRepeatEnabled(false);
 
-	if (_type = 2) {
+	if (_type == 2) {
 
 		_buttonsize.x = _windowsize.x*0.15;
 		_buttonsize.y = _windowsize.y*0.15;
@@ -388,11 +388,11 @@ void Display::update() {
 
 	if (_type == 1 || _type == 2) {
 
-		int cellValue;
+
 
 		std::cout << "Update called in display" << std::endl;
 		std::cout << "PlayerX: " << _playerX << ", Player Y: " << _playerY << std::endl;
-		grid->printMapImage();
+		//grid->printMapImage();
 
 		for (int i = 0; i < _width; i++) {
 
@@ -400,6 +400,7 @@ void Display::update() {
 
 				if (!(i == 0 || j == 0 || i == _width - 1 || j == _height - 1)) {
 
+					int cellValue;
 					cellValue = grid->getCellValue(i - 1, j - 1)->type();  //refreshing map, rechecking all values
 					if (cellValue == Space)
 						_tilesource.y = Space;
@@ -441,43 +442,54 @@ void Display::run() {
 
 	while (_window.pollEvent(_event)) {
 
+		if (_type == 1) {
+
 			switch (_event.type) {
 
 			case sf::Event::Closed:
-				//delete this;
+				delete this;
 				_window.close();
 				break;
 
 			case sf::Event::KeyPressed:
-				if (_type == 1) {
-					keyPressed(_event);
-					break;
-				}
+				std::cout << "Key Pressed" << std::endl;
+				keyPressed(_event);
+				break;
 
 			case sf::Event::MouseMoved:
-				std::cout << "X: " << _event.mouseMove.x << " Y: " << _event.mouseMove.y << std::endl;
-				if (_type == 1) {
-					gridHover(_event.mouseMove.x, _event.mouseMove.y);
-				}
-				else if (_type == 0) {
-					buttonAction(_event.mouseMove.x, _event.mouseMove.y, false);
-				}
-				break;
-			
-			case sf::Event::MouseButtonPressed:
-				//std::cout << "Clicked at X: " << _event.mouseButton.x << " Y: " << _event.mouseButton.y << std::endl;
-				if (_type == 0) {
-					if (_event.mouseButton.button == sf::Mouse::Left) {
-						buttonAction(_event.mouseButton.x, _event.mouseButton.y, true);
-					}
-				}
+				//std::cout << "X: " << _event.mouseMove.x << " Y: " << _event.mouseMove.y << std::endl;
+				gridHover(_event.mouseMove.x, _event.mouseMove.y);
 				break;
 
 			}
+		}
 
+			if (_type == 0) {
+				switch (_event.type) {
+
+				case sf::Event::Closed:
+					//delete this;
+					_window.close();
+					break;
+
+				//case sf::Event::MouseMoved:
+					//std::cout << "X: " << _event.mouseMove.x << " Y: " << _event.mouseMove.y << std::endl;
+					//buttonAction(_event.mouseMove.x, _event.mouseMove.y, false);
+					//break;
+
+				case sf::Event::MouseButtonPressed:
+					//std::cout << "Clicked at X: " << _event.mouseButton.x << " Y: " << _event.mouseButton.y << std::endl;
+					if (_event.mouseButton.button == sf::Mouse::Left) {
+						buttonAction(_event.mouseButton.x, _event.mouseButton.y, true);
+					}
+					break;
+				}
+
+			}
+
+		}
+		
 	}
-
-}
 
 void Display::gridHover(int x, int y) { //this function needs the actual object to display the info
 
@@ -532,6 +544,8 @@ void Display::keyPressed(sf::Event event) {
 			update();
 			std::cout << "Up" << std::endl;
 		}
+		if (grid->getCellValue(_playerX, _playerY - 1)->type() == 4)
+			_window.close();
 		break;
 
 	case sf::Keyboard::Down:

@@ -87,8 +87,7 @@ void main()
 
 	}
 
-	while (!menu->goexit) {
-
+	
 		if (menu->goplay) {
 
 			Grid *grid = new Grid(10, 10, false);
@@ -118,8 +117,6 @@ void main()
 			}
 
 		}
-
-	}
 
 }
 
