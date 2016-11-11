@@ -31,6 +31,20 @@ The following were partially coded and almost implement:
 
 DNDGAME.ccp is the Driver
 
-Important information to run the GUI
+Important information to run the GUI:
 
+To install SFML:	1- Visit http://www.sfml-dev.org/download.php and download Visual C++ 14 (2015) - 64-bit
+
+						2- After downloading, extract the files onto the C drive
+
+						3- The file is typically named SFML-2.4.1 however in this application rename it to SFML 2.4.1 (ex. C:\SFML 2.4.1)
+
+						4-The code should now work, if the error persists it could be an issue with include or library path
+						  If the code cannot be run after troubleshooting, contact galati_ator@msn.com (my email) if you would
+						  like to get it to work. 
+						 (This tutorial is extremely helpful http://www.cplusplus.com/forum/beginner/95295/#msg511543 see 9) Configure Visual Studio)
+
+THIS PROGRAM IS OPTIMIZED IN 64 BIT AND VISUAL STUDIO 2015. 
+IF THERE IS ANY ISSUE COMPILING, WE WILL BRING OUR LAPTOP AND RUN THE 
+CODE AS WAS SUBMITTED.
 
