@@ -8,7 +8,6 @@ ItemContainer::ItemContainer()
 	accessible = true;
 }
 
-
 ItemContainer::~ItemContainer()
 {
 }
