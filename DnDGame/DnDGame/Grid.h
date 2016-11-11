@@ -17,7 +17,7 @@ public:
 
 	Grid();
 	Grid(int width, int height, bool blank);
-	Grid(const Grid& grid);
+	Grid(Grid* grid);
 	void fillMapRandom();
 	void validRandom();
 	bool checkValid();
