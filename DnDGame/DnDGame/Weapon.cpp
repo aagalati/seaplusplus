@@ -31,3 +31,11 @@ string Weapon::getItemType() const
 {
 	return "Weapon";
 }
+
+const Weapon& Weapon:: operator=(const Weapon& i)
+{
+	name = i.name;
+	enhType = i.enhType;
+	enhBonus = i.enhBonus;
+	return *this;
+}

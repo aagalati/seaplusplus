@@ -1,8 +1,4 @@
 
-
-#ifndef WEAPON_H
-#define WEAPON_H
-
 #include "Item.h"
 
 class Weapon : public Item
@@ -13,10 +9,11 @@ public:
 	~Weapon();
 
 	string getItemType() const;
+	const Weapon& operator=(const Weapon&);
 
 	void setEnhancement(EnhancementType enhanceType, int enhanceBonus);
 
 };
 
-#endif
+
 

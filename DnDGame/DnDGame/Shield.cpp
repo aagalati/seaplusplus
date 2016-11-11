@@ -30,3 +30,11 @@ string Shield::getItemType() const
 {
 	return "Shield";
 }
+
+const Shield& Shield:: operator=(const Shield& i)
+{
+	name = i.name;
+	enhType = i.enhType;
+	enhBonus = i.enhBonus;
+	return *this;
+}

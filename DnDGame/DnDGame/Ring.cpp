@@ -31,3 +31,11 @@ string Ring::getItemType() const
 {
 	return "Ring";
 }
+
+const Ring& Ring:: operator=(const Ring& i)
+{
+	name = i.name;
+	enhType = i.enhType;
+	enhBonus = i.enhBonus;
+	return *this;
+}

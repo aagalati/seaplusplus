@@ -1,8 +1,9 @@
 #pragma once
 
 //Parent class Item
-#ifndef ITEM_H
-#define ITEM_H
+
+#define _AFXDLL
+#include <afx.h>
 
 #include <iostream>
 #include <string>
@@ -10,16 +11,20 @@
 
 using namespace std;
 
-class Item : public DNDObject
+class Item : public DNDObject, public CObject
 {
 public:
+	
+	DECLARE_SERIAL(Item)
 
 	enum EnhancementType { 
 		Intelligence=0, Wisdom=1, Strength=2, Constitution=3, Charisma=4, Dexterity=5,
 		ArmorClass=6, AttackBonus=7, DamageBonus=8 };
+	
 	Item();
 	Item(string name, EnhancementType enhType, int enhBonus);
 	virtual ~Item();
+	
 	Item(const Item& orig);
 
 	string getItemName() const;
@@ -30,9 +35,16 @@ public:
 
 	void setItemName(string itemName);
 	virtual void setEnhancement(EnhancementType enhanceType, int enhanceBonus);
+	string toString();
 	virtual void displayItem();
 
-	string toString();
+	//serialization stuff
+	virtual void Serialize(CArchive& ar);
+	void save(int);
+	Item* load(int);
+
+
+	const Item& operator=(const Item&);
 
 protected:
 	string name;
@@ -41,4 +53,4 @@ protected:
 
 };
 
-#endif
+

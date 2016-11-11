@@ -31,3 +31,11 @@ string Boots::getItemType() const
 {
 	return "Boots";
 }
+
+const Boots& Boots:: operator=(const Boots& i)
+{
+	name = i.name;
+	enhType = i.enhType;
+	enhBonus = i.enhBonus;
+	return *this;
+}

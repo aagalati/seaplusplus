@@ -22,13 +22,6 @@ string Treasure::toString()
 {
 	if (!accessible)
 		return "Treasure";
-	
 	else
-	{
-		/*string content = "";
-		while (contained);
-		{
-			content += contained.iter.toString();
-		}*/
-	}
+		return ItemContainer::toString();
 }
