@@ -17,9 +17,9 @@ Display::Display(Grid *grid, int type)   //!!GAME
 
 	_type = type;
 
-	this->grid = new Grid(grid);
+	this->grid = new Grid(grid);  //copy  constructor
 
-	_width = this->grid->getWidth() + BORDER;
+	_width = this->grid->getWidth() + BORDER;  //setting up the game grid
 	_height = this->grid->getHeight() + BORDER;
 
 	_playerX = this->grid->getEntranceX();
@@ -99,12 +99,12 @@ Display::Display()   //!!MENU
 
 void Display::builderDisplay() {
 
-	button1.setSize(_buttonsize);
-	button2.setSize(_buttonsize);
+	button1.setSize(_buttonsize); //setting buttons for the builder
+	button2.setSize(_buttonsize); 
 	button3.setSize(_buttonsize);
 	button4.setSize(_buttonsize);
 
-	update();
+	update(); 
 
 	_window.display();
 
@@ -122,11 +122,11 @@ void Display::menuDisplay() {
 
 
 	button1.setSize(_buttonsize);
-	button2.setSize(_buttonsize);
+	button2.setSize(_buttonsize);   //putting the buttons and boxes in place for a nice GUI
 	button3.setSize(_buttonsize);
 	button4.setSize(_buttonsize);
 
-	sf::Text buttonname;
+	sf::Text buttonname;  //generate butttonname and set its attributes
 	buttonname.setFont(font);
 	buttonname.setFillColor(sf::Color::Black);
 	buttonname.setCharacterSize(20);
@@ -134,7 +134,7 @@ void Display::menuDisplay() {
 	buttonname.setString("Dungeons and Dragons!");
 	buttonname.setPosition(_headerposition.x + _headersize.x*0.25 + 10, _headerposition.y + 15);
 
-	_window.draw(header);
+	_window.draw(header);  
 	_window.draw(buttonname);
 
 	for (int i = 0; i < 4; i++) {
