@@ -5,7 +5,7 @@
 #include <string>
 
 
-Display::Display(Grid *grid)   //!!GAME
+Display::Display(Grid *grid, int type)   //!!GAME
 {
 
 	_type = game;
@@ -14,6 +14,8 @@ Display::Display(Grid *grid)   //!!GAME
 	BORDER = BORDER_SIZE * 2;
 	PADDINGX = 32;
 	PADDINGY = 32;
+
+	_type = type;
 
 	this->grid = new Grid(*grid);
 
@@ -36,8 +38,22 @@ Display::Display(Grid *grid)   //!!GAME
 	loadTextures();
 	loadSprites();
 
+	
 	_window.create(sf::VideoMode(_windowsize.x, _windowsize.y), "Dungeouns and Dragons");
 	//_window.setKeyRepeatEnabled(false);
+
+	if (_type = 2) {
+
+		_buttonsize.x = _windowsize.x*0.15;
+		_buttonsize.y = _windowsize.y*0.15;
+
+		_buttonposition.x = _buttonposition.x = _width*_tilesize.x + BORDER_SIZE + PADDINGX;
+		_buttonposition.y = PADDINGY + _headerposition.y;
+
+		builderDisplay();
+
+	}
+
 
 }
 
@@ -81,6 +97,61 @@ Display::Display()   //!!MENU
 
 }
 
+void Display::builderDisplay() {
+
+	button1.setSize(_buttonsize);
+	button2.setSize(_buttonsize);
+	button3.setSize(_buttonsize);
+	button4.setSize(_buttonsize);
+
+	update();
+
+	for (int i = 0; i < 4; i++) {
+
+		std::cout << "drawing button: " << i << std::endl;
+
+		_buttonposition.y = PADDINGY + _buttonsize.y*i * 2 + _headerposition.y + _headersize.y;
+
+		if (i == 0) {
+			button1.setPosition(_buttonposition);
+			button1.setFillColor(sf::Color::Cyan);
+			button1.setOutlineThickness(4);
+			button1.setOutlineColor(sf::Color::Blue);
+
+			_window.draw(button1);
+		}
+
+		else if (i == 1) {
+			button2.setPosition(_buttonposition);
+			button2.setFillColor(sf::Color::Cyan);
+			button2.setOutlineThickness(4);
+			button2.setOutlineColor(sf::Color::Blue);
+
+			_window.draw(button2);
+		}
+
+		else if (i == 2) {
+			button3.setPosition(_buttonposition);
+			button3.setFillColor(sf::Color::Cyan);
+			button3.setOutlineThickness(4);
+			button3.setOutlineColor(sf::Color::Blue);
+
+			_window.draw(button3);
+		}
+
+		else if (i == 3) {
+			button4.setPosition(_buttonposition);
+			button4.setFillColor(sf::Color::Cyan);
+			button4.setOutlineThickness(4);
+			button4.setOutlineColor(sf::Color::Blue);
+
+			_window.draw(button4);
+		}
+
+	}
+
+
+}
 
 void Display::menuDisplay() {
 	
@@ -93,10 +164,10 @@ void Display::menuDisplay() {
 	header.setPosition(_headerposition);
 
 
-	playgame.setSize(_buttonsize);
-	itembutton.setSize(_buttonsize);
-	mapmaker.setSize(_buttonsize);
-	close.setSize(_buttonsize);
+	button1.setSize(_buttonsize);
+	button2.setSize(_buttonsize);
+	button3.setSize(_buttonsize);
+	button4.setSize(_buttonsize);
 
 	sf::Text buttonname;
 	buttonname.setFont(font);
@@ -116,54 +187,54 @@ void Display::menuDisplay() {
 		_buttonposition.y = PADDINGY + _buttonsize.y*i * 2 + _headerposition.y + _headersize.y;
 
 		if (i == 0) {
-			playgame.setPosition(_buttonposition);
-			playgame.setFillColor(sf::Color::Cyan);
-			playgame.setOutlineThickness(4);
-			playgame.setOutlineColor(sf::Color::Blue);
+			button1.setPosition(_buttonposition);
+			button1.setFillColor(sf::Color::Cyan);
+			button1.setOutlineThickness(4);
+			button1.setOutlineColor(sf::Color::Blue);
 
 			buttonname.setString("Play Game");
 			buttonname.setPosition(_buttonposition.x + 20, _buttonposition.y);
 
-			_window.draw(playgame);
+			_window.draw(button1);
 			_window.draw(buttonname);
 		}
 
 		else if (i == 1) {
-			itembutton.setPosition(_buttonposition);
-			itembutton.setFillColor(sf::Color::Cyan);
-			itembutton.setOutlineThickness(4);
-			itembutton.setOutlineColor(sf::Color::Blue);
+			button2.setPosition(_buttonposition);
+			button2.setFillColor(sf::Color::Cyan);
+			button2.setOutlineThickness(4);
+			button2.setOutlineColor(sf::Color::Blue);
 
 			buttonname.setString("Item Encyclopedia");
 			buttonname.setPosition(_buttonposition.x + 20, _buttonposition.y);
 
-			_window.draw(itembutton);
+			_window.draw(button2);
 			_window.draw(buttonname);
 		}
 
 		else if (i == 2) {
-			mapmaker.setPosition(_buttonposition);
-			mapmaker.setFillColor(sf::Color::Cyan);
-			mapmaker.setOutlineThickness(4);
-			mapmaker.setOutlineColor(sf::Color::Blue);
+			button3.setPosition(_buttonposition);
+			button3.setFillColor(sf::Color::Cyan);
+			button3.setOutlineThickness(4);
+			button3.setOutlineColor(sf::Color::Blue);
 
 			buttonname.setString("Map Maker");
 			buttonname.setPosition(_buttonposition.x + 20, _buttonposition.y);
 
-			_window.draw(mapmaker);
+			_window.draw(button3);
 			_window.draw(buttonname);
 		}
 
 		else if (i == 3) {
-			close.setPosition(_buttonposition);
-			close.setFillColor(sf::Color::Cyan);
-			close.setOutlineThickness(4);
-			close.setOutlineColor(sf::Color::Blue);
+			button4.setPosition(_buttonposition);
+			button4.setFillColor(sf::Color::Cyan);
+			button4.setOutlineThickness(4);
+			button4.setOutlineColor(sf::Color::Blue);
 
 			buttonname.setString("Exit");
 			buttonname.setPosition(_buttonposition.x + 20, _buttonposition.y);
 
-			_window.draw(close);
+			_window.draw(button4);
 			_window.draw(buttonname);
 		}
 
@@ -175,30 +246,30 @@ void Display::menuDisplay() {
 
 void Display::buttonAction(int x, int y, bool isClick) {
 
-	if (isClick)
-		std::cout << "clicked at x: " << x << " y: " << y << std::endl;
-	else
-		std::cout << "moved at x: " << x << " y: " << y << std::endl;
+	//if (isClick)
+		//std::cout << "clicked at x: " << x << " y: " << y << std::endl;
+	//else
+		//std::cout << "moved at x: " << x << " y: " << y << std::endl;
 
 
-	//std::cout << "Position XLeft: " << playgame.getPosition().x << " Position XRight: " << playgame.getPosition().x + _buttonsize.x << " Position YUp: " << playgame.getPosition().y << " Position YDown" << playgame.getPosition().y + _buttonsize.y << std::endl;
+	//std::cout << "Position XLeft: " << button1.getPosition().x << " Position XRight: " << button1.getPosition().x + _buttonsize.x << " Position YUp: " << button1.getPosition().y << " Position YDown" << button1.getPosition().y + _buttonsize.y << std::endl;
 	if (isClick) {
-		if (x > playgame.getPosition().x && x < playgame.getPosition().x + _buttonsize.x && y > playgame.getPosition().y && y < playgame.getPosition().y + _buttonsize.y) {
+		if (x > button1.getPosition().x && x < button1.getPosition().x + _buttonsize.x && y > button1.getPosition().y && y < button1.getPosition().y + _buttonsize.y) {
 			goplay = true;
 			_window.close();
 		}
 
-		if (x > itembutton.getPosition().x && x < itembutton.getPosition().x + _buttonsize.x && y > itembutton.getPosition().y && y < itembutton.getPosition().y + _buttonsize.y) {
+		if (x > button2.getPosition().x && x < button2.getPosition().x + _buttonsize.x && y > button2.getPosition().y && y < button2.getPosition().y + _buttonsize.y) {
 			goitem = true;
 			_window.close();
 		}
 
-		if (x > mapmaker.getPosition().x && x < mapmaker.getPosition().x + _buttonsize.x && y > mapmaker.getPosition().y && y < mapmaker.getPosition().y + _buttonsize.y) {
+		if (x > button3.getPosition().x && x < button3.getPosition().x + _buttonsize.x && y > button3.getPosition().y && y < button3.getPosition().y + _buttonsize.y) {
 			gobuilder = true;
 			_window.close();
 		}
 
-		if (x > close.getPosition().x && x < close.getPosition().x + _buttonsize.x && y > close.getPosition().y && y < close.getPosition().y + _buttonsize.y) {
+		if (x > button4.getPosition().x && x < button4.getPosition().x + _buttonsize.x && y > button4.getPosition().y && y < button4.getPosition().y + _buttonsize.y) {
 			goexit = true;
 			_window.close();
 		}
@@ -315,7 +386,7 @@ void Display::loadSprites() {
 
 void Display::update() {
 
-	if (_type == 1) {
+	if (_type == 1 || _type == 2) {
 
 		int cellValue;
 

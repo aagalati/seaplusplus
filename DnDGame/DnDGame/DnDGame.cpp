@@ -93,7 +93,7 @@ void main()
 
 			Grid *grid = new Grid(10, 10, false);
 
-			Display *game = new Display(grid);
+			Display *game = new Display(grid, 1);
 
 			while (game->windowOpen()) {
 
@@ -105,7 +105,19 @@ void main()
 
 		//else if (menu->goitem)
 
-		//else if (menu->gobuilder)
+		else if (menu->gobuilder) {
+
+			Grid *grid = new Grid(10, 10, true);
+
+			Display *build = new Display(grid, 2);
+
+			while (build->windowOpen()) {
+
+				build->run();
+
+			}
+
+		}
 
 	}
 

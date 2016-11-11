@@ -10,7 +10,7 @@
 class Display : public Observer
 {
 public:
-	Display(Grid *grid);
+	Display(Grid *grid, int type);
 	Display();
 
 	void loadFonts();
@@ -19,6 +19,9 @@ public:
 
 	void menuDisplay();
 	void buttonAction(int x, int y, bool isClick);
+
+	void builderDisplay();
+
 
 	void update();
 	bool windowOpen();
@@ -57,10 +60,10 @@ private:
 
 	sf::Event _event;
 
-	sf::RectangleShape playgame;
-	sf::RectangleShape itembutton;
-	sf::RectangleShape mapmaker;
-	sf::RectangleShape close;
+	sf::RectangleShape button1;
+	sf::RectangleShape button2;
+	sf::RectangleShape button3;
+	sf::RectangleShape button4;
 
 	std::vector< sf::RectangleShape > _buttonmap;
 	std::vector< std::vector<sf::Sprite> > _tilemap;
