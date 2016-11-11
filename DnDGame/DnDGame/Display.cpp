@@ -316,7 +316,7 @@ void Display::loadSprites() {
 				else if (cellValue == Wall)
 					_tilesource.y = Wall;
 				else if (cellValue == Object)
-					_tilesource.y = Space;
+					_tilesource.y = Object;
 				else if (cellValue == Entrance)
 					_tilesource.y = Entrance;
 				else if (cellValue == Exit)
@@ -364,7 +364,7 @@ void Display::update() {
 					else if (cellValue == Wall)
 						_tilesource.y = Wall;
 					else if (cellValue == Object)
-						_tilesource.y = Space;
+						_tilesource.y = Object;
 					else if (cellValue == Entrance)
 						_tilesource.y = Entrance;
 					else if (cellValue == Exit)
