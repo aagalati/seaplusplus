@@ -32,15 +32,15 @@ Grid::Grid(int width, int height, bool blank) //constructor
 
 }
 
-Grid::Grid(const Grid& grid ) {
+Grid::Grid(Grid* grid) {
 
-	_width = grid._width;
-	_height = grid._height;
-	_gridData = grid._gridData;
-	_entrance_col = grid._entrance_col;
-	_entrance_row = grid._entrance_row;
-	_exit_col = grid._exit_col;
-	_exit_row = grid._exit_row;
+	this->_width = grid->_width;
+	this->_height =grid->_height;
+	this->_gridData = grid->_gridData;
+	this->_entrance_col = grid->_entrance_col;
+	this->_entrance_row = grid->_entrance_row;
+	this->_exit_col = grid->_exit_col;
+	this->_exit_row = grid->_exit_row;
 
 	GridObserver *_gridObserver = new GridObserver();
 	_grid = _gridObserver;
@@ -417,17 +417,20 @@ void Grid:: Serialize(CArchive& archie)
 				if (type == 2)
 				{
 					ItemContainer* ic = dynamic_cast<ItemContainer*>(_gridData[i][j]);
+					archie << 700;
 					ic->Serialize(archie);
 				}
 
 				if (type == 5)
 				{
 					Character* ch = dynamic_cast<Character*>(_gridData[i][j]);
+					archie << 800;
 					ch->Serialize(archie);
 				}
 				else
 				{
 					Structure* st = dynamic_cast<Structure*>(_gridData[i][j]);
+					archie << 900;
 					st->Serialize(archie);
 				}
 			}
@@ -443,7 +446,11 @@ void Grid:: Serialize(CArchive& archie)
 		{
 			for (int j = 0; j < _width; j++) 
 			{
-				
+				int type;
+				archie >> type;
+
+				if (type == 700);
+
 			}
 		}
 	}
@@ -455,7 +462,7 @@ void Grid::save()
 	save.Open(_T("MapSave.txt"), CFile::modeCreate | CFile::modeWrite | CFile::modeNoTruncate);
 	CArchive archie(&save, CArchive::store);
 
-	Grid* _grid = new Grid(*this);
+	Grid* _grid = new Grid(this);
 	_grid->Serialize(archie);
 
 	delete _grid;

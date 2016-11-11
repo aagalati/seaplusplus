@@ -17,7 +17,7 @@ Display::Display(Grid *grid, int type)   //!!GAME
 
 	_type = type;
 
-	this->grid = new Grid(*grid);
+	this->grid = new Grid(grid);
 
 	_width = this->grid->getWidth() + BORDER;
 	_height = this->grid->getHeight() + BORDER;
