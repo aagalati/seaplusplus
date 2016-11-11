@@ -13,7 +13,10 @@ IMPLEMENT_SERIAL(Grid, CObject, 7)
 
 Grid::Grid()
 {
-
+	GridObserver *_gridObserver = new GridObserver();
+	_grid = _gridObserver;
+	_grid->Attach(this);
+	refresh = false;
 }
 
 Grid::Grid(int width, int height, bool blank) //constructor
@@ -29,15 +32,15 @@ Grid::Grid(int width, int height, bool blank) //constructor
 
 }
 
-Grid::Grid(const Grid& grid) {
+Grid::Grid(const Grid& grid ) {
 
-	this->_width = _width;
-	this->_height = _height;
-	this->_gridData = _gridData;
-	this->_entrance_col = _entrance_col;
-	this->_entrance_row = _entrance_row;
-	this->_exit_col = _exit_col;
-	this->_exit_row = _exit_row;
+	_width = grid._width;
+	_height = grid._height;
+	_gridData = grid._gridData;
+	_entrance_col = grid._entrance_col;
+	_entrance_row = grid._entrance_row;
+	_exit_col = grid._exit_col;
+	_exit_row = grid._exit_row;
 
 	GridObserver *_gridObserver = new GridObserver();
 	_grid = _gridObserver;
@@ -404,12 +407,46 @@ void Grid:: Serialize(CArchive& archie)
 	if (archie.IsStoring())
 	{
 		archie << _width << _height << _entrance_row << _entrance_col << _exit_row << _exit_col;
+		
+		for (int i = 0; i < _height; i++) { //iterating through the whole 2d matrix and inserting random numbers
 
+			for (int j = 0; j < _width; j++) {
+				int type;
+				type = _gridData[i][j]->type();
 
+				if (type == 2)
+				{
+					ItemContainer* ic = dynamic_cast<ItemContainer*>(_gridData[i][j]);
+					ic->Serialize(archie);
+				}
+
+				if (type == 5)
+				{
+					Character* ch = dynamic_cast<Character*>(_gridData[i][j]);
+					ch->Serialize(archie);
+				}
+				else
+				{
+					Structure* st = dynamic_cast<Structure*>(_gridData[i][j]);
+					st->Serialize(archie);
+				}
+			}
+		}
+			
 	}
 
 	else
-		true;
+	{
+		archie << _width << _height << _entrance_row << _entrance_col << _exit_row << _exit_col;
+		
+		for (int i = 0; i < _height; i++)
+		{
+			for (int j = 0; j < _width; j++) 
+			{
+				
+			}
+		}
+	}
 }
 
 void Grid::save()
