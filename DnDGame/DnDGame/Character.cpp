@@ -748,6 +748,7 @@ namespace std {
 		currentHitPoints = currentHitPoints - dmg;
 	}
 
+	
 	void Character::levelUp()
 	{
 		int lvl = getLevel();
@@ -843,7 +844,7 @@ namespace std {
 
 	}
 
-
+	
 	void Character::setEquipmentModifiers()
 	{
 		
