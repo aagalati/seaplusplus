@@ -1,8 +1,7 @@
 // DnDGame.cpp : Defines the entry point for the console application.
 
 /*----------------------------------------------------------------------
---------------------------Part 2: MapObserver---------------------------
-Adam Galati 26944094
+
 
 This program uses the DnDGame.cpp as the driver. The code has the observer pattern
 implemented (Subject and Observer as a superclass are used), this observer pattern
@@ -42,19 +41,6 @@ Important info:
 						 (This tutorial is extremely helpful http://www.cplusplus.com/forum/beginner/95295/#msg511543 see 9) Configure Visual Studio)
 
 
-Relevant changes since Assignment 1:
-	-GUI:
-		-DnDgame.cpp
-	-Observer Pattern:
-		-Subject class (Subject.h & Subject.cpp)
-		-Observer class (Oberser.h)
-		-Grid::Update()
-		-GridObserver
-
-Game Rules:
-	-Player can move
-	-Map had entrance and exit
-
 Future goals:
 	-Implement A* pathing for any character/enemy and for better optimized Grid::checkValid()
 
@@ -76,21 +62,19 @@ Future goals:
 
 void main()
 {
-	Display *menu = new Display();
+	Display *menu = new Display();  //make a menu display
 
 	
-	while (menu->windowOpen()) {
+	while (menu->windowOpen()) {  //open the menu
 
 		menu->run();
-		if (menu->goplay)
-			break;
 
 	}
 
 	
-		if (menu->goplay) {
+		if (menu->goplay) { //open play menu
 
-			Grid *grid = new Grid(10, 10, false);
+			Grid *grid = new Grid(10, 10, false);  //random grid
 
 			Display *game = new Display(grid, 1);
 
@@ -106,7 +90,7 @@ void main()
 
 		else if (menu->gobuilder) {
 
-			Grid *grid = new Grid(10, 10, true);
+			Grid *grid = new Grid(10, 10, true);  //blank grid
 
 			Display *build = new Display(grid, 2);
 
