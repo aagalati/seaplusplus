@@ -18,8 +18,7 @@ public:
 	void loadSprites();
 
 	void menuDisplay();
-	void buttonToRight();
-	void buttonToLeftBottom();
+	void buttonAction(int x, int y, bool isClick);
 
 	void update();
 	bool windowOpen();
@@ -52,6 +51,11 @@ private:
 	sf::Text text;
 
 	sf::Event _event;
+
+	sf::RectangleShape playgame;
+	sf::RectangleShape itembutton;
+	sf::RectangleShape mapmaker;
+	sf::RectangleShape close;
 
 	std::vector< sf::RectangleShape > _buttonmap;
 	std::vector< std::vector<sf::Sprite> > _tilemap;
