@@ -1,9 +1,12 @@
-
+#pragma once
 #include "Item.h"
 using namespace std;
+
 class Ring : public Item
 {
 public:
+
+	//Constructors
 	Ring(string name, EnhancementType enhType, int enhBonus);
 	Ring();
 	~Ring();

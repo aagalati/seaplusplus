@@ -55,7 +55,7 @@
 					   implementing the equipment and the name of the character. I tried to limit the 
 					   scope to increase efficiency but was having difficulties printing string information
 					   to the console without using the entire library.
-
+			afx:	   Necessary for Serialization.
 
 */
 
@@ -91,6 +91,7 @@ namespace std
 
 {
 	
+	//Class must be a subclass of CObject for MFC Serialization
 	class Character : public Observer , public CObject, public DNDObject
 	{
 	private:
@@ -118,6 +119,7 @@ namespace std
 		int rangedAttackBonus;
 		int rangedAttackDamage;
 
+		//Integer type used for grid recognition of object type;
 		int characterType;
 		
 		//!Equipment
@@ -235,6 +237,7 @@ namespace std
 		Character(int, string, int);
 		Character(int, int, int, int, int, int);
 		Character(int, int, int, int, int, int, int);
+		//Copy
 		Character(Character &c);
 		~Character();
 
@@ -244,7 +247,6 @@ namespace std
 		void setEquipmentModifiers();
 		int modifierCalculation(int);
 		
-		
 		void defaultEquip();
 		void equip(Item*);
 
@@ -252,6 +254,8 @@ namespace std
 		bool validateNewCharacter();
 		static bool validateStatistic(int);
 		void hit(int);
+
+		//Methods for map element adaptation
 		void levelUp();
 		void levelUp(int);
 

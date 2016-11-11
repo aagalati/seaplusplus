@@ -15,27 +15,40 @@ class Grid : public Observer, public CObject
 public:
 	DECLARE_SERIAL(Grid)
 
+	//Constructors
 	Grid();
 	Grid(int width, int height, bool blank);
 	Grid(Grid* grid);
+	~Grid();
+
+	//Randomization
 	void fillMapRandom();
 	void fillMapBlank();
 	void validRandom();
+
+	//Map Validation
 	bool checkValid();
 	bool checkValid(int col, int row, int dir);
+
+	//Console map print
 	void printMapValues();
 	void printMapImage();
 	void printMapImage(int col, int row);
+
+	//Map modification
 	void sizeMap();
 	void resizeMap(int width, int height);
+	
+	
 	void setCell(int col, int row, int set);
 	void setDoors();
 	
 	void move(int currentX, int  currentY, int nextX, int nextY);
+	
 	void update();
 	bool needRefresh();
 
-
+	//Grid Accessor
 	DNDObject* getCellValue(int width, int height);
 
 	int getWidth();
@@ -49,7 +62,6 @@ public:
 	//void addExtraCol(int set);
 	//void getWidth();
 	//void getHeight();
-	~Grid();
 	//generate stack for the shortest distance
 	//use objects/cell class for cells
 
@@ -75,6 +87,7 @@ private:
 
 	DNDObject *_currentcell;
 
+	//Actual grid component
 	vector< vector<DNDObject*> > _gridData;
 
 };

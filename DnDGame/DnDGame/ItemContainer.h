@@ -16,11 +16,13 @@ public:
 
 	DECLARE_SERIAL(ItemContainer,CObject, 2);
 
+	//Constructors
 	ItemContainer();
 	virtual ~ItemContainer();
 	ItemContainer(string containerName);
 	ItemContainer(int);
 	ItemContainer(const ItemContainer&);
+	
 	int getContainerSize();
 
 
@@ -29,6 +31,8 @@ public:
 	void pickupItem(int ItemNo, ItemContainer fromContainer, ItemContainer intoContainer);
 	void displayContainer();
 	void displayAndDropItem();
+	
+	//DNDObject virtual method
 	string toString();
 	
 	const ItemContainer& operator=(const ItemContainer&);
@@ -38,7 +42,7 @@ public:
 	void save();
 	ItemContainer* load();
 
-	
+	//These are supposed to be protected, will be switched back after propper debugging
 	vector<Item> contained;
 	string containerName;
 	bool accessible;

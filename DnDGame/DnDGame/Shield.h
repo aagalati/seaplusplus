@@ -2,9 +2,12 @@
 
 #include "Item.h"
 using namespace std;
+
 class Shield : public Item
 {
 public:
+
+	//Constructors;
 	Shield(string name, EnhancementType enhType, int enhBonus);
 	Shield();
 	~Shield();

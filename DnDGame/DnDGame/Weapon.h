@@ -1,9 +1,13 @@
-
+#pragma once
 #include "Item.h"
+
+using namespace std;
 
 class Weapon : public Item
 {
 public:
+
+	//Constructors
 	Weapon(string name, EnhancementType enhType, int enhBonus);
 	Weapon();
 	~Weapon();
