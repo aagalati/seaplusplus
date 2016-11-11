@@ -32,3 +32,11 @@ string Armor::getItemType() const
 {
 	return "Armor";
 }
+
+const Armor& Armor:: operator=(const Armor& i)
+{
+	name = i.name;
+	enhType = i.enhType;
+	enhBonus = i.enhBonus;
+	return *this;
+}

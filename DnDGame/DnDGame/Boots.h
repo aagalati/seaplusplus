@@ -1,7 +1,5 @@
 #pragma once
 
-#ifndef BOOTS_H
-#define BOOTS_H
 
 #include "Item.h"
 using namespace std;
@@ -13,10 +11,10 @@ public:
 	~Boots();
 
 	string getItemType() const;
+	const Boots& operator=(const Boots&);
 
 	void setEnhancement(EnhancementType enhanceType, int enhanceBonus);
 
 };
 
-#endif
 

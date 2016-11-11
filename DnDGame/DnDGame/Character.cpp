@@ -8,7 +8,7 @@
 
 namespace std {
 
-	IMPLEMENT_SERIAL(Character, CObject, 1)
+	IMPLEMENT_SERIAL(Character, CObject, 0)
 	
 	////////Statistics Mutators////////
 	//!Ability Scores and Level
@@ -176,7 +176,7 @@ namespace std {
 	}
 
 	//!Equipment
-	void Character::setArmor(Armor a)
+	void Character::setArmor(Armor a) 
 	{
 		armor = a;
 	}
@@ -954,6 +954,7 @@ namespace std {
 				<< constitutionModifier << wisdomModifier << intelligenceModifier 
 				<< charismaModifier << hitPoints << armorClass << meleeAttackBonus 
 				<< meleeAttackDamage << rangedAttackBonus << rangedAttackDamage;
+			
 		}
 
 		else
@@ -964,6 +965,7 @@ namespace std {
 				>> constitutionModifier >> wisdomModifier >> intelligenceModifier
 				>> charismaModifier >> hitPoints >> armorClass >> meleeAttackBonus
 				>> meleeAttackDamage >> rangedAttackBonus >> rangedAttackDamage;
+			
 			
 			CT2CA converter(n);
 			string nameTemp(converter);

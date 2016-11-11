@@ -14,6 +14,7 @@ public:
 	~Helmet();
 
 	string getItemType() const;
+	const Helmet& operator=(const Helmet&);
 
 	void setEnhancement(EnhancementType enhanceType, int enhanceBonus);
 

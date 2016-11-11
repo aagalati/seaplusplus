@@ -1,13 +1,15 @@
 #pragma once
 
-#ifndef ARMOR_H
-#define ARMOR_H
-
 #include "Item.h"
+
 using namespace std;
-class Armor : public Item 
+class Armor : public Item
+
 {
 public:
+
+	
+	
 	Armor(string name, EnhancementType enhType, int enhBonus);
 	Armor();
 	~Armor();
@@ -16,7 +18,8 @@ public:
 
 	void setEnhancement(EnhancementType enhanceType, int enhanceBonus);
 
+	const Armor& operator=(const Armor&);
+
 };
 
-#endif
 

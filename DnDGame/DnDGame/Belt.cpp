@@ -31,3 +31,10 @@ string Belt::getItemType() const
 {
 	return "Belt";
 }
+const Belt& Belt:: operator=(const Belt& i)
+{
+	name = i.name;
+	enhType = i.enhType;
+	enhBonus = i.enhBonus;
+	return *this;
+}

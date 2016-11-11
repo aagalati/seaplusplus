@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef BELT_H
-#define BELT_H
-
 #include "Item.h"
 using namespace std;
 class Belt : public Item
@@ -13,10 +10,11 @@ public:
 	~Belt();
 
 	string getItemType() const;
+	const Belt& operator=(const Belt&);
 
 	void setEnhancement(EnhancementType enhanceType, int enhanceBonus);
 
 };
 
-#endif
+
 

@@ -1,7 +1,4 @@
-
-
-#ifndef SHIELD_H
-#define SHIELD_H
+#pragma once
 
 #include "Item.h"
 using namespace std;
@@ -13,10 +10,10 @@ public:
 	~Shield();
 
 	string getItemType() const;
+	const Shield& operator=(const Shield&);
 
 	void setEnhancement(EnhancementType enhanceType, int enhanceBonus);
 
 };
 
-#endif
 

@@ -4,7 +4,7 @@
 #include <string>
 
 using namespace std;
-class Treasure : public DNDObject, public ItemContainer
+class Treasure : public ItemContainer
 {
 private:
 	

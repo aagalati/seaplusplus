@@ -4,7 +4,9 @@
 using std::cout;
 #include "Structure.h"
 
-using namespace std;
+
+
+IMPLEMENT_SERIAL(Structure, CObject, 3)
 
 Structure::Structure()
 {
@@ -17,6 +19,11 @@ Structure::Structure(int st)
 		typeOfStructure = st;
 	else
 		cout << "Wrong integer value for structure" << endl;
+}
+
+Structure::Structure(const Structure& i)
+{
+	typeOfStructure = i.typeOfStructure;
 }
 
 Structure::~Structure()
@@ -51,3 +58,46 @@ string Structure::toString()
 
 	}
 }
+
+void Structure::Serialize(CArchive& ar)
+{
+	if (ar.IsStoring())
+	{
+		ar << typeOfStructure;
+	}
+	else
+		ar >> typeOfStructure;
+
+}
+
+void Structure::save()
+{
+	CFile save;
+	save.Open(_T("MapSave.txt"), CFile::modeCreate | CFile::modeWrite | CFile::modeNoTruncate);
+	CArchive archie(&save, CArchive::store);
+
+	Structure* _structure = new Structure(*this);
+	_structure->Serialize(archie);
+
+	delete _structure;
+	archie.Close();
+	save.Close();
+}
+
+Structure* Structure::load()
+{
+	CFile load;
+	load.Open(_T("MapSave.txt"), CFile::modeRead);
+	CArchive archie(&load, CArchive::load);
+
+	Structure* _structure = new Structure();
+	_structure->Serialize(archie);
+
+	archie.Close();
+	load.Close();
+
+	return _structure;
+
+}
+
+

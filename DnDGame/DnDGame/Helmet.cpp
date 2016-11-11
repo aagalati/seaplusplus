@@ -31,3 +31,10 @@ string Helmet::getItemType() const
 	return "Helmet";
 }
 
+const Helmet& Helmet:: operator=(const Helmet& i)
+{
+	name = i.name;
+	enhType = i.enhType;
+	enhBonus = i.enhBonus;
+	return *this;
+}
