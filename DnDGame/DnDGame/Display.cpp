@@ -455,7 +455,7 @@ void Display::run() {
 				}
 
 			case sf::Event::MouseMoved:
-				//std::cout << "X: " << _event.mouseMove.x << " Y: " << _event.mouseMove.y << std::endl;
+				std::cout << "X: " << _event.mouseMove.x << " Y: " << _event.mouseMove.y << std::endl;
 				if (_type == 1) {
 					gridHover(_event.mouseMove.x, _event.mouseMove.y);
 				}
@@ -491,6 +491,7 @@ void Display::gridHover(int x, int y) { //this function needs the actual object 
 
 void Display::showInfo(DNDObject* hover) {
 
+	std::cout << "Showing Info" << std::endl;
 	text.setFont(font);
 	text.setString(hover->toString());
 	_window.clear();
