@@ -30,6 +30,8 @@ public:
 
 	~Display();
 	
+	bool goplay;
+
 private:
 
 	sf::RenderWindow _window;

@@ -180,8 +180,14 @@ void Display::buttonAction(int x, int y, bool isClick) {
 	else
 		std::cout << "moved at x: " << x << " y: " << y << std::endl;
 
-	if (x > playgame.getOrigin().x && x < playgame.getOrigin().x + _buttonsize.x && y > playgame.getOrigin().y && y < playgame.getOrigin().y + _buttonsize.y)
-		std::cout << "SUP" << std::endl;
+
+	//std::cout << "Position XLeft: " << playgame.getPosition().x << " Position XRight: " << playgame.getPosition().x + _buttonsize.x << " Position YUp: " << playgame.getPosition().y << " Position YDown" << playgame.getPosition().y + _buttonsize.y << std::endl;
+	if (isClick) {
+		if (x > playgame.getPosition().x && x < playgame.getPosition().x + _buttonsize.x && y > playgame.getPosition().y && y < playgame.getPosition().y + _buttonsize.y) {
+			goplay = true;
+			_window.close();
+		}
+	}
 
 }
 
@@ -294,7 +300,7 @@ void Display::loadSprites() {
 
 void Display::update() {
 
-	if (_type = 1) {
+	if (_type == 1) {
 
 		int cellValue;
 
@@ -332,12 +338,6 @@ void Display::update() {
 			}
 
 		}
-
-	}
-
-	if (_type = 0) {
-
-
 
 	}
 

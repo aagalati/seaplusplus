@@ -78,13 +78,22 @@ void main()
 {
 	Display *menu = new Display();
 
-	//Grid *grid = new Grid(10, 10, false);
-
-	//Display *game = new Display(grid);
-
+	
 	while (menu->windowOpen()) {
 
 		menu->run();
+		if (menu->goplay)
+			break;
+
+	}
+
+	Grid *grid = new Grid(10, 10, false);
+
+	Display *game = new Display(grid);
+
+	while (game->windowOpen()) {
+
+		game->run();
 
 	}
 
