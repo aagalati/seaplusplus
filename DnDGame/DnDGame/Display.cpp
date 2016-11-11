@@ -106,50 +106,7 @@ void Display::builderDisplay() {
 
 	update();
 
-	for (int i = 0; i < 4; i++) {
-
-		std::cout << "drawing button: " << i << std::endl;
-
-		_buttonposition.y = PADDINGY + _buttonsize.y*i * 2 + _headerposition.y + _headersize.y;
-
-		if (i == 0) {
-			button1.setPosition(_buttonposition);
-			button1.setFillColor(sf::Color::Cyan);
-			button1.setOutlineThickness(4);
-			button1.setOutlineColor(sf::Color::Blue);
-
-			_window.draw(button1);
-		}
-
-		else if (i == 1) {
-			button2.setPosition(_buttonposition);
-			button2.setFillColor(sf::Color::Cyan);
-			button2.setOutlineThickness(4);
-			button2.setOutlineColor(sf::Color::Blue);
-
-			_window.draw(button2);
-		}
-
-		else if (i == 2) {
-			button3.setPosition(_buttonposition);
-			button3.setFillColor(sf::Color::Cyan);
-			button3.setOutlineThickness(4);
-			button3.setOutlineColor(sf::Color::Blue);
-
-			_window.draw(button3);
-		}
-
-		else if (i == 3) {
-			button4.setPosition(_buttonposition);
-			button4.setFillColor(sf::Color::Cyan);
-			button4.setOutlineThickness(4);
-			button4.setOutlineColor(sf::Color::Blue);
-
-			_window.draw(button4);
-		}
-
-	}
-
+	_window.display();
 
 }
 
@@ -427,6 +384,52 @@ void Display::update() {
 		}
 
 	}
+	
+	if (_type == 2) {
+		for (int i = 0; i < 4; i++) {
+
+			//std::cout << "drawing button: " << i << std::endl;
+
+			_buttonposition.y = PADDINGY + _buttonsize.y*i*1.1 + _headerposition.y + _headersize.y;
+
+			if (i == 0) {
+				button1.setPosition(_buttonposition);
+				button1.setFillColor(sf::Color::Black);
+				button1.setOutlineThickness(4);
+				button1.setOutlineColor(sf::Color::White);
+
+				_window.draw(button1);
+			}
+
+			else if (i == 1) {
+				button2.setPosition(_buttonposition);
+				button2.setFillColor(sf::Color(139,69,19));
+				button2.setOutlineThickness(4);
+				button2.setOutlineColor(sf::Color::White);
+
+				_window.draw(button2);
+			}
+
+			else if (i == 2) {
+				button3.setPosition(_buttonposition);
+				button3.setFillColor(sf::Color::Green);
+				button3.setOutlineThickness(4);
+				button3.setOutlineColor(sf::Color::White);
+
+				_window.draw(button3);
+			}
+
+			else if (i == 3) {
+				button4.setPosition(_buttonposition);
+				button4.setFillColor(sf::Color::Red);
+				button4.setOutlineThickness(4);
+				button4.setOutlineColor(sf::Color::White);
+
+				_window.draw(button4);
+			}
+
+		}
+	}
 
 	_window.display();
 
@@ -439,6 +442,9 @@ bool Display::windowOpen() {
 }
 
 void Display::run() {
+
+	if (_type == 2) 
+	update();
 
 	while (_window.pollEvent(_event)) {
 
@@ -459,6 +465,25 @@ void Display::run() {
 			case sf::Event::MouseMoved:
 				//std::cout << "X: " << _event.mouseMove.x << " Y: " << _event.mouseMove.y << std::endl;
 				gridHover(_event.mouseMove.x, _event.mouseMove.y);
+				break;
+
+			}
+		}
+
+		if (_type == 2) {
+
+			switch (_event.type) {
+
+			case sf::Event::Closed:
+				delete this;
+				_window.close();
+				break;
+
+			case sf::Event::MouseButtonPressed:
+				//std::cout << "Clicked at X: " << _event.mouseButton.x << " Y: " << _event.mouseButton.y << std::endl;
+				if (_event.mouseButton.button == sf::Mouse::Left) {
+					gridHover(_event.mouseButton.x, _event.mouseButton.y);
+				}
 				break;
 
 			}
@@ -497,6 +522,10 @@ void Display::gridHover(int x, int y) { //this function needs the actual object 
 
 	//std::cout << grid->getCellValue((x - PADDINGX - BORDER_SIZE*_tilesize.x) / _tilesize.x, (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y) << std::endl;
 
+	if(_type == 2)
+		grid->setCell((x - PADDINGX - BORDER_SIZE*_tilesize.x) / _tilesize.x, (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y, 1);
+
+	if (_type == 1)
 	showInfo(grid->getCellValue((x - PADDINGX - BORDER_SIZE*_tilesize.x) / _tilesize.x, (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y));
 
 } 
@@ -555,6 +584,8 @@ void Display::keyPressed(sf::Event event) {
 			update();
 			std::cout << "Down" << std::endl;
 		}
+		if (grid->getCellValue(_playerX, _playerY + 1)->type() == 4)
+			_window.close();
 		break;
 
 	case sf::Keyboard::Left:
@@ -564,6 +595,8 @@ void Display::keyPressed(sf::Event event) {
 			update();
 			std::cout << "Left" << std::endl;
 		}
+		if (grid->getCellValue(_playerX - 1, _playerY)->type() == 4)
+			_window.close();
 		break;
 
 	case sf::Keyboard::Right:
@@ -573,6 +606,8 @@ void Display::keyPressed(sf::Event event) {
 			update();
 			std::cout << "Right" << std::endl;
 		}
+		if (grid->getCellValue(_playerX + 1, _playerY)->type() == 4)
+			_window.close();
 		break;
 
 	}
