@@ -4,6 +4,8 @@
 #include <string>
 
 using namespace std;
+
+//Item container in map;
 class Treasure : public ItemContainer
 {
 private:

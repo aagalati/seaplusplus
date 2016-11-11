@@ -4,13 +4,16 @@
 #define HELMET_H
 
 #include "Item.h"
+
 using namespace std;
 class Helmet : public Item
 {
+
 public:
+	
+	//Constructors
 	Helmet(string name, EnhancementType enhType, int enhBonus);
 	Helmet();
-
 	~Helmet();
 
 	string getItemType() const;

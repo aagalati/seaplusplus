@@ -8,12 +8,12 @@ class Armor : public Item
 {
 public:
 
-	
-	
+	//Constructors;
 	Armor(string name, EnhancementType enhType, int enhBonus);
 	Armor();
 	~Armor();
 
+	
 	string getItemType() const;
 
 	void setEnhancement(EnhancementType enhanceType, int enhanceBonus);

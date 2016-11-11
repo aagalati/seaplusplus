@@ -11,6 +11,7 @@ Armor::~Armor()
 {
 }
 Armor::Armor(){}
+
 void Armor::setEnhancement(EnhancementType enhanceType, int enhanceBonus)
 {
 	if (enhanceType == ArmorClass)

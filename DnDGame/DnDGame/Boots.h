@@ -3,9 +3,12 @@
 
 #include "Item.h"
 using namespace std;
+
 class Boots : public Item
 {
 public:
+
+	//Contstructors
 	Boots(string name, EnhancementType enhType, int enhBonus);
 	Boots();
 	~Boots();

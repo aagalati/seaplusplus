@@ -16,6 +16,7 @@ public:
 	Builder(int);
 	~Builder();
 
+	//Method which creates a pointer to a new object for the map
 	DNDObject* build(int);
 
 };
