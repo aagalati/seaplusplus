@@ -31,6 +31,9 @@ public:
 	~Display();
 	
 	bool goplay;
+	bool gobuilder;
+	bool goitem;
+	bool goexit;
 
 private:
 

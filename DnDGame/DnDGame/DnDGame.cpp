@@ -87,13 +87,25 @@ void main()
 
 	}
 
-	Grid *grid = new Grid(10, 10, false);
+	while (!menu->goexit) {
 
-	Display *game = new Display(grid);
+		if (menu->goplay) {
 
-	while (game->windowOpen()) {
+			Grid *grid = new Grid(10, 10, false);
 
-		game->run();
+			Display *game = new Display(grid);
+
+			while (game->windowOpen()) {
+
+				game->run();
+
+			}
+
+		}
+
+		//else if (menu->goitem)
+
+		//else if (menu->gobuilder)
 
 	}
 

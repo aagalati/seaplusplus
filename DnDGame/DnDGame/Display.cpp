@@ -187,6 +187,21 @@ void Display::buttonAction(int x, int y, bool isClick) {
 			goplay = true;
 			_window.close();
 		}
+
+		if (x > itembutton.getPosition().x && x < itembutton.getPosition().x + _buttonsize.x && y > itembutton.getPosition().y && y < itembutton.getPosition().y + _buttonsize.y) {
+			goitem = true;
+			_window.close();
+		}
+
+		if (x > mapmaker.getPosition().x && x < mapmaker.getPosition().x + _buttonsize.x && y > mapmaker.getPosition().y && y < mapmaker.getPosition().y + _buttonsize.y) {
+			gobuilder = true;
+			_window.close();
+		}
+
+		if (x > close.getPosition().x && x < close.getPosition().x + _buttonsize.x && y > close.getPosition().y && y < close.getPosition().y + _buttonsize.y) {
+			goexit = true;
+			_window.close();
+		}
 	}
 
 }
