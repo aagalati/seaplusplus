@@ -1,4 +1,5 @@
 
+
 #include "stdafx.h"
 #include "Grid.h"
 #include <iostream>
@@ -7,6 +8,13 @@
 #include "Builder.h"
 
 using namespace std;
+
+IMPLEMENT_SERIAL(Grid, CObject, 7)
+
+Grid::Grid()
+{
+
+}
 
 Grid::Grid(int width, int height, bool blank) //constructor
 {
@@ -21,7 +29,7 @@ Grid::Grid(int width, int height, bool blank) //constructor
 
 }
 
-Grid::Grid(Grid *grid) {
+Grid::Grid(const Grid& grid) {
 
 	this->_width = _width;
 	this->_height = _height;
@@ -390,3 +398,47 @@ Grid::~Grid()
 		_grid = NULL; //destroy observer
 
 	}
+
+void Grid:: Serialize(CArchive& archie)
+{
+	if (archie.IsStoring())
+	{
+		archie << _width << _height << _entrance_row << _entrance_col << _exit_row << _exit_col;
+
+
+	}
+
+	else
+		true;
+}
+
+void Grid::save()
+{
+	CFile save;
+	save.Open(_T("MapSave.txt"), CFile::modeCreate | CFile::modeWrite | CFile::modeNoTruncate);
+	CArchive archie(&save, CArchive::store);
+
+	Grid* _grid = new Grid(*this);
+	_grid->Serialize(archie);
+
+	delete _grid;
+	archie.Close();
+	save.Close();
+
+}
+
+Grid* Grid::load()
+{
+	CFile load;
+	load.Open(_T("MapSave.txt"), CFile::modeRead);
+	CArchive archie(&load, CArchive::load);
+
+	Grid* _grid = new Grid();
+	_grid->Serialize(archie);
+
+	archie.Close();
+	load.Close();
+
+	return _grid;
+
+}

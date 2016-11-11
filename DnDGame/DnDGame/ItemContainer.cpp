@@ -137,10 +137,6 @@ void ItemContainer::save()
 	CArchive archie(&save, CArchive::store);
 
 	ItemContainer* _itemContainer = new ItemContainer(*this);
-	/*for (vector<Item>::iterator iter = _itemContainer->contained.begin(); iter != contained.end(); ++iter)
-	{
-		iter->Serialize(archie);
-	}*/
 	_itemContainer->Serialize(archie);
 
 	delete _itemContainer;

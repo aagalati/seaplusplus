@@ -1,4 +1,7 @@
 #pragma once
+#define _AFXDLL
+#include <afx.h>
+
 #include <vector>
 #include <iostream>
 #include "Observer.h"
@@ -7,12 +10,14 @@
 
 using namespace std;
 
-class Grid : public Observer
+class Grid : public Observer, public CObject
 {
 public:
+	DECLARE_SERIAL(Grid)
 
+	Grid();
 	Grid(int width, int height, bool blank);
-	Grid(Grid *grid);
+	Grid(const Grid& grid);
 	void fillMapRandom();
 	void validRandom();
 	bool checkValid();
@@ -47,6 +52,11 @@ public:
 	//generate stack for the shortest distance
 	//use objects/cell class for cells
 
+	//Serial stuff
+	virtual void Serialize(CArchive&);
+	void save();
+	Grid* load();
+
 private:
 
 	int _width;
@@ -55,10 +65,10 @@ private:
 	int _entrance_col;
 	int _exit_row;
 	int _exit_col;
-	int dir;
+	int dir; //
 	
-	bool isValid;
-	bool refresh;
+	bool isValid; //
+	bool refresh; //
 
 	GridObserver *_grid;
 
