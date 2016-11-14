@@ -467,7 +467,27 @@ void Grid:: Serialize(CArchive& archie)
 				int type;
 				archie >> type;
 
-				if (type == 700);
+				if (type == 700)
+				{
+					ItemContainer * ic = new ItemContainer;
+					ic->Serialize(archie);
+					_gridData[i][j] = ic;
+				}
+
+				if (type == 800)
+				{
+					Character* ch = new Character;
+					ch->setInConstructor(true);
+					ch->Serialize(archie);
+					_gridData[i][j] = ch;
+				}
+
+				if (type == 900)
+				{
+					Structure *st = new Structure;
+					st->Serialize(archie);
+					_gridData[i][j] = st;
+				}
 
 			}
 		}

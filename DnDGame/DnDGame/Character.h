@@ -272,7 +272,7 @@ namespace std
 		//!Method relevant to serialization
 		virtual void Serialize(CArchive& ar);
 		void save();
-		static Character* load();
+		static vector<Character*> load();
 	};
 };
 #endif //CHARACTER_H

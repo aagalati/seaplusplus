@@ -978,7 +978,7 @@ namespace std {
 	{
 		
 		CFile save;
-		save.Open(_T("CharacterSave.txt"), CFile::modeCreate | CFile::modeWrite);
+		save.Open(_T("CharacterSave.txt"), CFile::modeCreate | CFile::modeWrite | CFile::modeNoTruncate);
 		CArchive archie(&save, CArchive::store);
 
 		Character* _character = new Character(*this);
@@ -992,18 +992,28 @@ namespace std {
 	
 
 	
-	 Character* Character::load()
+	 vector <Character*> Character::load()
 	{
+
+		vector <Character*> characters;
 		CFile load;
 		load.Open(_T("CharacterSave.txt"), CFile::modeRead);
 		CArchive archie(&load, CArchive::load);
 
-		Character* _character = new Character();
-		_character->Serialize(archie);
-		
-		archie.Close();
-		load.Close();
-		return _character;
+		ULONGLONG _position = load.GetPosition();
+		while (_position != NULL)
+		{
+			Character* _character = new Character();
+			_character->Serialize(archie);
+			characters.push_back(_character);
+			_position = load.GetPosition();
+			
+		}
+
+			 archie.Close();
+			 load.Close();
+			 return characters;
+		 
 		
 	}
 

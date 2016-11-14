@@ -132,6 +132,8 @@ void ItemContainer::Serialize(CArchive& archie)
 
 void ItemContainer::save()
 {
+
+	
 	CFile save;
 	save.Open(_T("MapSave.txt"), CFile::modeCreate | CFile::modeWrite | CFile::modeNoTruncate);
 	CArchive archie(&save, CArchive::store);
