@@ -10,29 +10,35 @@
 class Display : public Observer
 {
 public:
+
+	//Constructors
 	Display(Grid *grid, int type);
 	Display();
+	~Display();
 
+	//Loading map visuals
 	void loadFonts();
 	void loadTextures();
 	void loadSprites();
 
+	//Main menu
 	void menuDisplay();
 	void buttonAction(int x, int y, bool isClick);
 
 	void builderDisplay();
 
-
+	//Program maintenance
 	void update();
 	bool windowOpen();
 	void run();
 
+	//Information Relayer to User
 	void showInfo(DNDObject* hover);
 	void gridHover(int x, int y);
 	void keyPressed(sf::Event event);
 
-	~Display();
-	
+
+	//Maintenance booleans
 	bool goplay;
 	bool gobuilder;
 	bool goitem;
@@ -40,6 +46,7 @@ public:
 
 private:
 
+	//Relevant GUI attributes.
 	sf::RenderWindow _window;
 
 	sf::Vector2i _tilesource;

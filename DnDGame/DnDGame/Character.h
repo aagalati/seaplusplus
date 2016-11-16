@@ -145,14 +145,6 @@ namespace std
 		//!Other Information
 		string name;
 
-
-		//!Methods used for character generation
-		int hitPointsGenerator(int);
-		void abilityScoreGenerator(int);
-		int extraPoints(int);
-		
-
-
 	public:
 		
 		DECLARE_SERIAL(Character)
@@ -252,6 +244,16 @@ namespace std
 		//Copy
 		Character(Character &c);
 		~Character();
+
+		//!Methods used for character generation
+		int hitPointsGenerator(int);
+		void abilityScoreGenerator(int);
+		int extraPoints(int);
+		
+		void setBullyAttributes();
+		void setNimbleAttributes();
+		void setTankAttributes();
+
 
 		
 		//!Functions for modifiers

@@ -444,7 +444,9 @@ namespace std {
 	
 
 	//!Constructor////////
-	Character::Character() 
+
+	//For the purpose of assignment 3, the default constructor and the constructor with set level of the original character class are reworked below these commentented block.
+	/*Character::Character() 
 	{
 		//This is done so the mutators will not trigger the Observer Pattern.
 		setInConstructor(true);
@@ -458,17 +460,20 @@ namespace std {
 		setName("Default Joe");
 		setLevel(1);
 		abilityScoreGenerator(1);
+		setBullyAttributes();
+		defaultEquip();	
 		setModifiers();
 		setHitPoints(hitPointsGenerator(getLevel()));
 		setCurrentHitPoints(getHitPoints());
 		
-		defaultEquip();
+		
 
 		setInConstructor(false);
 		delete _charObservers;
-	}
+	}*/
 
-	Character::Character(int level) 
+	
+	/*Character::Character(int level) 
 	{
 		setInConstructor(true);
 		
@@ -492,15 +497,33 @@ namespace std {
 		setCharacterType(5);
 		setLevel(level);
 		abilityScoreGenerator(level);
+		setBullyAttributes();
+		defaultEquip();
 		setModifiers();
 		setHitPoints(hitPointsGenerator(getLevel()));
 		setCurrentHitPoints(getHitPoints());
-		defaultEquip();
+		
 
 		setInConstructor(false);
 		delete _charObservers;
 		
+	}*/
+
+	Character::Character()
+	{
+		setInConstructor(true);
+		defaultEquip();
+		setCharacterType(5);
+		setLevel(1);
 	}
+	Character::Character(int lvl)
+	{
+		setInConstructor(true);
+		defaultEquip();
+		setCharacterType(5);
+		setLevel(lvl);
+	}
+
 
 	Character::Character(int level, string name) : Character(level)
 	{
@@ -684,16 +707,43 @@ namespace std {
 
 		}
 
-	//These assignments are done as such that a player who would
-	//choose the Fighter class would assign their stats with
-	//similar importance.
+	
+	}
+
+	void Character::setBullyAttributes()
+	{
+	
 		setStrength(abilityScores[0]);
 		setConstitution(abilityScores[1]);
 		setDexterity(abilityScores[2]);
-		setWisdom(abilityScores[3]);
+		setIntelligence(abilityScores[3]);
 		setCharisma(abilityScores[4]);
-		setIntelligence(abilityScores[5]);
-		
+		setWisdom(abilityScores[5]);
+
+	}
+
+	void Character::setNimbleAttributes()
+	{
+
+		setDexterity(abilityScores[0]);
+		setConstitution(abilityScores[1]);
+		setStrength(abilityScores[2]);
+		setIntelligence(abilityScores[3]);
+		setCharisma(abilityScores[4]);
+		setWisdom(abilityScores[5]);
+
+	}
+
+	void Character::setTankAttributes()
+	{
+
+		setConstitution(abilityScores[0]);
+		setDexterity(abilityScores[1]);
+		setStrength(abilityScores[2]);
+		setIntelligence(abilityScores[3]);
+		setCharisma(abilityScores[4]);
+		setWisdom(abilityScores[5]);
+
 	}
 
 	
@@ -970,9 +1020,9 @@ namespace std {
 		i += ("\n Melee Attack Bonus +" + to_string(getMeleeAttackBonus())); i += ("    Melee Damage Bonus: +" + to_string(getMeleeAttackDamage()));
 		i += ("\n Ranged Attack Bonus: +" + to_string(getRangedAttackBonus())); i += ("    Ranged Damage Bonus: +" + to_string(getRangedAttackDamage()));
 		i += ("\n Equipment:\n Armor: "); i += getArmor().toString();
-		i += ("\n Shield: " + getShield().toString()); i += ("\n Weapon: " + getWeapon().toString());
-		i += ("\n Boots: " + getBoots().toString()); i += ("\n Belt: " + getBelt().toString());
-		i += ("\n Ring: " + getRing().toString()); i += ("\n Helmet: " + getHelmet().toString());
+		i += ("\n Shield: " + (getShield().getItemName())); i += ("\n Weapon: " + (getWeapon().getItemName()));
+		i += ("\n Boots: " + (getBoots().getItemName())); i += ("\n Belt: " + (getBelt().getItemName()));
+		i += ("\n Ring: " + (getRing().getItemName())); i += ("\n Helmet: " + (getHelmet().getItemName()));
 		return i;
 
 		
