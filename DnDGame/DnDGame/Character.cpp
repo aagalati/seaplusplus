@@ -216,6 +216,61 @@ namespace std {
 		equipment = e;
 	}
 
+	void Character::setAbilityScores(int stat, int change)
+	{
+		switch (stat)
+		{
+		case 0:
+			{
+				abilityScores[0] = change;
+				break;
+			}
+		case 1:
+		{
+			abilityScores[1] = change;
+			break;
+		}
+		case 2:
+		{
+			abilityScores[2] = change;
+			break;
+		}
+		case 3:
+		{
+			abilityScores[3] = change;
+			break;
+		}
+		case 4:
+		{
+			abilityScores[4] = change;
+			break;
+		}
+		case 5:
+		{
+			abilityScores[6] = change;
+			break;
+		}
+		case 6:
+		{
+			abilityScores[6] = change;
+			break;
+		}
+		default:
+			cout << "Bad value";
+
+		}
+	}
+
+	void Character::setAbilityScores(int str, int cons, int dex, int wis, int cha, int inte)
+	{
+		abilityScores[0] = str;
+		abilityScores[1] = cons;
+		abilityScores[2] = dex;
+		abilityScores[3] = wis;
+		abilityScores[4] = cha;
+		abilityScores[5] = inte;
+
+	}
 	
 	
 	///////Statistics Accessors////////
@@ -378,6 +433,13 @@ namespace std {
 	int Character::type()
 	{
 		return characterType;
+	}
+
+	int* Character::getAbilityScores()
+	{
+		int* abScores;
+		abScores = abilityScores;
+		return abScores;
 	}
 	
 
@@ -555,9 +617,7 @@ namespace std {
 	void Character::abilityScoreGenerator(int level)
 	{
 	
-		const int NB_OF_ABILITIES = 6;
 		const int MAX_ROLLS = 4;
-		int abilityScores[NB_OF_ABILITIES];
 		int rolls[MAX_ROLLS];
 	
 	//This outer loop is meant to iterate for all of the 6 different

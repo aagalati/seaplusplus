@@ -119,6 +119,8 @@ namespace std
 		int rangedAttackBonus;
 		int rangedAttackDamage;
 
+		int nbOfAttacks;
+
 		//Integer type used for grid recognition of object type;
 		int characterType;
 		
@@ -135,6 +137,10 @@ namespace std
 		//Variables relevant to assignment 2
 		CharacterObserver* _char;
 		bool inConstructor;
+
+		//Variable relevant to assignment 3
+		static const int NB_OF_ABILITIES = 6;
+		int abilityScores[NB_OF_ABILITIES];
 
 		//!Other Information
 		string name;
@@ -187,6 +193,9 @@ namespace std
 		void setHelmet(Helmet);
 		void setEquipment(ItemContainer);
 
+		void setAbilityScores(int, int);
+		void setAbilityScores(int, int, int, int, int, int);
+
 		//!Statistics Accessors
 		inline int getLevel();
 		inline int getStrength();
@@ -211,6 +220,7 @@ namespace std
 		inline int getRangedAttackBonus();
 		inline int getRangedAttackDamage();
 
+		
 		//State of Characters -> 5 is Player, 6 is Enemy NPC, 7 is Friendly NPC
 		int type();
 
@@ -228,6 +238,8 @@ namespace std
 		inline Helmet getHelmet();
 
 		inline ItemContainer getEquipment();
+		
+		int* getAbilityScores();
 
 
 		//!Constructor
