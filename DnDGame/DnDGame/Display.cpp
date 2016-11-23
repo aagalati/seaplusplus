@@ -236,7 +236,7 @@ void Display::buttonAction(int x, int y, bool isClick) {
 
 void Display::loadTextures() {
 
-	if (!tileTexture.loadFromFile("texture/tiletexture.png"))   //load and verify textures
+	if (!tileTexture.loadFromFile("texture/tiletexture2.png"))   //load and verify textures
 		std::cout << "Error: Tile texture not loaded" << std::endl;
 	else
 		std::cout << "Tile texture loaded.." << std::endl;
