@@ -1015,38 +1015,45 @@ namespace std {
 
 		if (type == 1)
 		{
+			getBackpack().storeItem(getArmor());
 			Armor newArmor(i);
 			setArmor(newArmor);
 		}
 
 		else if (type == 2)
 		{
+			getBackpack().storeItem(getWeapon());
 			Weapon newWeapon(i);
 			setWeapon(newWeapon);
 		}
 
 		else if (type == 3)
 		{
+			getBackpack().storeItem(getShield());
 			Shield newShield(i);
 			setShield(newShield);
 		}
 		else if (type == 4)
 		{
+			getBackpack().storeItem(getBoots());
 			Boots newBoots(i);
 			setBoots(newBoots);
 		}
 		else if (type == 5)
 		{
+			getBackpack().storeItem(getBelt());
 			Belt newBelt(i);
 			setBelt(newBelt);
 		}
 		else if (type == 6)
 		{
+			getBackpack().storeItem(getRing());
 			Ring newRing(i);
 			setRing(newRing);
 		}
 		else if (type == 7)
 		{
+			getBackpack().storeItem(getHelmet());
 			Helmet newHelmet(i);
 			setHelmet(i);
 		}
@@ -1055,6 +1062,7 @@ namespace std {
 		
 		storeEquipment();
 	}
+	
 
 	
 	void Character::setEquipmentModifiers()

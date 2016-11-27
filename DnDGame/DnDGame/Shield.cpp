@@ -13,6 +13,7 @@ Shield::Shield(Item* i)
 	this->name = i->getItemName();
 	this->enhType = i->getEnhancementType();
 	this->enhBonus = i->getEnhancementBonus();
+	itemType = 3;
 }
 Shield::Shield(){}
 Shield::~Shield()

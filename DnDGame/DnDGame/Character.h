@@ -275,7 +275,6 @@ namespace std
 		void defaultEquip();
 		void storeEquipment();
 		void equip(Item*);
-		
 
 		//!Other Methods
 		bool validateNewCharacter();

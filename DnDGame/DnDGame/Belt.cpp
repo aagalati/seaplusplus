@@ -12,6 +12,7 @@ Belt::Belt(Item* i)
 	this->name = i->getItemName();
 	this->enhType = i->getEnhancementType();
 	this->enhBonus = i->getEnhancementBonus();
+	itemType = 5;
 }
 Belt::Belt(){}
 Belt::~Belt()

@@ -18,6 +18,7 @@ Weapon::Weapon(Item* i)
 	this->enhType = i->getEnhancementType();
 	this->enhBonus = i->getEnhancementBonus();
 	this->range = i->getRange();
+	itemType = 2;
 }
 
 Weapon::Weapon(){}
