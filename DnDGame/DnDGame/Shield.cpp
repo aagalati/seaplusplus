@@ -5,6 +5,14 @@
 Shield::Shield(string name, EnhancementType enhType, int enhBonus) : Item(name, enhType, enhBonus)
 {
 	this->enhType = ArmorClass;
+	itemType = 3;
+}
+
+Shield::Shield(Item* i)
+{
+	this->name = i->getItemName();
+	this->enhType = i->getEnhancementType();
+	this->enhBonus = i->getEnhancementBonus();
 }
 Shield::Shield(){}
 Shield::~Shield()

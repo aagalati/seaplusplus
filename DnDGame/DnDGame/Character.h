@@ -120,6 +120,7 @@ namespace std
 		int rangedAttackDamage;
 
 		int nbOfAttacks;
+		int movement;
 
 		//Integer type used for grid recognition of object type;
 		int characterType;
@@ -133,6 +134,7 @@ namespace std
 		Ring ring;
 		Helmet helmet;
 		ItemContainer equipment;
+		ItemContainer backpack;
 
 		//Variables relevant to assignment 2
 		CharacterObserver* _char;
@@ -169,6 +171,9 @@ namespace std
 		void setMeleeAttackDamage(int);
 		void setRangedAttackBonus(int);
 		void setRangedAttackDamage(int);
+
+		void setMovement(int);
+		void setNbOfAttacks(int);
 		
 		void setCharacterType(int);
 
@@ -184,6 +189,7 @@ namespace std
 		void setRing(Ring);
 		void setHelmet(Helmet);
 		void setEquipment(ItemContainer);
+		void setBackpack(ItemContainer);
 
 		void setAbilityScores(int, int);
 		void setAbilityScores(int, int, int, int, int, int);
@@ -212,6 +218,8 @@ namespace std
 		inline int getRangedAttackBonus();
 		inline int getRangedAttackDamage();
 
+		inline int getMovement();
+		inline int getNbOfAttacks();
 		
 		//State of Characters -> 5 is Player, 6 is Enemy NPC, 7 is Friendly NPC
 		int type();
@@ -230,6 +238,7 @@ namespace std
 		inline Helmet getHelmet();
 
 		inline ItemContainer getEquipment();
+		inline ItemContainer getBackpack();
 		
 		int* getAbilityScores();
 
@@ -249,7 +258,9 @@ namespace std
 		int hitPointsGenerator(int);
 		void abilityScoreGenerator(int);
 		int extraPoints(int);
+		void extraAttacks(int);
 		
+		//!Methods relevant to Assignment 3
 		void setBullyAttributes();
 		void setNimbleAttributes();
 		void setTankAttributes();
@@ -262,7 +273,9 @@ namespace std
 		int modifierCalculation(int);
 		
 		void defaultEquip();
+		void storeEquipment();
 		void equip(Item*);
+		
 
 		//!Other Methods
 		bool validateNewCharacter();

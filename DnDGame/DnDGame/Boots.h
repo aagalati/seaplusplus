@@ -10,6 +10,7 @@ public:
 
 	//Contstructors
 	Boots(string name, EnhancementType enhType, int enhBonus);
+	Boots(Item*);
 	Boots();
 	~Boots();
 

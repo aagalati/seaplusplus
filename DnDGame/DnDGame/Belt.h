@@ -11,6 +11,7 @@ public:
 	
 	//Construtcors;
 	Belt(string name, EnhancementType enhType, int enhBonus);
+	Belt(Item*);
 	Belt();
 	~Belt();
 

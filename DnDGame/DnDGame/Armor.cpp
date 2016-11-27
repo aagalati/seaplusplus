@@ -5,6 +5,14 @@
 Armor::Armor(string name, EnhancementType enhType, int enhBonus) : Item(name, enhType, enhBonus)
 {
 	this->enhType = ArmorClass;
+	itemType = 1;
+}
+
+Armor::Armor(Item *i)
+{
+	this->name = i->getItemName();
+	this->enhType = i->getEnhancementType();
+	this->enhBonus = i->getEnhancementBonus();
 }
 
 Armor::~Armor()

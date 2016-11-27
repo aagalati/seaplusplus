@@ -15,6 +15,11 @@ Item::Item(string name, EnhancementType enhType, int enhBonus)
 		this->enhBonus = enhBonus;
 	else
 		this->enhBonus = 0;
+	range = 0;
+}
+Item::Item(string name, EnhancementType enhType, int enhBonus, int _range) : Item(name, enhType, enhBonus)
+{
+	range = _range;
 }
 
 
@@ -60,9 +65,24 @@ int Item::getEnhancementBonus() const
 	return enhBonus;
 }
 
+string Item::getStringBonus()
+{
+	return to_string(enhBonus);
+}
+
 string Item::getItemType() const
 {
 	return "Item";
+}
+
+int Item::getRange()
+{
+	return range;
+}
+
+int Item::type()
+{
+	return itemType;
 }
 
 void Item::setItemName(string itemName) 
@@ -76,6 +96,22 @@ void Item::setEnhancement(EnhancementType enhanceType, int enhanceBonus)
 	enhBonus = enhanceBonus;
 }
 
+void Item::levelUp(int level)
+{
+	if (level > 0 && level < 4)
+		enhBonus = 0;
+	else if (level >= 4 && level < 8)
+		enhBonus = 1;
+	else if (level >= 8 && level < 11)
+		enhBonus = 2;
+	else if (level >= 11 && level < 14)
+		enhBonus = 3;
+	else if (level >= 14 && level < 17)
+		enhBonus = 4;
+	else if (level >= 18 && level <= 20)
+		enhBonus = 5;
+}
+
 string Item::toString()
 {
 	string item = "";
@@ -83,33 +119,47 @@ string Item::toString()
 	switch (getEnhancementType())
 	{
 	case 0:
-		item += "Int (+ " + getEnhancementBonus();
+		item += "[Int + " + getStringBonus();
+		item += "]";
 		break;
 	case 1:
-		item += "Wis (+ " + getEnhancementBonus();
+		item += "[Wis + " + getStringBonus();
+		item += "]";
 		break;
 	case 2:
-		item += "Str (+ " + getEnhancementBonus();
+		item += "[Str + " + getStringBonus();
+		item += "]";
 		break;
 	case 3:
-		item += "Con (+ " + getEnhancementBonus();
+		item += "[Con + " + getStringBonus();
+		item += "]";
 		break;
 	case 4:
-		item += "Cha (+ " + getEnhancementBonus();
+		item += "[Cha + " + getStringBonus();
+		item += "]";
 		break;
 	case 5:
-		item += "Dex (+ " + getEnhancementBonus();
+		item += "[Dex + " + getStringBonus();
+		item += "]";
 		break;
 	case 6:
-		item += "AC (+ " + getEnhancementBonus();
+		item += "[AC + " + getStringBonus();
+		item += "]";
 		break;
 	case 7:
-		item += "Melee Damage (+ " + getEnhancementBonus();
+		item += "[Melee Damage + " + getStringBonus();
+		item += "]";
 		break;
 	case 8:
-		item += "Ranged Damage (+ " + getEnhancementBonus();
+		item += "[Ranged Damage + " + getStringBonus();
+		item += "]";
 		break;
 	}
+
+	if (range == 1)
+		item += " Melee";
+	if (range >= 2)
+		item += "Ranged";
 
 	return item;
 }

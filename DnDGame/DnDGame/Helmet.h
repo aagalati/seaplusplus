@@ -13,6 +13,7 @@ public:
 	
 	//Constructors
 	Helmet(string name, EnhancementType enhType, int enhBonus);
+	Helmet(Item*);
 	Helmet();
 	~Helmet();
 

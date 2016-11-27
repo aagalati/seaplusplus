@@ -10,6 +10,7 @@ public:
 
 	//Constructors;
 	Armor(string name, EnhancementType enhType, int enhBonus);
+	Armor(Item*);
 	Armor();
 	~Armor();
 

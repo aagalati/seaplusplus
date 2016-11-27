@@ -8,6 +8,7 @@ public:
 
 	//Constructors
 	Ring(string name, EnhancementType enhType, int enhBonus);
+	Ring(Item*);
 	Ring();
 	~Ring();
 

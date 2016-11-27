@@ -9,6 +9,7 @@ public:
 
 	//Constructors;
 	Shield(string name, EnhancementType enhType, int enhBonus);
+	Shield(Item*);
 	Shield();
 	~Shield();
 

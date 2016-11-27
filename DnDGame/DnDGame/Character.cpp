@@ -9,16 +9,16 @@
 namespace std {
 
 	IMPLEMENT_SERIAL(Character, CObject, 0)
-	
-	////////Statistics Mutators////////
-	//!Ability Scores and Level
-	
 
-	//The mutators have been modified from assignment 1 with the addition of a checkState() method, which is what triggers the Observer pattern
-	void Character::setLevel(int l)
+		////////Statistics Mutators////////
+		//!Ability Scores and Level
+
+
+		//The mutators have been modified from assignment 1 with the addition of a checkState() method, which is what triggers the Observer pattern
+		void Character::setLevel(int l)
 	{
-			level = l;
-			checkState();
+		level = l;
+		checkState();
 	}
 
 	void Character::setStrength(int s)
@@ -102,7 +102,7 @@ namespace std {
 
 	void Character::setCharismaModifier(int chM)
 	{
-		charismaModifier = chM; 
+		charismaModifier = chM;
 		checkState();
 	}
 
@@ -153,8 +153,18 @@ namespace std {
 
 	void Character::setRangedAttackDamage(int rAD)
 	{
-		rangedAttackDamage = rAD; 
+		rangedAttackDamage = rAD;
 		checkState();
+	}
+
+	void Character::setMovement(int m)
+	{
+		movement = m;
+	}
+
+	void Character::setNbOfAttacks(int nb)
+	{
+		nbOfAttacks = nb;
 	}
 
 	void Character::setCharacterType(int st)
@@ -176,7 +186,7 @@ namespace std {
 	}
 
 	//!Equipment
-	void Character::setArmor(Armor a) 
+	void Character::setArmor(Armor a)
 	{
 		armor = a;
 	}
@@ -214,6 +224,11 @@ namespace std {
 	void Character::setEquipment(ItemContainer e)
 	{
 		equipment = e;
+	}
+
+	void Character::setBackpack(ItemContainer b)
+	{
+		backpack = b;
 	}
 
 	void Character::setAbilityScores(int stat, int change)
@@ -377,6 +392,16 @@ namespace std {
 		return rangedAttackDamage;
 	}
 
+	inline int Character::getMovement()
+	{
+		return movement;
+	}
+
+	inline int Character::getNbOfAttacks()
+	{
+		return nbOfAttacks;
+	}
+
 
 	//!Other Information Accessor
 	inline string Character::getName()
@@ -428,6 +453,11 @@ namespace std {
 	inline ItemContainer Character::getEquipment()
 	{
 		return equipment;
+	}
+
+	inline ItemContainer Character::getBackpack()
+	{
+		return backpack;
 	}
 
 	int Character::type()
@@ -502,7 +532,7 @@ namespace std {
 		setModifiers();
 		setHitPoints(hitPointsGenerator(getLevel()));
 		setCurrentHitPoints(getHitPoints());
-		
+		setMovement(3);
 
 		setInConstructor(false);
 		delete _charObservers;
@@ -514,14 +544,18 @@ namespace std {
 		setInConstructor(true);
 		defaultEquip();
 		setCharacterType(5);
+		setMovement(3);
 		setLevel(1);
+		extraAttacks(1);
 	}
 	Character::Character(int lvl)
 	{
 		setInConstructor(true);
 		defaultEquip();
 		setCharacterType(5);
+		setMovement(3);
 		setLevel(lvl);
+		extraAttacks(lvl);
 	}
 
 
@@ -602,8 +636,12 @@ namespace std {
 		setMeleeAttackDamage(c.getMeleeAttackDamage());
 		setRangedAttackBonus(c.getRangedAttackBonus());
 		setRangedAttackDamage(c.getRangedAttackDamage());
-
-		defaultEquip();
+		
+		setMovement(c.getMovement());
+		setNbOfAttacks(c.getNbOfAttacks());
+		
+		setBackpack(c.getBackpack());
+		setEquipment(c.getEquipment());
 
 		setInConstructor(false);
 		delete _charObservers;
@@ -789,6 +827,19 @@ namespace std {
 
 	}
 
+	void Character::extraAttacks(int level)
+	{
+		if (level < 5)
+			setNbOfAttacks(1);
+		if (level >= 5 && level < 11)
+			setNbOfAttacks(2);
+		if (level >= 11 && level < 20)
+			setNbOfAttacks(3);
+		if (level == 20)
+			setNbOfAttacks(4);
+			
+	}
+
 	//The modifiers are set as per the DnD guidelines by calling the
 	//modifierCalculation() function. 
 	//Take note that the seemingly over-complex implementation of
@@ -925,13 +976,14 @@ namespace std {
 			return true;
 	}
 	
+
 	void Character::defaultEquip()
 	{
 		
 		Armor chainmail("Chain Mail", Item::ArmorClass, 0);
 		setArmorClass(16);
 
-		Weapon longsword("Longsword", Item::AttackBonus , 0);
+		Weapon longsword("Longsword", Item::AttackBonus , 0, 1);
 		Shield shield("Iron Shield", Item::ArmorClass, 1);
 		Boots boots("Leather Boots", Item::Dexterity, 0);
 		Ring ring("Papa's Ring", Item::Constitution, 1);
@@ -941,17 +993,67 @@ namespace std {
 		setArmor(chainmail); setWeapon(longsword); setShield(shield);
 		setBoots(boots); setRing(ring); setBelt(belt); setHelmet(helmet);
 		
-		ItemContainer equip("Equipment");
-		setEquipment(equip);
-		equipment.storeItem(armor); equipment.storeItem(shield); equipment.storeItem(weapon);
-		equipment.storeItem(boots); equipment.storeItem(belt); equipment.storeItem(ring);
-		equipment.storeItem(helmet);
+		storeEquipment();
 
+	}
+
+	void Character::storeEquipment()
+	{
+		getEquipment().contained.clear();
+		getEquipment().storeItem(getArmor()); 
+		getEquipment().storeItem(getShield()); 
+		getEquipment().storeItem(getWeapon());
+		getEquipment().storeItem(getBoots());
+		getEquipment().storeItem(getRing());
+		getEquipment().storeItem(getBelt());
+		getEquipment().storeItem(getHelmet());
 	}
 
 	void Character::equip(Item* i)
 	{
+		int type = i->type();
 
+		if (type == 1)
+		{
+			Armor newArmor(i);
+			setArmor(newArmor);
+		}
+
+		else if (type == 2)
+		{
+			Weapon newWeapon(i);
+			setWeapon(newWeapon);
+		}
+
+		else if (type == 3)
+		{
+			Shield newShield(i);
+			setShield(newShield);
+		}
+		else if (type == 4)
+		{
+			Boots newBoots(i);
+			setBoots(newBoots);
+		}
+		else if (type == 5)
+		{
+			Belt newBelt(i);
+			setBelt(newBelt);
+		}
+		else if (type == 6)
+		{
+			Ring newRing(i);
+			setRing(newRing);
+		}
+		else if (type == 7)
+		{
+			Helmet newHelmet(i);
+			setHelmet(i);
+		}
+		else
+			return;
+		
+		storeEquipment();
 	}
 
 	
@@ -1019,10 +1121,10 @@ namespace std {
 		i += ("\t ArmorClass: " + to_string(getArmorClass()));
 		i += ("\n Melee Attack Bonus +" + to_string(getMeleeAttackBonus())); i += ("    Melee Damage Bonus: +" + to_string(getMeleeAttackDamage()));
 		i += ("\n Ranged Attack Bonus: +" + to_string(getRangedAttackBonus())); i += ("    Ranged Damage Bonus: +" + to_string(getRangedAttackDamage()));
-		i += ("\n Equipment:\n Armor: "); i += getArmor().toString();
-		i += ("\n Shield: " + (getShield().getItemName())); i += ("\n Weapon: " + (getWeapon().getItemName()));
-		i += ("\n Boots: " + (getBoots().getItemName())); i += ("\n Belt: " + (getBelt().getItemName()));
-		i += ("\n Ring: " + (getRing().getItemName())); i += ("\n Helmet: " + (getHelmet().getItemName()));
+		i += ("\n Equipment:\n Armor: "); i += getArmor().toString(); // i += " ("; i += getArmor().getEnhancementType()
+		i += ("\n Shield: " + (getShield().toString())); i += ("\n Weapon: " + (getWeapon().toString()));
+		i += ("\n Boots: " + (getBoots().toString())); i += ("\n Belt: " + (getBelt().toString()));
+		i += ("\n Ring: " + (getRing().toString())); i += ("\n Helmet: " + (getHelmet().toString()));
 		return i;
 
 		

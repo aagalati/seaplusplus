@@ -4,7 +4,22 @@
 
 Weapon::Weapon(string name, EnhancementType enhType, int enhBonus) : Item(name, enhType, enhBonus)
 {
+	itemType = 2;
+	range = 1;
 }
+Weapon::Weapon(string name, EnhancementType enhType, int enhBonus, int _range) : Weapon (name, enhType, _range)
+{
+	range = _range;
+}
+
+Weapon::Weapon(Item* i)
+{
+	this->name = i->getItemName();
+	this->enhType = i->getEnhancementType();
+	this->enhBonus = i->getEnhancementBonus();
+	this->range = i->getRange();
+}
+
 Weapon::Weapon(){}
 Weapon::~Weapon()
 {

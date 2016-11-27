@@ -4,6 +4,14 @@
 
 Belt::Belt(string name, EnhancementType enhType, int enhBonus) : Item(name, enhType, enhBonus)
 {
+	itemType = 5;
+}
+
+Belt::Belt(Item* i)
+{
+	this->name = i->getItemName();
+	this->enhType = i->getEnhancementType();
+	this->enhBonus = i->getEnhancementBonus();
 }
 Belt::Belt(){}
 Belt::~Belt()

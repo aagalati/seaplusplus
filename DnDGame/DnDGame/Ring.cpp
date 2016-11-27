@@ -4,6 +4,14 @@
 
 Ring::Ring(string name, EnhancementType enhType, int enhBonus) : Item(name, enhType, enhBonus)
 {
+	itemType = 6;
+}
+
+Ring::Ring(Item* i)
+{
+	this->name = i->getItemName();
+	this->enhType = i->getEnhancementType();
+	this->enhBonus = i->getEnhancementBonus();
 }
 Ring::Ring(){}
 Ring::~Ring()

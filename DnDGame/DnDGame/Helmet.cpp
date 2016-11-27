@@ -4,6 +4,15 @@
 
 Helmet::Helmet(string name, EnhancementType enhType, int enhBonus) : Item(name, enhType, enhBonus)
 {
+	itemType = 7;
+}
+
+
+Helmet::Helmet(Item* i)
+{
+	this->name = i->getItemName();
+	this->enhType = i->getEnhancementType();
+	this->enhBonus = i->getEnhancementBonus();
 }
 
 Helmet::~Helmet()

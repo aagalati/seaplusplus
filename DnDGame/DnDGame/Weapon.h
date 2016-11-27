@@ -9,6 +9,8 @@ public:
 
 	//Constructors
 	Weapon(string name, EnhancementType enhType, int enhBonus);
+	Weapon(string name, EnhancementType enhType, int enhBonus, int _range);
+	Weapon(Item*);
 	Weapon();
 	~Weapon();
 

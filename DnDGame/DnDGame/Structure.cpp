@@ -17,6 +17,7 @@ Structure::Structure(int st)
 {		//outofmap   floor     wall       entrance   exit
 	if (st == -1 || st == 0 || st == 1 || st == 3 || st == 4)
 		typeOfStructure = st;
+	
 	else
 		cout << "Wrong integer value for structure" << endl;
 }
@@ -33,6 +34,12 @@ Structure::~Structure()
 int Structure::type()
 {
 	return typeOfStructure;
+}
+
+void Structure::setToNextMap(Structure entrance)
+{
+	if (typeOfStructure == 4 && entrance.typeOfStructure == 3)
+		toNextMap = &entrance;
 }
 
 string Structure::toString()
