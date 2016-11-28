@@ -615,7 +615,6 @@ void Display::keyPressed(sf::Event event) {
 
 }
 
-
 Display::~Display()
 {
 
