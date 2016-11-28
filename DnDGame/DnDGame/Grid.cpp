@@ -522,5 +522,4 @@ Grid* Grid::load()
 	load.Close();
 
 	return _grid;
-
 }
