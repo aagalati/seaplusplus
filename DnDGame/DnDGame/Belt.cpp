@@ -2,7 +2,7 @@
 #include "Belt.h"
 
 
-Belt::Belt(string name, EnhancementType enhType, int enhBonus) : Item(name, enhType, enhBonus)
+Belt::Belt(std::string name, EnhancementType enhType, int enhBonus) : Item(name, enhType, enhBonus)
 {
 	itemType = 5;
 }
@@ -24,8 +24,8 @@ void Belt::setEnhancement(EnhancementType enhanceType, int enhanceBonus)
 	if ((enhanceType == Constitution) || (enhanceType == Strength))
 		enhType = enhanceType;
 	else {
-		cout << "Wrong Enhacement Type for Belt Item. May only be of type: Constitution or Strength." << endl
-			<< "Making Enhancement Type: Constitution" << endl;
+		std::cout << "Wrong Enhacement Type for Belt Item. May only be of type: Constitution or Strength." << std::endl
+			<< "Making Enhancement Type: Constitution" << std::endl;
 		enhType = Constitution;
 	}
 	if (enhanceBonus >= 0 && enhanceBonus <= 5)
@@ -36,7 +36,7 @@ void Belt::setEnhancement(EnhancementType enhanceType, int enhanceBonus)
 		enhBonus = 0;
 }
  
-string Belt::getItemType() const
+std::string Belt::getItemType() const
 {
 	return "Belt";
 }

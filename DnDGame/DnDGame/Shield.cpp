@@ -2,7 +2,7 @@
 #include "Shield.h"
 
 
-Shield::Shield(string name, EnhancementType enhType, int enhBonus) : Item(name, enhType, enhBonus)
+Shield::Shield(std::string name, EnhancementType enhType, int enhBonus) : Item(name, enhType, enhBonus)
 {
 	this->enhType = ArmorClass;
 	itemType = 3;
@@ -35,7 +35,7 @@ void Shield::setEnhancement(EnhancementType enhanceType, int enhanceBonus)
 		enhBonus = 0;
 }
 
-string Shield::getItemType() const
+std::string Shield::getItemType() const
 {
 	return "Shield";
 }

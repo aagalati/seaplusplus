@@ -19,7 +19,7 @@ Structure::Structure(int st)
 		typeOfStructure = st;
 	
 	else
-		cout << "Wrong integer value for structure" << endl;
+		std::cout << "Wrong integer value for structure" << std::endl;
 }
 
 Structure::Structure(const Structure& i)
@@ -42,25 +42,21 @@ void Structure::setToNextMap(Structure entrance)
 		toNextMap = &entrance;
 }
 
-string Structure::toString()
+std::string Structure::toString()
 {
 	switch (typeOfStructure) {
 
 	case 0: 
 		return "Floor";
-		break;
 	case 1:
 		return "Wall";
-		break;
 	case 3:
 		return "Entrance";
-		break;
 	case 4:
 		return "Exit";
-		break;
 	default: 
 		return "Hover over objects to view stats";
-		break;
+		
 
 
 	}

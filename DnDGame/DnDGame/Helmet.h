@@ -5,19 +5,20 @@
 
 #include "Item.h"
 
-using namespace std;
+using std::string;
+
 class Helmet : public Item
 {
 
 public:
 	
 	//Constructors
-	Helmet(string name, EnhancementType enhType, int enhBonus);
+	Helmet(std::string name, EnhancementType enhType, int enhBonus);
 	Helmet(Item*);
 	Helmet();
 	~Helmet();
 
-	string getItemType() const;
+	std::string getItemType() const;
 	const Helmet& operator=(const Helmet&);
 
 	void setEnhancement(EnhancementType enhanceType, int enhanceBonus);

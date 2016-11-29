@@ -3,8 +3,9 @@
 #include <afx.h>
 
 #include "DNDObject.h"
-#include <string>
-using namespace std;
+
+using std::string;
+
 
 //Representation of physical objects in Map
 class Structure : public DNDObject, public CObject
@@ -20,7 +21,7 @@ public:
 	DECLARE_SERIAL(Structure)
 	
 	int type();
-	string toString();
+	std::string toString();
 	void setToNextMap(Structure);
 	
 	

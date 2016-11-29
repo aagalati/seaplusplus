@@ -17,7 +17,7 @@
 //Take not that the program could more efficiently make a reference directly to the
 //subject, but the assignment instructions refer to the necessity of making a concrete
 //subject class.
-namespace std{
+
 
 
 	class CharacterObserver : public Subject
@@ -27,5 +27,5 @@ namespace std{
 		CharacterObserver();
 		void changeToCharacter();
 	};
-}
+
 

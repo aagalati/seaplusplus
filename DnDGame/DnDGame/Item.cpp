@@ -7,7 +7,7 @@ Item::Item(){
 
 
 }
-Item::Item(string name, EnhancementType enhType, int enhBonus)
+Item::Item(std::string name, EnhancementType enhType, int enhBonus)
 {
 	this->name = name;
 	this->enhType = enhType;
@@ -17,7 +17,7 @@ Item::Item(string name, EnhancementType enhType, int enhBonus)
 		this->enhBonus = 0;
 	range = 0;
 }
-Item::Item(string name, EnhancementType enhType, int enhBonus, int _range) : Item(name, enhType, enhBonus)
+Item::Item(std::string name, EnhancementType enhType, int enhBonus, int _range) : Item(name, enhType, enhBonus)
 {
 	range = _range;
 }
@@ -34,7 +34,7 @@ Item::Item(const Item& orig) {
 	this->enhBonus = orig.enhBonus;
 }
 
-string Item::getItemName() const
+std::string Item::getItemName() const
 {
 	return name;
 }
@@ -44,7 +44,7 @@ Item::EnhancementType Item::getEnhancementType() const
 	return enhType;
 }
 
-string Item::getEnhancementTypeString() const {
+std::string Item::getEnhancementTypeString() const {
 	switch (getEnhancementType()) {
 		case 0: return "Intelligence";
 		case 1: return "Wisdom";
@@ -65,12 +65,12 @@ int Item::getEnhancementBonus() const
 	return enhBonus;
 }
 
-string Item::getStringBonus()
+std::string Item::getStringBonus()
 {
-	return to_string(enhBonus);
+	return std::to_string(enhBonus);
 }
 
-string Item::getItemType() const
+std::string Item::getItemType() const
 {
 	return "Item";
 }
@@ -85,7 +85,7 @@ int Item::type()
 	return itemType;
 }
 
-void Item::setItemName(string itemName) 
+void Item::setItemName(std::string itemName)
 {
 	name = itemName;
 }
@@ -112,9 +112,9 @@ void Item::levelUp(int level)
 		enhBonus = 5;
 }
 
-string Item::toString()
+std::string Item::toString()
 {
-	string item = "";
+	std::string item = "";
 	item += getItemName() + " ";
 	switch (getEnhancementType())
 	{
@@ -165,7 +165,7 @@ string Item::toString()
 }
 
 void Item::displayItem() {
-	cout << this->getItemType() << " | Name: " << this->getItemName() << " | Enhancement: " << this->getEnhancementTypeString() << " +" << this->getEnhancementBonus() << endl;
+	std::cout << this->getItemType() << " | Name: " << this->getItemName() << " | Enhancement: " << this->getEnhancementTypeString() << " +" << this->getEnhancementBonus() << std::endl;
 } 
 
 const Item& Item::operator=(const Item& i) 
@@ -192,7 +192,7 @@ void Item::Serialize(CArchive& archie)
 		archie >> n >> type >> enhBonus;
 
 		CT2CA converter(n);
-		string nameTemp(converter);
+		std::string nameTemp(converter);
 		name = nameTemp;
 		
 		switch (type)

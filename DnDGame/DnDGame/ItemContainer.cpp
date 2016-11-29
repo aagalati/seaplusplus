@@ -12,7 +12,7 @@ ItemContainer::~ItemContainer()
 {
 }
 
-ItemContainer::ItemContainer(string containerName) {
+ItemContainer::ItemContainer(std::string containerName) {
 	accessible = true;
 	this->containerName = containerName;
 }
@@ -25,17 +25,35 @@ ItemContainer::ItemContainer(int i)
 	accessible = false;
 }
 
+/*Treasure ItemContainer::toTreasure(const ItemContainer &loot)
+{
+	Treasure treasure(loot);
+	return treasure;
+}*/
+
 ItemContainer::ItemContainer(const ItemContainer& i)
 {
 	accessible = i.accessible;
 	
-	vector<Item> iV = i.contained;
+	contained = i.contained;
 	
-	for (int i = 0; i < iV.size(); i++)
+	for (int i = 0; i < contained.size(); i++)
 	{
-		storeItem(iV[i]);
+		storeItem(contained[i]);
 	}
 
+}
+
+ItemContainer::ItemContainer(ItemContainer* i) 
+{
+	accessible = i->accessible;
+	
+	contained = i->contained;
+
+	for (int i = 0; i < contained.size(); i++)
+	{
+		storeItem(contained[i]);
+	}
 }
 
 void ItemContainer::storeItem(const Item &it){
@@ -52,34 +70,34 @@ void ItemContainer::pickupItem(int itemNo, ItemContainer fromContainer, ItemCont
 }
 
 void ItemContainer::displayContainer(){
-	cout << "INVENTORY OF " << containerName << endl;
+	std::cout << "INVENTORY OF " << containerName << std::endl;
 	int i = 0;
-	for (vector<Item>::iterator iter = contained.begin(); iter != contained.end(); ++iter) {
-		cout << i << " | ";
+	for (std::vector<Item>::iterator iter = contained.begin(); iter != contained.end(); ++iter) {
+		std::cout << i << " | ";
 		iter->displayItem();
 		i++;
 	}
-	cout << endl;
+	std::cout << std::endl;
 }
 
 void ItemContainer::displayAndDropItem() {
 	this->displayContainer();
-	cout << "Input # of Item you wish to drop: ";
+	std::cout << "Input # of Item you wish to drop: ";
 	int dropNo;
-	cin >> dropNo;
+	std::cin >> dropNo;
 	if (dropNo >= 0 && dropNo < contained.size()) {
 
 		this->dropItem(dropNo);
 		this->displayContainer();
 	}
 	else
-		cout << "Wrong # input, no Item will be dropped.";
+		std::cout << "Wrong # input, no Item will be dropped.";
 }
 
-string ItemContainer::toString()
+std::string ItemContainer::toString()
 {
-	string content = "";
-	for (vector<Item>::iterator iter = contained.begin(); iter != contained.end(); ++iter)
+	std::string content = "";
+	for (std::vector<Item>::iterator iter = contained.begin(); iter != contained.end(); ++iter)
 	{
 		content += iter->toString();
 		content += "\n ";
@@ -89,7 +107,7 @@ string ItemContainer::toString()
 
 const ItemContainer& ItemContainer:: operator=(const ItemContainer& i)
 {
-	vector<Item> iV = i.contained;
+	std::vector<Item> iV = i.contained;
 
 	for (int i = 0; i < iV.size(); i++)
 	{
@@ -106,7 +124,7 @@ void ItemContainer::Serialize(CArchive& archie)
 	{
 		archie << accessible;
 		archie << getContainerSize();
-		for (vector<Item>::iterator iter = contained.begin(); iter != contained.end(); ++iter)
+		for (std::vector<Item>::iterator iter = contained.begin(); iter != contained.end(); ++iter)
 		{
 			iter->Serialize(archie);
 		}

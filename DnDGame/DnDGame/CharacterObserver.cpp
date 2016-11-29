@@ -1,12 +1,11 @@
 #include "stdafx.h"
 #include "CharacterObserver.h"
-namespace std
-{
-	CharacterObserver::CharacterObserver() : Subject(){}
 
-	void CharacterObserver::changeToCharacter()
-	{
-		Notify();
-	}
+CharacterObserver::CharacterObserver() : Subject(){}
 
+void CharacterObserver::changeToCharacter()
+{		
+	Notify();
 }
+
+

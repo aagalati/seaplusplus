@@ -2,7 +2,7 @@
 #include "Helmet.h"
 
 
-Helmet::Helmet(string name, EnhancementType enhType, int enhBonus) : Item(name, enhType, enhBonus)
+Helmet::Helmet(std::string name, EnhancementType enhType, int enhBonus) : Item(name, enhType, enhBonus)
 {
 	itemType = 7;
 }
@@ -27,7 +27,7 @@ void Helmet::setEnhancement(EnhancementType enhanceType, int enhanceBonus)
 	if ((enhanceType == Intelligence) || (enhanceType == Wisdom) || (enhanceType == ArmorClass))
 		enhType = enhanceType;
 	else
-		cout << "Wrong Enhacement Type for Helmet Item. May only be of type: Intelligence, Wisdom, or ArmorClass." << endl;
+		std::cout << "Wrong Enhacement Type for Helmet Item. May only be of type: Intelligence, Wisdom, or ArmorClass." << std::endl;
 	if (enhanceBonus >= 0 && enhanceBonus <= 5)
 		enhBonus = enhanceBonus;
 	else if (enhBonus > 5)
@@ -36,7 +36,7 @@ void Helmet::setEnhancement(EnhancementType enhanceType, int enhanceBonus)
 		enhBonus = 0;
 }
 
-string Helmet::getItemType() const
+std::string Helmet::getItemType() const
 {
 	return "Helmet";
 }

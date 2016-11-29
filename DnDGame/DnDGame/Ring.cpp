@@ -24,8 +24,8 @@ void Ring::setEnhancement(EnhancementType enhanceType, int enhanceBonus)
 	if ((enhanceType == ArmorClass) || (enhanceType == Strength) || (enhanceType == Constitution) || (enhanceType == Wisdom) || (enhanceType == Charisma))
 		enhType = enhanceType;
 	else {
-		cout << "Wrong Enhacement Type for Belt Item. May only be of type: ArmorClass, Strength, Constitution, Wisdom, or Charisma." << endl
-			<< "Making Enhancement Type: ArmorClass" << endl;
+		std::cout << "Wrong Enhacement Type for Belt Item. May only be of type: ArmorClass, Strength, Constitution, Wisdom, or Charisma." << std::endl
+			<< "Making Enhancement Type: ArmorClass" << std::endl;
 		enhType = ArmorClass;
 	}
 	if (enhanceBonus >= 0 && enhanceBonus <= 5)

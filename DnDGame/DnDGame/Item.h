@@ -4,12 +4,11 @@
 
 #define _AFXDLL
 #include <afx.h>
-
-#include <iostream>
-#include <string>
 #include "DNDObject.h"
-
-using namespace std;
+#include < iostream>
+using std::cout;
+using std::cin;
+using std::string;
 
 class Item : public DNDObject, public CObject
 {
@@ -25,29 +24,29 @@ public:
 	
 	//Constructors
 	Item();
-	Item(string name, EnhancementType enhType, int enhBonus);
-	Item(string name, EnhancementType enhType, int enhBonus, int _range);
+	Item(std::string name, EnhancementType enhType, int enhBonus);
+	Item(std::string name, EnhancementType enhType, int enhBonus, int _range);
 	virtual ~Item();
 	//Copy
 	Item(const Item& orig);
 
 	//Accessor
-	string getItemName() const;
+	std::string getItemName() const;
 	EnhancementType getEnhancementType() const;
-	string getEnhancementTypeString() const;
+	std::string getEnhancementTypeString() const;
 	int getEnhancementBonus() const;
-	string getStringBonus();
-	virtual string getItemType() const;
+	std::string getStringBonus();
+	virtual std::string getItemType() const;
 	virtual int getRange();
 	int type();
 
 	//Mutators
-	void setItemName(string itemName);
+	void setItemName(std::string itemName);
 	virtual void setEnhancement(EnhancementType enhanceType, int enhanceBonus);
 	void levelUp(int);
 	
 	//DNDObject virtual method
-	string toString();
+	std::string toString();
 	virtual void displayItem();
 
 	//Serialization stuff
@@ -59,7 +58,7 @@ public:
 	const Item& operator=(const Item&);
 
 protected:
-	string name;
+	std::string name;
 	EnhancementType enhType;
 	int enhBonus;
 	

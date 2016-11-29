@@ -8,7 +8,7 @@
 
 #include "Item.h"
 
-using namespace std;
+using std::string;
 
 class ItemContainer : public DNDObject, public CObject
 {
@@ -19,12 +19,13 @@ public:
 	//Constructors
 	ItemContainer();
 	virtual ~ItemContainer();
-	ItemContainer(string containerName);
+	ItemContainer(std::string containerName);
 	ItemContainer(int);
 	ItemContainer(const ItemContainer&);
+	ItemContainer(ItemContainer*);
 	
 	int getContainerSize();
-
+	//Treasure toTreasure(const ItemContainer&);
 
 	void storeItem(const Item &it);
 	void dropItem(int itemNo);
@@ -32,8 +33,10 @@ public:
 	void displayContainer();
 	void displayAndDropItem();
 	
+	
+
 	//DNDObject virtual method
-	string toString();
+	std::string toString();
 	
 	const ItemContainer& operator=(const ItemContainer&);
 
@@ -43,8 +46,8 @@ public:
 	ItemContainer* load();
 
 	//These are supposed to be protected, will be switched back after propper debugging
-	vector<Item> contained;
-	string containerName;
+	std::vector<Item> contained;
+	std::string containerName;
 	bool accessible;
 
 	
