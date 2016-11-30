@@ -6,8 +6,6 @@
 #include <string>
 #include "Grid.h"
 #include "DNDObject.h"
-#include "GameButton.h"
-#include "TextButton.h"
 
 class Display : public Observer
 {
@@ -46,6 +44,10 @@ public:
 	bool goitem;
 	bool goexit;
 
+	bool goCharacter;
+	bool isvisibleEnemy;
+	bool bRemoveEnemy;
+
 private:
 
 	//Relevant GUI attributes.
@@ -74,19 +76,20 @@ private:
 	sf::RectangleShape button3;
 	sf::RectangleShape button4;
 
-	vector< TextButton* > textbuttons; //for menu
-
+	std::vector< sf::RectangleShape > _buttonmap;
 	std::vector< std::vector<sf::Sprite> > _tilemap;
 
-	enum tiletype { Space, Wall, Object, Entrance, Exit, Player };
+	enum tiletype { Space, Wall, Object, Entrance, Exit, Player, Enemy };
 	enum bordertype { tlcorner, top, trcorner, right, brcorner, bottom, blcorner, left };
-	enum windowtype {menu, game, itemcreator, mapcreator};
+	enum windowtype { menu, game, itemcreator, mapcreator };
 
 	int _type;
 	int _width;
 	int _height;
 	int _playerX;
 	int _playerY;
+	int _enemyX;
+	int _enemyY;
 	//int _cellValue; use as temp variable
 	//bool refresh;
 
@@ -98,4 +101,14 @@ private:
 	Grid *grid;
 	GridObserver *gridObs;
 
+public:
+	int AutoSearch();
+	BOOL IsEqual(int nValue);
+	int IsComplete();
+	void ChangeEnemy();
+	BOOL IsCrash();
+	void RemoveEnemy();
+	void RemoveHero();
+	void MoveHero(int nMoveX, int nMoveY);
 };
+
