@@ -1,5 +1,6 @@
 #pragma once
 #include <math.h>
+
 class Node
 {
 public:
@@ -28,5 +29,8 @@ protected:
 	int y;
 	int l;
 	int prio;
-};
+
+	
+
+}
 

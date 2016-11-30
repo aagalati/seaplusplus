@@ -57,6 +57,7 @@ public:
 	int getEntranceY();
 	int getExitX();
 	int getExitY();
+	vector< vector<DNDObject*> >& getGridData();
 
 
 	//void setRow(int row, int set);

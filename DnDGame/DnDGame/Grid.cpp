@@ -404,6 +404,11 @@ int Grid::getExitY() {
 
 }
 
+vector< vector<DNDObject*> >& Grid::getGridData()
+{
+	return _gridData;
+}
+
 void Grid::move(int currentX, int  currentY, int nextX, int nextY) {
 
 	DNDObject *temp;
