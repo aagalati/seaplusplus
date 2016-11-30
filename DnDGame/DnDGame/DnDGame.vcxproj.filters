@@ -105,7 +105,10 @@
     <ClInclude Include="TextButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MenuDisplay.h">
+    <ClInclude Include="Astar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -197,7 +200,10 @@
     <ClCompile Include="TextButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MenuDisplay.cpp">
+    <ClCompile Include="Astar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

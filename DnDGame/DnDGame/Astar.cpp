@@ -39,12 +39,12 @@ string Astar::pathFind(const int &xstart, const int &ystart, const int &xdone, c
 	int i, j, px, py, xdx, ydy;
 	char c;
 
-	for (py = 0; py < vertical; y++)
+	for (py = 0; py < vertical; py++)
 	{
-		for (px = 0; px < horizontal; x++)
+		for (px = 0; px < horizontal; px++)
 		{
-			closedmap[x][y] = 0;
-			openmap[x][y] = 0;
+			closedmap[px][py] = 0;
+			openmap[px][py] = 0;
 		}
 	}
 	
