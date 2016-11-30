@@ -1,9 +1,10 @@
 #pragma once
 #include "DNDObject.h"
 #include "ItemContainer.h"
-#include <string>
 
-using namespace std;
+using std::string;
+
+
 
 //Item container in map;
 class Treasure : public ItemContainer
@@ -15,9 +16,10 @@ private:
 public:
 
 	Treasure();
+	//Treasure(ItemContainer);
 	~Treasure();
 
 	int type();
-	string toString();
+	std::string toString();
 };
 

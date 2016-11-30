@@ -2,9 +2,9 @@
 #include "Treasure.h"
 
 
-Treasure::Treasure() : ItemContainer(1)
+Treasure::Treasure() : ItemContainer()
 {
-	
+	accessible = false;
 }
 
 
@@ -13,12 +13,17 @@ Treasure::~Treasure()
 	
 }
 
+/*Treasure::Treasure(ItemContainer loot) : ItemContainer(loot)
+{
+	accessible = false;
+}*/
+
 int Treasure::type()
 {
 	return _type;
 }
 
-string Treasure::toString()
+std::string Treasure::toString()
 {
 	if (!accessible)
 		return "Treasure";

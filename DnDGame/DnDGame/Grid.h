@@ -1,7 +1,6 @@
 #pragma once
 #define _AFXDLL
 #include <afx.h>
-
 #include <vector>
 #include <iostream>
 #include "Observer.h"
@@ -91,4 +90,3 @@ private:
 	vector< vector<DNDObject*> > _gridData;
 
 };
-

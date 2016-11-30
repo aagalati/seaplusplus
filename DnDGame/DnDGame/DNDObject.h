@@ -3,7 +3,8 @@
 
 //Types: 0 is floor, 1 is wall, 2 is treasure, 3 is entrance, 4 is exit, 5 is character, 6 is enemy character
 #include <string>
-using namespace std;
+using std::string;
+
 class DNDObject
 {
 private:
@@ -19,7 +20,7 @@ public:
 	virtual int type();
 
 	
-	virtual string toString();
+	virtual std::string toString();
 
 	
 };

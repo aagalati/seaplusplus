@@ -1,20 +1,21 @@
 #pragma once
 
 #include "Item.h"
+using std::string;
 
-using namespace std;
 class Armor : public Item
 
 {
 public:
 
 	//Constructors;
-	Armor(string name, EnhancementType enhType, int enhBonus);
+	Armor(std::string name, EnhancementType enhType, int enhBonus);
+	Armor(Item*);
 	Armor();
 	~Armor();
 
 	
-	string getItemType() const;
+	std::string getItemType() const;
 
 	void setEnhancement(EnhancementType enhanceType, int enhanceBonus);
 

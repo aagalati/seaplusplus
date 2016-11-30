@@ -7,7 +7,7 @@ Item::Item(){
 
 
 }
-Item::Item(string name, EnhancementType enhType, int enhBonus)
+Item::Item(std::string name, EnhancementType enhType, int enhBonus)
 {
 	this->name = name;
 	this->enhType = enhType;
@@ -15,6 +15,11 @@ Item::Item(string name, EnhancementType enhType, int enhBonus)
 		this->enhBonus = enhBonus;
 	else
 		this->enhBonus = 0;
+	range = 0;
+}
+Item::Item(std::string name, EnhancementType enhType, int enhBonus, int _range) : Item(name, enhType, enhBonus)
+{
+	range = _range;
 }
 
 
@@ -29,7 +34,7 @@ Item::Item(const Item& orig) {
 	this->enhBonus = orig.enhBonus;
 }
 
-string Item::getItemName() const
+std::string Item::getItemName() const
 {
 	return name;
 }
@@ -39,7 +44,7 @@ Item::EnhancementType Item::getEnhancementType() const
 	return enhType;
 }
 
-string Item::getEnhancementTypeString() const {
+std::string Item::getEnhancementTypeString() const {
 	switch (getEnhancementType()) {
 		case 0: return "Intelligence";
 		case 1: return "Wisdom";
@@ -60,12 +65,27 @@ int Item::getEnhancementBonus() const
 	return enhBonus;
 }
 
-string Item::getItemType() const
+std::string Item::getStringBonus()
+{
+	return std::to_string(enhBonus);
+}
+
+std::string Item::getItemType() const
 {
 	return "Item";
 }
 
-void Item::setItemName(string itemName) 
+int Item::getRange()
+{
+	return range;
+}
+
+int Item::type()
+{
+	return itemType;
+}
+
+void Item::setItemName(std::string itemName)
 {
 	name = itemName;
 }
@@ -76,46 +96,76 @@ void Item::setEnhancement(EnhancementType enhanceType, int enhanceBonus)
 	enhBonus = enhanceBonus;
 }
 
-string Item::toString()
+void Item::levelUp(int level)
 {
-	string item = "";
+	if (level > 0 && level < 4)
+		enhBonus = 0;
+	else if (level >= 4 && level < 8)
+		enhBonus = 1;
+	else if (level >= 8 && level < 11)
+		enhBonus = 2;
+	else if (level >= 11 && level < 14)
+		enhBonus = 3;
+	else if (level >= 14 && level < 17)
+		enhBonus = 4;
+	else if (level >= 18 && level <= 20)
+		enhBonus = 5;
+}
+
+std::string Item::toString()
+{
+	std::string item = "";
 	item += getItemName() + " ";
 	switch (getEnhancementType())
 	{
 	case 0:
-		item += "Int (+ " + getEnhancementBonus();
+		item += "[Int + " + getStringBonus();
+		item += "]";
 		break;
 	case 1:
-		item += "Wis (+ " + getEnhancementBonus();
+		item += "[Wis + " + getStringBonus();
+		item += "]";
 		break;
 	case 2:
-		item += "Str (+ " + getEnhancementBonus();
+		item += "[Str + " + getStringBonus();
+		item += "]";
 		break;
 	case 3:
-		item += "Con (+ " + getEnhancementBonus();
+		item += "[Con + " + getStringBonus();
+		item += "]";
 		break;
 	case 4:
-		item += "Cha (+ " + getEnhancementBonus();
+		item += "[Cha + " + getStringBonus();
+		item += "]";
 		break;
 	case 5:
-		item += "Dex (+ " + getEnhancementBonus();
+		item += "[Dex + " + getStringBonus();
+		item += "]";
 		break;
 	case 6:
-		item += "AC (+ " + getEnhancementBonus();
+		item += "[AC + " + getStringBonus();
+		item += "]";
 		break;
 	case 7:
-		item += "Melee Damage (+ " + getEnhancementBonus();
+		item += "[Melee Damage + " + getStringBonus();
+		item += "]";
 		break;
 	case 8:
-		item += "Ranged Damage (+ " + getEnhancementBonus();
+		item += "[Ranged Damage + " + getStringBonus();
+		item += "]";
 		break;
 	}
+
+	if (range == 1)
+		item += " Melee";
+	if (range >= 2)
+		item += "Ranged";
 
 	return item;
 }
 
 void Item::displayItem() {
-	cout << this->getItemType() << " | Name: " << this->getItemName() << " | Enhancement: " << this->getEnhancementTypeString() << " +" << this->getEnhancementBonus() << endl;
+	std::cout << this->getItemType() << " | Name: " << this->getItemName() << " | Enhancement: " << this->getEnhancementTypeString() << " +" << this->getEnhancementBonus() << std::endl;
 } 
 
 const Item& Item::operator=(const Item& i) 
@@ -142,7 +192,7 @@ void Item::Serialize(CArchive& archie)
 		archie >> n >> type >> enhBonus;
 
 		CT2CA converter(n);
-		string nameTemp(converter);
+		std::string nameTemp(converter);
 		name = nameTemp;
 		
 		switch (type)

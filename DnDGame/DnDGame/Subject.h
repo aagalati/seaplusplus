@@ -2,7 +2,7 @@
 #include "Observer.h"
 #include <list>
 
-using namespace std;
+
 
 class Subject
 	{
@@ -13,6 +13,6 @@ class Subject
 		Subject();
 		virtual ~Subject();
 	private:
-		list<Observer*> *_observers; 
+		std::list<Observer*> *_observers;
 };
 

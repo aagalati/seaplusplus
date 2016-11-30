@@ -1,18 +1,20 @@
 #pragma once
 
 #include "Item.h"
-using namespace std;
+
+using std::string;
 
 class Shield : public Item
 {
 public:
 
 	//Constructors;
-	Shield(string name, EnhancementType enhType, int enhBonus);
+	Shield(std::string name, EnhancementType enhType, int enhBonus);
+	Shield(Item*);
 	Shield();
 	~Shield();
 
-	string getItemType() const;
+	std::string getItemType() const;
 	const Shield& operator=(const Shield&);
 
 	void setEnhancement(EnhancementType enhanceType, int enhanceBonus);

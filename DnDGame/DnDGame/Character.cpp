@@ -1,27 +1,201 @@
 // FighterCharacter.cpp : Defines the entry point for the console application.
 //
-
+#include <memory>
 #include "stdafx.h"
 #include "Character.h"
 
 
-
-namespace std {
+using std::string;
 
 	IMPLEMENT_SERIAL(Character, CObject, 0)
-	
-	////////Statistics Mutators////////
-	//!Ability Scores and Level
-	
 
-	//The mutators have been modified from assignment 1 with the addition of a checkState() method, which is what triggers the Observer pattern
-	void Character::setLevel(int l)
+
+		//!Constructor////////
+
+		//For the purpose of assignment 3, the default constructor and the constructor with set level of the original character class are reworked below these commentented block.
+		/*Character::Character() noexcept
+		{
+		//This is done so the mutators will not trigger the Observer Pattern.
+		setInConstructor(true);
+
+		//Every new character is attached to the _char CharacterObserver object, which is a subclass of Subject.
+		//This algorithm is repeated in all of the constructors.
+		CharacterObserver *_charObservers = new CharacterObserver();
+		_char = _charObservers;
+		_char->Attach(this);
+		setCharacterType(0);
+		setName("Default Joe");
+		setLevel(1);
+		abilityScoreGenerator(1);
+		setBullyAttributes();
+		defaultEquip();
+		setModifiers();
+		setHitPoints(hitPointsGenerator(getLevel()));
+		setCurrentHitPoints(getHitPoints());
+
+
+
+		setInConstructor(false);
+		delete _charObservers;
+		}*/
+
+
+		/*Character::Character(int level) noexcept
+		{
+		setInConstructor(true);
+
+		CharacterObserver *_charObservers = new CharacterObserver();
+		_char = _charObservers;
+		_char->Attach(this);
+
+		setName("John The Jolly Friend");
+		if (level > 20)
+		{
+		cout << "Set Level is greater than 20. Level will be set to 20." << endl;
+		level = 20;
+		}
+
+		if (level < 1)
+		{
+		cout << "Set level is smaller than 1. Level will be set to 1." << endl;
+		level = 1;
+		}
+
+		setCharacterType(5);
+		setLevel(level);
+		abilityScoreGenerator(level);
+		setBullyAttributes();
+		defaultEquip();
+		setModifiers();
+		setHitPoints(hitPointsGenerator(getLevel()));
+		setCurrentHitPoints(getHitPoints());
+		setMovement(3);
+
+		setInConstructor(false);
+		delete _charObservers;
+
+		}*/
+
+		Character::Character() noexcept
 	{
-			level = l;
-			checkState();
+		setInConstructor(true);
+		defaultEquip();
+		setCharacterType(5);
+		setMovement(3);
+		setLevel(1);
+		extraAttacks(1);
+	}
+	Character::Character(int lvl) noexcept
+	{
+		setInConstructor(true);
+		defaultEquip();
+		setCharacterType(5);
+		setMovement(3);
+		setLevel(lvl);
+		extraAttacks(lvl);
 	}
 
-	void Character::setStrength(int s)
+
+	Character::Character(const int level,const std::string name) noexcept : Character(level)
+	{
+		setInConstructor(true);
+		setName(name);
+		setInConstructor(false);
+	}
+
+	Character::Character(const int level, const std::string name, const int state) noexcept : Character(level, name)
+	{
+		setInConstructor(true);
+		setCharacterType(state);
+		setInConstructor(false);
+	}
+
+	Character::Character(const int s, const int d, const int c, const int i, const int w, const int ch) noexcept
+	{
+		setInConstructor(true);
+
+		CharacterObserver *_charObservers = new CharacterObserver();
+		_char = _charObservers;
+		_char->Attach(this);
+
+		setCharacterType(5);
+		setName("Billy");
+		defaultEquip();
+		setLevel(1);
+		setStrength(s);
+		setDexterity(d);
+		setConstitution(c);
+		setIntelligence(i);
+		setWisdom(w);
+		setCharisma(ch);
+		setModifiers();
+		setHitPoints(10);
+		setCurrentHitPoints(getHitPoints());
+
+		setInConstructor(false);
+		delete _charObservers;
+	}
+
+	Character::Character(const int s, const int d, const int c, const int i, const int w, const int ch, const int t) noexcept : Character(s, d, c, i, w, ch, t)
+	{
+		setCharacterType(t);
+	}
+
+	Character::Character(Character &c) noexcept
+	{
+		setInConstructor(true);
+
+		CharacterObserver *_charObservers = new CharacterObserver();
+		_char = _charObservers;
+		_char->Attach(this);
+
+		setCharacterType(c.type());
+		setLevel(c.getLevel());
+		setName(c.getName());
+		setStrength(c.getStrength());
+		setDexterity(c.getDexterity());
+		setConstitution(c.getConstitution());
+		setIntelligence(c.getIntelligence());
+		setWisdom(c.getWisdom());
+		setCharisma(c.getCharisma());
+
+		setStrengthModifier(c.getStrengthModifier());
+		setDexterityModifier(c.getDexterityModifier());
+		setConstitutionModifier(c.getConstitutionModifier());
+		setIntelligenceModifier(c.getIntelligenceModifier());
+		setWisdomModifier(c.getWisdomModifier());
+		setCharismaModifier(c.getCharismaModifier());
+
+		setHitPoints(c.getHitPoints());
+		setCurrentHitPoints(c.getCurrentHitPoints());
+		setArmorClass(c.getArmorClass());
+		setMeleeAttackBonus(c.getMeleeAttackBonus());
+		setMeleeAttackDamage(c.getMeleeAttackDamage());
+		setRangedAttackBonus(c.getRangedAttackBonus());
+		setRangedAttackDamage(c.getRangedAttackDamage());
+
+		setMovement(c.getMovement());
+		setNbOfAttacks(c.getNbOfAttacks());
+
+		setBackpack(c.getBackpack());
+		setEquipment(c.getEquipment());
+
+		setInConstructor(false);
+		delete _charObservers;
+
+	}
+		////////Statistics Mutators////////
+		//!Ability Scores and Level
+
+		
+		//The mutators have been modified from assignment 1 with the addition of a checkState() method, which is what triggers the Observer pattern
+		void Character::setLevel(const int l) noexcept
+	{
+		level = l;
+		checkState();
+	}
+
+	void Character::setStrength(const int s) noexcept
 	{
 		if (validateStatistic(s))
 		{
@@ -30,7 +204,7 @@ namespace std {
 		}
 	}
 
-	void Character::setConstitution(int c)
+	void Character::setConstitution(const int c) noexcept
 	{
 		if (validateStatistic(c))
 		{
@@ -39,7 +213,7 @@ namespace std {
 		}
 	}
 
-	void Character::setDexterity(int d)
+	void Character::setDexterity(const int d) noexcept
 	{
 		if (validateStatistic(d))
 		{
@@ -48,7 +222,7 @@ namespace std {
 		}
 	}
 
-	void Character::setWisdom(int w)
+	void Character::setWisdom(const int w) noexcept
 	{
 		if (validateStatistic(w))
 		{
@@ -57,7 +231,7 @@ namespace std {
 		}
 	}
 
-	void Character::setCharisma(int ch)
+	void Character::setCharisma(const int ch) noexcept
 	{
 		if (validateStatistic(ch))
 		{
@@ -66,7 +240,7 @@ namespace std {
 		}
 	}
 
-	void Character::setIntelligence(int i)
+	void Character::setIntelligence(const int i) noexcept
 	{
 		if (validateStatistic(i))
 		{
@@ -76,37 +250,37 @@ namespace std {
 	}
 
 	//!Ability Modifiers
-	void Character::setStrengthModifier(int sM)
+	void Character::setStrengthModifier(const int sM) noexcept
 	{
 		strengthModifier = sM;
 		checkState();
 	}
 
-	void Character::setConstitutionModifier(int cM)
+	void Character::setConstitutionModifier(const int cM) noexcept
 	{
 		constitutionModifier = cM;
 		checkState();
 	}
 
-	void Character::setDexterityModifier(int dM)
+	void Character::setDexterityModifier(const int dM) noexcept
 	{
 		dexterityModifier = dM;
 		checkState();
 	}
 
-	void Character::setWisdomModifier(int wM)
+	void Character::setWisdomModifier(const int wM) noexcept
 	{
 		wisdomModifier = wM;
 		checkState();
 	}
 
-	void Character::setCharismaModifier(int chM)
+	void Character::setCharismaModifier(const int chM) noexcept
 	{
-		charismaModifier = chM; 
+		charismaModifier = chM;
 		checkState();
 	}
 
-	void Character::setIntelligenceModifier(int iM)
+	void Character::setIntelligenceModifier(const int iM) noexcept
 	{
 		intelligenceModifier = iM;
 		checkState();
@@ -114,50 +288,60 @@ namespace std {
 
 
 	//!Combat Statistics
-	void Character::setHitPoints(int hP)
+	void Character::setHitPoints(const int hP) noexcept
 	{
 		hitPoints = hP;
 		checkState();
 	}
 
-	void Character::setCurrentHitPoints(int cHP)
+	void Character::setCurrentHitPoints(const int cHP) noexcept
 	{
 		currentHitPoints = cHP;
 		checkState();
 	}
 
-	void Character::setArmorClass(int aC)
+	void Character::setArmorClass(const int aC) noexcept
 	{
 		armorClass = aC;
 		checkState();
 	}
 
-	void Character::setMeleeAttackBonus(int mAB)
+	void Character::setMeleeAttackBonus(const int mAB) noexcept
 	{
 
 		meleeAttackBonus = mAB;
 		checkState();
 	}
 
-	void Character::setMeleeAttackDamage(int mAD)
+	void Character::setMeleeAttackDamage(const int mAD) noexcept
 	{
 		meleeAttackDamage = mAD;
 		checkState();
 	}
 
-	void Character::setRangedAttackBonus(int rAB)
+	void Character::setRangedAttackBonus(const int rAB) noexcept
 	{
 		rangedAttackBonus = rAB;
 		checkState();
 	}
 
-	void Character::setRangedAttackDamage(int rAD)
+	void Character::setRangedAttackDamage(const int rAD) noexcept
 	{
-		rangedAttackDamage = rAD; 
+		rangedAttackDamage = rAD;
 		checkState();
 	}
 
-	void Character::setCharacterType(int st)
+	void Character::setMovement(const int m) noexcept
+	{
+		movement = m;
+	}
+
+	void Character::setNbOfAttacks(const int nb) noexcept
+	{
+		nbOfAttacks = nb;
+	}
+
+	void Character::setCharacterType(const int st) noexcept
 	{
 		if (st < 5 || st > 7)
 			characterType = 0;
@@ -165,58 +349,63 @@ namespace std {
 	}
 
 	//!Other Information
-	void Character::setName(string n)
+	void Character::setName(const string n) noexcept
 	{
 		name = n;
 	}
 
-	void Character::setInConstructor(bool i)
+	void Character::setInConstructor(const bool i) noexcept
 	{
 		inConstructor = i;
 	}
 
 	//!Equipment
-	void Character::setArmor(Armor a) 
+	void Character::setArmor(const Armor a) noexcept
 	{
 		armor = a;
 	}
 
-	void Character::setShield(Shield s)
+	void Character::setShield(const Shield s) noexcept
 	{
 		shield = s;
 	}
 
-	void Character::setWeapon(Weapon w)
+	void Character::setWeapon(const Weapon w) noexcept
 	{
 		weapon = w;
 	}
 
-	void Character::setBoots(Boots b)
+	void Character::setBoots(const Boots b) noexcept
 	{
 		boots = b;
 	}
 
-	void Character::setBelt(Belt b)
+	void Character::setBelt(const Belt b) noexcept
 	{
 		belt = b;
 	}
 
-	void Character::setRing(Ring r)
+	void Character::setRing(const Ring r) noexcept
 	{
 		ring = r;
 	}
 
-	void Character::setHelmet(Helmet h)
+	void Character::setHelmet(const Helmet h) noexcept
 	{
 		helmet = h;
 	}
 
-	void Character::setEquipment(ItemContainer e)
+	void Character::setEquipment(const ItemContainer e) noexcept
 	{
 		equipment = e;
 	}
 
-	void Character::setAbilityScores(int stat, int change)
+	void Character::setBackpack(const ItemContainer b) noexcept
+	{
+		backpack = b;
+	}
+
+	void Character::setAbilityScores(const int stat, const int change) noexcept
 	{
 		switch (stat)
 		{
@@ -261,7 +450,7 @@ namespace std {
 		}
 	}
 
-	void Character::setAbilityScores(int str, int cons, int dex, int wis, int cha, int inte)
+	void Character::setAbilityScores(const int str, const int cons, const int dex, const int wis, const int cha, const int inte) noexcept
 	{
 		abilityScores[0] = str;
 		abilityScores[1] = cons;
@@ -377,6 +566,16 @@ namespace std {
 		return rangedAttackDamage;
 	}
 
+	inline int Character::getMovement()
+	{
+		return movement;
+	}
+
+	inline int Character::getNbOfAttacks()
+	{
+		return nbOfAttacks;
+	}
+
 
 	//!Other Information Accessor
 	inline string Character::getName()
@@ -430,6 +629,11 @@ namespace std {
 		return equipment;
 	}
 
+	inline ItemContainer Character::getBackpack()
+	{
+		return backpack;
+	}
+
 	int Character::type()
 	{
 		return characterType;
@@ -443,172 +647,7 @@ namespace std {
 	}
 	
 
-	//!Constructor////////
-
-	//For the purpose of assignment 3, the default constructor and the constructor with set level of the original character class are reworked below these commentented block.
-	/*Character::Character() 
-	{
-		//This is done so the mutators will not trigger the Observer Pattern.
-		setInConstructor(true);
-
-		//Every new character is attached to the _char CharacterObserver object, which is a subclass of Subject.
-		//This algorithm is repeated in all of the constructors. 
-		CharacterObserver *_charObservers = new CharacterObserver();
-		_char = _charObservers;
-	    _char->Attach(this);
-		setCharacterType(0);
-		setName("Default Joe");
-		setLevel(1);
-		abilityScoreGenerator(1);
-		setBullyAttributes();
-		defaultEquip();	
-		setModifiers();
-		setHitPoints(hitPointsGenerator(getLevel()));
-		setCurrentHitPoints(getHitPoints());
-		
-		
-
-		setInConstructor(false);
-		delete _charObservers;
-	}*/
-
 	
-	/*Character::Character(int level) 
-	{
-		setInConstructor(true);
-		
-		CharacterObserver *_charObservers = new CharacterObserver();
-		_char = _charObservers;
-		_char->Attach(this);
-
-		setName("John The Jolly Friend");
-		if (level > 20)
-		{
-			cout << "Set Level is greater than 20. Level will be set to 20." << endl;
-			level = 20;
-		}
-
-		if (level < 1)
-		{
-			cout << "Set level is smaller than 1. Level will be set to 1." << endl;
-			level = 1;
-		}
-
-		setCharacterType(5);
-		setLevel(level);
-		abilityScoreGenerator(level);
-		setBullyAttributes();
-		defaultEquip();
-		setModifiers();
-		setHitPoints(hitPointsGenerator(getLevel()));
-		setCurrentHitPoints(getHitPoints());
-		
-
-		setInConstructor(false);
-		delete _charObservers;
-		
-	}*/
-
-	Character::Character()
-	{
-		setInConstructor(true);
-		defaultEquip();
-		setCharacterType(5);
-		setLevel(1);
-	}
-	Character::Character(int lvl)
-	{
-		setInConstructor(true);
-		defaultEquip();
-		setCharacterType(5);
-		setLevel(lvl);
-	}
-
-
-	Character::Character(int level, string name) : Character(level)
-	{
-		setInConstructor(true);
-		setName(name);
-		setInConstructor(false);
-	}
-
-	Character::Character(int level, string name, int state) : Character(level, name)
-	{
-		setInConstructor(true);
-		setCharacterType(state);
-		setInConstructor(false);
-	}
-
-	Character::Character(int s, int d, int c, int i, int w, int ch)
-	{
-		setInConstructor(true);
-		
-		CharacterObserver *_charObservers = new CharacterObserver();
-		_char = _charObservers;
-		_char->Attach(this);
-
-		setCharacterType(5);
-		setName("Billy");
-		defaultEquip();
-		setLevel(1);
-		setStrength(s);
-		setDexterity(d);
-		setConstitution(c);
-		setIntelligence(i);
-		setWisdom(w);
-		setCharisma(ch);
-		setModifiers();
-		setHitPoints(10);
-		setCurrentHitPoints(getHitPoints());
-		
-		setInConstructor(false);
-		delete _charObservers;
-	}
-	
-	Character::Character(int s, int d, int c, int i, int w, int ch, int t) : Character(s, d, c, i, w, ch, t)
-	{
-		setCharacterType(t);
-	}
-
-	Character::Character(Character &c)
-	{
-		setInConstructor(true);
-
-		CharacterObserver *_charObservers = new CharacterObserver();
-		_char = _charObservers;
-		_char->Attach(this);
-
-		setCharacterType(c.type());
-		setLevel(c.getLevel());
-		setName(c.getName());
-		setStrength(c.getStrength());
-		setDexterity(c.getDexterity());
-		setConstitution(c.getConstitution());
-		setIntelligence(c.getIntelligence());
-		setWisdom(c.getWisdom());
-		setCharisma(c.getCharisma());
-		
-		setStrengthModifier(c.getStrengthModifier());
-		setDexterityModifier(c.getDexterityModifier());
-		setConstitutionModifier(c.getConstitutionModifier());
-		setIntelligenceModifier(c.getIntelligenceModifier());
-		setWisdomModifier(c.getWisdomModifier());
-		setCharismaModifier(c.getCharismaModifier());
-
-		setHitPoints(c.getHitPoints());
-		setCurrentHitPoints(c.getCurrentHitPoints());
-		setArmorClass(c.getArmorClass());
-		setMeleeAttackBonus(c.getMeleeAttackBonus());
-		setMeleeAttackDamage(c.getMeleeAttackDamage());
-		setRangedAttackBonus(c.getRangedAttackBonus());
-		setRangedAttackDamage(c.getRangedAttackDamage());
-
-		defaultEquip();
-
-		setInConstructor(false);
-		delete _charObservers;
-
-	}
 
 	Character::~Character()
 	{
@@ -619,13 +658,12 @@ namespace std {
 	//!Generators///////
 	/*!The hitpoints are generated as per the rules of dungeon and dragons and
 	int accordance to the level provided.*/
-	int Character::hitPointsGenerator(int lvl) 
+	int Character::hitPointsGenerator(const int lvl) noexcept 
 	{
 		int hP = 0;
-		if (lvl == 0)
-		{
+		if (lvl == 0);
 			hP = hP + rand() % 10 + getConstitutionModifier();
-		}
+		
 		
 		for (int i = 0; i < lvl; i++)
 		{
@@ -637,7 +675,7 @@ namespace std {
 		return hP;
 	}
 
-	void Character::abilityScoreGenerator(int level)
+	void Character::abilityScoreGenerator(const int level) noexcept
 	{
 	
 		const int MAX_ROLLS = 4;
@@ -676,11 +714,9 @@ namespace std {
 	//decreasing order.
 		for (int i = 0; i < NB_OF_ABILITIES; i++)
 		{
-
 			int temp = abilityScores[i];
 			for (int j = i + 1; j < NB_OF_ABILITIES; j++) 
 			{
-
 				if (temp < abilityScores[j]) 
 				{
 					temp = abilityScores[j];
@@ -747,7 +783,7 @@ namespace std {
 	}
 
 	
-	int Character::extraPoints(int lvl)
+	int Character::extraPoints(const int lvl) noexcept
 	{
 		switch (lvl)
 		{
@@ -789,6 +825,19 @@ namespace std {
 
 	}
 
+	void Character::extraAttacks(const int level) noexcept
+	{
+		if (level < 5)
+			setNbOfAttacks(1);
+		if (level >= 5 && level < 11)
+			setNbOfAttacks(2);
+		if (level >= 11 && level < 20)
+			setNbOfAttacks(3);
+		if (level == 20)
+			setNbOfAttacks(4);
+			
+	}
+
 	//The modifiers are set as per the DnD guidelines by calling the
 	//modifierCalculation() function. 
 	//Take note that the seemingly over-complex implementation of
@@ -811,7 +860,7 @@ namespace std {
 
 	}
 
-	int Character::modifierCalculation(int stat) 
+	int Character::modifierCalculation(const int stat) noexcept 
 	{
 
 		switch (stat)
@@ -853,13 +902,13 @@ namespace std {
 
 	//This was only designed as the per the instructions for the proper implementation
 	//of the relevant test case.
-	void Character::hit(int dmg)
+	void Character::hit(const int dmg) noexcept
 	{
 		currentHitPoints = currentHitPoints - dmg;
 	}
 
 	
-	void Character::levelUp()
+	void Character::levelUp() noexcept
 	{
 		int lvl = getLevel();
 		setLevel(lvl++);
@@ -892,7 +941,7 @@ namespace std {
 		setHitPoints(getHitPoints() + hitPointsGenerator(0));
 
 	}
-	void Character::levelUp(int x)
+	void Character::levelUp(const int x) noexcept
 	{
 		for (int i = 0; i < x; i++)
 			levelUp();
@@ -900,7 +949,7 @@ namespace std {
 
 	//This checks that the attributes of a character respect the DnD guidelines 
 	//(3 <= attribute <= 18)
-	bool Character::validateNewCharacter()
+	bool Character::validateNewCharacter() noexcept
 	{
 		if (3 > getStrength() || getStrength() > 18 ||
 			3 > getConstitution() || getConstitution() > 18 ||
@@ -909,7 +958,7 @@ namespace std {
 			3 > getWisdom() || getWisdom() > 18 ||
 			3 > getCharisma() || getCharisma() > 18)
 		{
-			cout << "This character is invalid" << endl;
+			std::cout << "This character is invalid" << std::endl;
 			return false;
 		}
 			
@@ -917,7 +966,7 @@ namespace std {
 			return true;
 	}
 
-	bool Character::validateStatistic(int s)
+	bool Character::validateStatistic(const int s) noexcept
 	{
 		if (s > 18 || s < 3)
 			return false;
@@ -925,13 +974,14 @@ namespace std {
 			return true;
 	}
 	
-	void Character::defaultEquip()
+
+	void Character::defaultEquip() noexcept
 	{
 		
 		Armor chainmail("Chain Mail", Item::ArmorClass, 0);
 		setArmorClass(16);
 
-		Weapon longsword("Longsword", Item::AttackBonus , 0);
+		Weapon longsword("Longsword", Item::AttackBonus , 0, 1);
 		Shield shield("Iron Shield", Item::ArmorClass, 1);
 		Boots boots("Leather Boots", Item::Dexterity, 0);
 		Ring ring("Papa's Ring", Item::Constitution, 1);
@@ -941,21 +991,79 @@ namespace std {
 		setArmor(chainmail); setWeapon(longsword); setShield(shield);
 		setBoots(boots); setRing(ring); setBelt(belt); setHelmet(helmet);
 		
-		ItemContainer equip("Equipment");
-		setEquipment(equip);
-		equipment.storeItem(armor); equipment.storeItem(shield); equipment.storeItem(weapon);
-		equipment.storeItem(boots); equipment.storeItem(belt); equipment.storeItem(ring);
-		equipment.storeItem(helmet);
+		storeEquipment();
 
 	}
 
-	void Character::equip(Item* i)
+	void Character::storeEquipment() noexcept
 	{
-
+		getEquipment().contained.clear();
+		getEquipment().storeItem(getArmor()); 
+		getEquipment().storeItem(getShield()); 
+		getEquipment().storeItem(getWeapon());
+		getEquipment().storeItem(getBoots());
+		getEquipment().storeItem(getRing());
+		getEquipment().storeItem(getBelt());
+		getEquipment().storeItem(getHelmet());
 	}
+
+	void Character::equip(Item* i) noexcept
+	{
+		int type = i->type();
+
+		if (type == 1)
+		{
+			getBackpack().storeItem(getArmor());
+			Armor newArmor(i);
+			setArmor(newArmor);
+		}
+
+		else if (type == 2)
+		{
+			getBackpack().storeItem(getWeapon());
+			Weapon newWeapon(i);
+			setWeapon(newWeapon);
+		}
+
+		else if (type == 3)
+		{
+			getBackpack().storeItem(getShield());
+			Shield newShield(i);
+			setShield(newShield);
+		}
+		else if (type == 4)
+		{
+			getBackpack().storeItem(getBoots());
+			Boots newBoots(i);
+			setBoots(newBoots);
+		}
+		else if (type == 5)
+		{
+			getBackpack().storeItem(getBelt());
+			Belt newBelt(i);
+			setBelt(newBelt);
+		}
+		else if (type == 6)
+		{
+			getBackpack().storeItem(getRing());
+			Ring newRing(i);
+			setRing(newRing);
+		}
+		else if (type == 7)
+		{
+			getBackpack().storeItem(getHelmet());
+			Helmet newHelmet(i);
+			setHelmet(i);
+		}
+		else
+			return;
+		
+		storeEquipment();
+	}
+	
 
 	
-	void Character::setEquipmentModifiers()
+	void Character::setEquipmentModifiers() noexcept
 	{
 		
 		for (int i = 0; i < 7; i++)
@@ -999,37 +1107,37 @@ namespace std {
 	
 	
 
-	void Character::printCharacter()
+	void Character::printCharacter() noexcept
 	{
-		cout << toString() << endl;
+		cout << toString() << std::endl;
 	}
 
-	string Character::toString()
+	string Character::toString() noexcept
 	{
 		string i = "";
 		i += ("********* " + getName() + "********\n ");
-		i += (" Level: "  + to_string(getLevel()));
-		i += ("\n Strength: " + to_string(getStrength()) + modOP(getStrengthModifier())); i += (to_string(getStrengthModifier()) + ")\t");
-		i += (" Dexterity: " + to_string(getDexterity()) + modOP(getDexterityModifier())); i += (to_string(getDexterityModifier()) + ")\n");
-		i += (" Constitution: " + to_string(getConstitution()) + modOP(getConstitutionModifier())); i += (to_string(getConstitutionModifier()) + ")\t");
-		i += (" Intelligence: " + to_string(getIntelligence()) + modOP(getIntelligenceModifier())); i += (to_string(getIntelligenceModifier()) + ")\n");
-		i += (" Wisdom: " + to_string(getWisdom()) + modOP(getWisdomModifier())); i += (to_string(getWisdomModifier()) + ")\t");
-		i += (" Charisma: " + to_string(getCharisma()) + modOP(getCharismaModifier())); i += (to_string(getCharismaModifier()) + ")\n");
-		i += (" HitPoints: " + to_string(getCurrentHitPoints())); i += ("/" + to_string(getHitPoints()));
-		i += ("\t ArmorClass: " + to_string(getArmorClass()));
-		i += ("\n Melee Attack Bonus +" + to_string(getMeleeAttackBonus())); i += ("    Melee Damage Bonus: +" + to_string(getMeleeAttackDamage()));
-		i += ("\n Ranged Attack Bonus: +" + to_string(getRangedAttackBonus())); i += ("    Ranged Damage Bonus: +" + to_string(getRangedAttackDamage()));
-		i += ("\n Equipment:\n Armor: "); i += getArmor().toString();
-		i += ("\n Shield: " + (getShield().getItemName())); i += ("\n Weapon: " + (getWeapon().getItemName()));
-		i += ("\n Boots: " + (getBoots().getItemName())); i += ("\n Belt: " + (getBelt().getItemName()));
-		i += ("\n Ring: " + (getRing().getItemName())); i += ("\n Helmet: " + (getHelmet().getItemName()));
+		i += (" Level: "  + std::to_string(getLevel()));
+		i += ("\n Strength: " + std::to_string(getStrength()) + modOP(getStrengthModifier())); i += (std::to_string(getStrengthModifier()) + ")\t");
+		i += (" Dexterity: " + std::to_string(getDexterity()) + modOP(getDexterityModifier())); i += (std::to_string(getDexterityModifier()) + ")\n");
+		i += (" Constitution: " + std::to_string(getConstitution()) + modOP(getConstitutionModifier())); i += (std::to_string(getConstitutionModifier()) + ")\t");
+		i += (" Intelligence: " + std::to_string(getIntelligence()) + modOP(getIntelligenceModifier())); i += (std::to_string(getIntelligenceModifier()) + ")\n");
+		i += (" Wisdom: " + std::to_string(getWisdom()) + modOP(getWisdomModifier())); i += (std::to_string(getWisdomModifier()) + ")\t");
+		i += (" Charisma: " + std::to_string(getCharisma()) + modOP(getCharismaModifier())); i += (std::to_string(getCharismaModifier()) + ")\n");
+		i += (" HitPoints: " + std::to_string(getCurrentHitPoints())); i += ("/" + std::to_string(getHitPoints()));
+		i += ("\t ArmorClass: " + std::to_string(getArmorClass()));
+		i += ("\n Melee Attack Bonus +" + std::to_string(getMeleeAttackBonus())); i += ("    Melee Damage Bonus: +" + std::to_string(getMeleeAttackDamage()));
+		i += ("\n Ranged Attack Bonus: +" + std::to_string(getRangedAttackBonus())); i += ("    Ranged Damage Bonus: +" + std::to_string(getRangedAttackDamage()));
+		i += ("\n Equipment:\n Armor: "); i += getArmor().toString(); // i += " ("; i += getArmor().getEnhancementType()
+		i += ("\n Shield: " + (getShield().toString())); i += ("\n Weapon: " + (getWeapon().toString()));
+		i += ("\n Boots: " + (getBoots().toString())); i += ("\n Belt: " + (getBelt().toString()));
+		i += ("\n Ring: " + (getRing().toString())); i += ("\n Helmet: " + (getHelmet().toString()));
 		return i;
 
 		
 	}
 	
 	//method to print a "+" or "-" depending on value of modifier
-	string Character::modOP(int m)
+	string Character::modOP(int m) noexcept
 	{
 		if (m >= 0)
 			return (" (+");
@@ -1102,10 +1210,10 @@ namespace std {
 	
 
 	
-	 vector <Character*> Character::load()
+	std::vector <Character*> Character::load()
 	{
 
-		vector <Character*> characters;
+		std::vector <Character*> characters;
 		CFile load;
 		load.Open(_T("CharacterSave.txt"), CFile::modeRead);
 		CArchive archie(&load, CArchive::load);
@@ -1127,6 +1235,6 @@ namespace std {
 		
 	}
 
-}
+
 
 

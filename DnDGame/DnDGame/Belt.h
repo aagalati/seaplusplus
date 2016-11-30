@@ -1,8 +1,7 @@
 #pragma once
 
 #include "Item.h"
-
-using namespace std;
+using std::string;
 
 class Belt : public Item
 {
@@ -10,12 +9,13 @@ class Belt : public Item
 public:
 	
 	//Construtcors;
-	Belt(string name, EnhancementType enhType, int enhBonus);
+	Belt(std::string name, EnhancementType enhType, int enhBonus);
+	Belt(Item*);
 	Belt();
 	~Belt();
 
 	
-	string getItemType() const;
+	std::string getItemType() const;
 	
 	const Belt& operator=(const Belt&);
 

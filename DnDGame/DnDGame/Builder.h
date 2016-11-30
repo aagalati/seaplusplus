@@ -4,7 +4,7 @@
 #include "Treasure.h"
 #include "DNDObject.h"
 
-using namespace std;
+
 
 class Builder
 {

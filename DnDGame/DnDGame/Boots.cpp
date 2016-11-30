@@ -2,9 +2,19 @@
 #include "Boots.h"
 
 
-Boots::Boots(string name, EnhancementType enhType, int enhBonus) : Item(name, enhType, enhBonus)
+Boots::Boots(std::string name, EnhancementType enhType, int enhBonus) : Item(name, enhType, enhBonus)
 {
+	itemType = 4;
 }
+
+Boots::Boots(Item* i)
+{
+	this->name = i->getItemName();
+	this->enhType = i->getEnhancementType();
+	this->enhBonus = i->getEnhancementBonus();
+	itemType = 4;
+}
+
 Boots::Boots(){}
 Boots::~Boots()
 {
@@ -15,8 +25,8 @@ void Boots::setEnhancement(EnhancementType enhanceType, int enhanceBonus)
 	if ((enhanceType == ArmorClass) || (enhanceType == Dexterity))
 		enhType = enhanceType;
 	else {
-		cout << "Wrong Enhacement Type for Boots Item. May only be of type: ArmorClass or Dexterity." << endl
-			<< "Making Enhancement Type: ArmorClass" << endl;
+		std::cout << "Wrong Enhacement Type for Boots Item. May only be of type: ArmorClass or Dexterity." << std::endl
+			<< "Making Enhancement Type: ArmorClass" << std::endl;
 		enhType = ArmorClass;
 	}
 	if (enhanceBonus >= 0 && enhanceBonus <= 5)
@@ -27,7 +37,7 @@ void Boots::setEnhancement(EnhancementType enhanceType, int enhanceBonus)
 		enhBonus = 0;
 }
 
-string Boots::getItemType() const
+std::string Boots::getItemType() const
 {
 	return "Boots";
 }

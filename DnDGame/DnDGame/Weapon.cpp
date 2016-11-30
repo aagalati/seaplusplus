@@ -2,9 +2,25 @@
 #include "Weapon.h"
 
 
-Weapon::Weapon(string name, EnhancementType enhType, int enhBonus) : Item(name, enhType, enhBonus)
+Weapon::Weapon(std::string name, EnhancementType enhType, int enhBonus) : Item(name, enhType, enhBonus)
 {
+	itemType = 2;
+	range = 1;
 }
+Weapon::Weapon(std::string name, EnhancementType enhType, int enhBonus, int _range) : Weapon (name, enhType, _range)
+{
+	range = _range;
+}
+
+Weapon::Weapon(Item* i)
+{
+	this->name = i->getItemName();
+	this->enhType = i->getEnhancementType();
+	this->enhBonus = i->getEnhancementBonus();
+	this->range = i->getRange();
+	itemType = 2;
+}
+
 Weapon::Weapon(){}
 Weapon::~Weapon()
 {
@@ -15,8 +31,8 @@ void Weapon::setEnhancement(EnhancementType enhanceType, int enhanceBonus)
 	if ((enhanceType == AttackBonus) || (enhanceType == DamageBonus))
 		enhType = enhanceType;
 	else {
-		cout << "Wrong Enhacement Type for Weapon Item. May only be of type: AttackBonus or DamageBonus." << endl
-			<< "Making Enhancement Type: AttackBonus" << endl;
+		std::cout << "Wrong Enhacement Type for Weapon Item. May only be of type: AttackBonus or DamageBonus." << std::endl
+			<< "Making Enhancement Type: AttackBonus" << std::endl;
 		enhType = AttackBonus;
 	}
 	if (enhanceBonus >= 0 && enhanceBonus <= 5)
@@ -27,7 +43,7 @@ void Weapon::setEnhancement(EnhancementType enhanceType, int enhanceBonus)
 		enhBonus = 0;
 }
 
-string Weapon::getItemType() const
+std::string Weapon::getItemType() const
 {
 	return "Weapon";
 }

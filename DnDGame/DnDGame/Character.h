@@ -63,13 +63,7 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 #define _AFXDLL
-#include <cstdlib>
-using std::rand;
 
-#include <iostream>
-using std::cout;
-
-#include <string>
 #include "CharacterObserver.h"
 #include "Observer.h"
 #include "DnDObject.h"
@@ -87,9 +81,10 @@ using std::cout;
 #include <afx.h>
 
 
-namespace std
+using std::rand;
+using std::cout;
+using std::string;
 
-{
 	
 	//Class must be a subclass of CObject for MFC Serialization
 	class Character : public Observer , public CObject, public DNDObject
@@ -120,6 +115,7 @@ namespace std
 		int rangedAttackDamage;
 
 		int nbOfAttacks;
+		int movement;
 
 		//Integer type used for grid recognition of object type;
 		int characterType;
@@ -133,6 +129,7 @@ namespace std
 		Ring ring;
 		Helmet helmet;
 		ItemContainer equipment;
+		ItemContainer backpack;
 
 		//Variables relevant to assignment 2
 		CharacterObserver* _char;
@@ -143,50 +140,54 @@ namespace std
 		int abilityScores[NB_OF_ABILITIES];
 
 		//!Other Information
-		string name;
+		std::string name;
 
 	public:
 		
 		DECLARE_SERIAL(Character)
 		//!Statistics Mutators
-		void setLevel(int);
-		void setStrength(int);
-		void setStrengthModifier(int);
-		void setConstitution(int);
-		void setConstitutionModifier(int);
-		void setDexterity(int);
-		void setDexterityModifier(int);
-		void setWisdom(int);
-		void setWisdomModifier(int);
-		void setCharisma(int);
-		void setCharismaModifier(int);
-		void setIntelligence(int);
-		void setIntelligenceModifier(int);
-		void setHitPoints(int);
-		void setCurrentHitPoints(int);
-		void setArmorClass(int);
-		void setMeleeAttackBonus(int);
-		void setMeleeAttackDamage(int);
-		void setRangedAttackBonus(int);
-		void setRangedAttackDamage(int);
+		void setLevel(int) noexcept;
+		void setStrength(int) noexcept;
+		void setStrengthModifier(int) noexcept;
+		void setConstitution(int) noexcept;
+		void setConstitutionModifier(int) noexcept;
+		void setDexterity(int) noexcept;
+		void setDexterityModifier(int) noexcept;
+		void setWisdom(int) noexcept;
+		void setWisdomModifier(int) noexcept;
+		void setCharisma(int) noexcept;
+		void setCharismaModifier(int) noexcept;
+		void setIntelligence(int) noexcept;
+		void setIntelligenceModifier(int) noexcept;
+		void setHitPoints(int) noexcept;
+		void setCurrentHitPoints(int) noexcept;
+		void setArmorClass(int) noexcept;
+		void setMeleeAttackBonus(int) noexcept;
+		void setMeleeAttackDamage(int) noexcept;
+		void setRangedAttackBonus(int) noexcept;
+		void setRangedAttackDamage(int) noexcept;
+
+		void setMovement(int) noexcept;
+		void setNbOfAttacks(int) noexcept;
 		
-		void setCharacterType(int);
+		void setCharacterType(int) noexcept;
 
-		void setName(string);
+		void setName(std::string) noexcept;
 
-		void setInConstructor(bool);
+		void setInConstructor(bool) noexcept;
 
-		void setArmor(Armor);
-		void setShield(Shield);
-		void setWeapon(Weapon);
-		void setBoots(Boots);
-		void setBelt(Belt);
-		void setRing(Ring);
-		void setHelmet(Helmet);
-		void setEquipment(ItemContainer);
+		void setArmor(Armor) noexcept;
+		void setShield(Shield) noexcept;
+		void setWeapon(Weapon) noexcept;
+		void setBoots(Boots) noexcept;
+		void setBelt(Belt) noexcept;
+		void setRing(Ring) noexcept;
+		void setHelmet(Helmet) noexcept;
+		void setEquipment(ItemContainer) noexcept;
+		void setBackpack(ItemContainer) noexcept;
 
-		void setAbilityScores(int, int);
-		void setAbilityScores(int, int, int, int, int, int);
+		void setAbilityScores(int, int) noexcept;
+		void setAbilityScores(int, int, int, int, int, int) noexcept;
 
 		//!Statistics Accessors
 		inline int getLevel();
@@ -212,11 +213,13 @@ namespace std
 		inline int getRangedAttackBonus();
 		inline int getRangedAttackDamage();
 
+		inline int getMovement();
+		inline int getNbOfAttacks();
 		
 		//State of Characters -> 5 is Player, 6 is Enemy NPC, 7 is Friendly NPC
 		int type();
 
-		inline string getName();
+		inline std::string  getName();
 
 		
 		inline bool getInConstructor();
@@ -230,26 +233,29 @@ namespace std
 		inline Helmet getHelmet();
 
 		inline ItemContainer getEquipment();
+		inline ItemContainer getBackpack();
 		
 		int* getAbilityScores();
 
 
 		//!Constructor
-		Character();
-		Character(int);
-		Character(int, string);
-		Character(int, string, int);
-		Character(int, int, int, int, int, int);
-		Character(int, int, int, int, int, int, int);
+		Character() noexcept;
+		Character(int) noexcept;
+		Character(const int, const std::string) noexcept;
+		Character(const int, const std::string, const int) noexcept;
+		Character(const int,const int,const int,const int,const int,const int) noexcept;
+		Character(int, int, int, int, int, int, int) noexcept;
 		//Copy
-		Character(Character &c);
+		Character(Character &c) noexcept;
 		~Character();
 
 		//!Methods used for character generation
-		int hitPointsGenerator(int);
-		void abilityScoreGenerator(int);
-		int extraPoints(int);
+		int hitPointsGenerator(int) noexcept;
+		void abilityScoreGenerator(int) noexcept;
+		int extraPoints(int) noexcept;
+		void extraAttacks(int) noexcept;
 		
+		//!Methods relevant to Assignment 3
 		void setBullyAttributes();
 		void setNimbleAttributes();
 		void setTankAttributes();
@@ -258,25 +264,26 @@ namespace std
 		
 		//!Functions for modifiers
 		void setModifiers();
-		void setEquipmentModifiers();
-		int modifierCalculation(int);
+		void setEquipmentModifiers() noexcept;
+		int modifierCalculation(int) noexcept;
 		
-		void defaultEquip();
-		void equip(Item*);
+		void defaultEquip() noexcept;
+		void storeEquipment() noexcept;
+		void equip(Item*) noexcept;
 
 		//!Other Methods
-		bool validateNewCharacter();
-		static bool validateStatistic(int);
-		void hit(int);
+		bool validateNewCharacter() noexcept;
+		static bool validateStatistic(int) noexcept;
+		void hit(int) noexcept;
 
 		//Methods for map element adaptation
-		void levelUp();
-		void levelUp(int);
+		void levelUp() noexcept;
+		void levelUp(int) noexcept;
 
 		//!Printing Information 
-		void printCharacter();
-		string toString();
-		string modOP(int);
+		void printCharacter() noexcept;
+		std::string toString() noexcept;
+		std::string modOP(int) noexcept;
 		
 		//!New Methods Relevant to Assignment 2
 		void checkState();
@@ -286,7 +293,7 @@ namespace std
 		//!Method relevant to serialization
 		virtual void Serialize(CArchive& ar);
 		void save();
-		static vector<Character*> load();
+		static std::vector<Character*> load();
 	};
-};
+
 #endif //CHARACTER_H
