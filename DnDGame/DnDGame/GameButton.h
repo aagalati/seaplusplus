@@ -11,6 +11,9 @@ public:
 	GameButton();
 	GameButton(sf::Vector2f size, sf::Vector2f position);
 	~GameButton();
+	
+	virtual sf::RectangleShape draw();
+	bool isClicked(int x, int y);
 
 
 private:

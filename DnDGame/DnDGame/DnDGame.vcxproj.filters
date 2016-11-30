@@ -99,6 +99,12 @@
     <ClInclude Include="FighterDirector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -180,6 +186,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FighterDirector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

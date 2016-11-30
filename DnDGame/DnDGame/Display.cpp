@@ -3,7 +3,7 @@
 #include "Grid.h"
 #include "DNDObject.h"
 #include <string>
-
+#include <SFML/Graphics.hpp>
 
 Display::Display(Grid *grid, int type)   //!!GAME
 {
@@ -120,11 +120,43 @@ void Display::menuDisplay() {
 	sf::RectangleShape header(_headersize);
 	header.setPosition(_headerposition);
 
+	int numofbuttons = 4;
+	std::string text;
 
-	button1.setSize(_buttonsize);
-	button2.setSize(_buttonsize);   //putting the buttons and boxes in place for a nice GUI
-	button3.setSize(_buttonsize);
-	button4.setSize(_buttonsize);
+	for (int i = 0; i < numofbuttons; i++) {
+
+		std::cout << "drawing button: " << i << std::endl;
+
+		switch (i) {
+		case 0: 
+			text = "Play Game";
+			break;
+		case 1:
+			text = "Item Encyclopedia";
+			break;
+		case 2:
+			text = "Map Maker";
+			break;
+		case 3:
+			text = "Exit";
+			break;
+		default:
+			text = "Button";
+		}
+		_buttonposition.y = PADDINGY + _buttonsize.y*i * 2 + _headerposition.y + _headersize.y;
+
+		
+		textbuttons.push_back(new TextButton(_buttonsize, _buttonposition, text, font));
+
+		_window.draw(textbuttons[i]->draw());
+		//_window.draw(textbuttons[i]->drawText());
+
+	}
+	
+	//button1.setSize(_buttonsize);
+	//button2.setSize(_buttonsize);   //putting the buttons and boxes in place for a nice GUI
+	//button3.setSize(_buttonsize);
+	//button4.setSize(_buttonsize);
 
 	sf::Text buttonname;  //generate butttonname and set its attributes
 	buttonname.setFont(font);
@@ -137,11 +169,12 @@ void Display::menuDisplay() {
 	_window.draw(header);  
 	_window.draw(buttonname);
 
+	/*
 	for (int i = 0; i < 4; i++) {
 
-		std::cout << "drawing button: " << i << std::endl;
+		
 
-		_buttonposition.y = PADDINGY + _buttonsize.y*i * 2 + _headerposition.y + _headersize.y;
+		//_buttonposition.y = PADDINGY + _buttonsize.y*i * 2 + _headerposition.y + _headersize.y;
 
 		if (i == 0) {
 			button1.setPosition(_buttonposition);
@@ -196,6 +229,8 @@ void Display::menuDisplay() {
 		}
 
 	}
+
+	*/
 
 	_window.display();
 

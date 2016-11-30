@@ -6,6 +6,8 @@
 #include <string>
 #include "Grid.h"
 #include "DNDObject.h"
+#include "GameButton.h"
+#include "TextButton.h"
 
 class Display : public Observer
 {
@@ -72,7 +74,8 @@ private:
 	sf::RectangleShape button3;
 	sf::RectangleShape button4;
 
-	std::vector< sf::RectangleShape > _buttonmap;
+	vector< TextButton* > textbuttons; //for menu
+
 	std::vector< std::vector<sf::Sprite> > _tilemap;
 
 	enum tiletype { Space, Wall, Object, Entrance, Exit, Player };

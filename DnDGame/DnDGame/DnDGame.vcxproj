@@ -171,6 +171,7 @@
     <ClInclude Include="Display.h" />
     <ClInclude Include="DNDObject.h" />
     <ClInclude Include="FighterDirector.h" />
+    <ClInclude Include="GameButton.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="GridObserver.h" />
     <ClInclude Include="Helmet.h" />
@@ -185,6 +186,7 @@
     <ClInclude Include="Subject.h" />
     <ClInclude Include="TankFighterBuilder.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TextButton.h" />
     <ClInclude Include="Treasure.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
@@ -201,6 +203,7 @@
     <ClCompile Include="DnDGame.cpp" />
     <ClCompile Include="DNDObject.cpp" />
     <ClCompile Include="FighterDirector.cpp" />
+    <ClCompile Include="GameButton.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="GridObserver.cpp" />
     <ClCompile Include="Helmet.cpp" />
@@ -219,6 +222,7 @@
     <ClCompile Include="Structure.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="TankFighterBuilder.cpp" />
+    <ClCompile Include="TextButton.cpp" />
     <ClCompile Include="Treasure.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
