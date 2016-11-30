@@ -105,6 +105,9 @@
     <ClInclude Include="TextButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MenuDisplay.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -192,6 +195,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TextButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuDisplay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

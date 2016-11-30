@@ -57,20 +57,20 @@ Future goals:
 #include "Grid.h"
 #include "Display.h"
 #include "Character.h"
+#include "MenuDisplay.h"
 
 
 
 void main()
 {
-	Display *menu = new Display();  //make a menu display
-
+	MenuDisplay *menu = new MenuDisplay();  //make a menu display
 	
 	while (menu->windowOpen()) {  //open the menu
 
 		menu->run();
 
 	}
-
+	/*
 	
 		if (menu->goplay) { //open play menu
 
@@ -101,6 +101,7 @@ void main()
 			}
 
 		}
+		*/
 
 }
 

@@ -177,6 +177,7 @@
     <ClInclude Include="Helmet.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemContainer.h" />
+    <ClInclude Include="MenuDisplay.h" />
     <ClInclude Include="NimbleFighterBuilder.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="Ring.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="Helmet.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemContainer.cpp" />
+    <ClCompile Include="MenuDisplay.cpp" />
     <ClCompile Include="NimbleFighterBuilder.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Ring.cpp" />

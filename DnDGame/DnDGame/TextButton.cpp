@@ -18,7 +18,6 @@ TextButton::TextButton(sf::Vector2f size, sf::Vector2f position, std::string but
 	name.setCharacterSize(20);
 	name.setString("Hello");
 	name.setPosition(position.x + 20, position.y);
-	
 
 }
 

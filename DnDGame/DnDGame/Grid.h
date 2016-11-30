@@ -72,6 +72,7 @@ public:
 	virtual void Serialize(CArchive&);
 	void save();
 	Grid* load();
+
 	int*** ppGridAutopathInfo;
 
 private:

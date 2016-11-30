@@ -22,15 +22,14 @@ public:
 	void loadSprites();
 
 	//Main menu
-	void menuDisplay();
-	void buttonAction(int x, int y, bool isClick);
+	virtual void buttonAction(int x, int y, bool isClick);
 
 	void builderDisplay();
 
 	//Program maintenance
-	void update();
+	virtual void update();
 	bool windowOpen();
-	void run();
+	virtual void run();
 
 	//Information Relayer to User
 	void showInfo(DNDObject* hover);
@@ -48,7 +47,7 @@ public:
 	bool isvisibleEnemy;
 	bool bRemoveEnemy;
 
-private:
+protected:
 
 	//Relevant GUI attributes.
 	sf::RenderWindow _window;
@@ -102,6 +101,7 @@ private:
 	GridObserver *gridObs;
 
 public:
+
 	int AutoSearch();
 	BOOL IsEqual(int nValue);
 	int IsComplete();

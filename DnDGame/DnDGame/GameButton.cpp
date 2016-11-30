@@ -30,6 +30,14 @@ GameButton::GameButton(sf::Vector2f size, sf::Vector2f position)
 
 }
 
+GameButton::GameButton(sf::Vector2f size, sf::Vector2f position, std::string name) : GameButton(size, position)
+{
+
+	buttonname = name;
+
+
+}
+
 bool GameButton::isClicked(int x, int y) {
 
 	if (x > x1 && x < x2 && y > y1 && y < y3) {
@@ -45,7 +53,25 @@ sf::RectangleShape GameButton::draw() {
 
 }
 
+std::string GameButton::getText() {
+
+	return buttonname;
+
+}
+
+sf::Vector2f GameButton::getPosition()
+{
+	return sf::Vector2f(x1, y1);
+}
+
 GameButton::~GameButton()
 {
+
+}
+
+void GameButton::changeColor(sf::Color color)
+{
+
+	shape.setFillColor(color);
 
 }

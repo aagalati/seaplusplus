@@ -7,6 +7,7 @@
 int pppGridAutopathInfo[10][10][4] = { 0 };
 int gnMoveCount = 0;
 
+Display::Display() {};
 
 Display::Display(Grid *grid, int type)   //!!GAME
 {
@@ -65,46 +66,6 @@ Display::Display(Grid *grid, int type)   //!!GAME
 	bRemoveEnemy = FALSE;
 }
 
-Display::Display()   //!!MENU
-{
-
-	_type = menu;
-
-	BORDER_SIZE = 1;
-	BORDER = BORDER_SIZE * 2;
-	PADDINGX = 50;
-	PADDINGY = 50;
-
-	_tilesource.x = 32;
-	_tilesource.y = Wall;
-
-	_tilesize.x = 32;
-	_tilesize.y = 32;
-
-	_windowsize.x = 1000;
-	_windowsize.y = 600;
-
-	_headersize.x = _windowsize.x*0.5;
-	_headersize.y = _windowsize.y*0.1;
-
-	_buttonsize.x = _windowsize.x*0.30;
-	_buttonsize.y = _windowsize.y*0.05;
-
-	_headerposition.x = _windowsize.x*0.25;
-	_headerposition.y = _windowsize.y*0.05;
-
-	_buttonposition.x = _windowsize.x*0.5 - _buttonsize.x*0.5;
-	_buttonposition.y = PADDINGY + _headerposition.y;
-
-	loadFonts();
-
-	_window.create(sf::VideoMode(_windowsize.x, _windowsize.y), "Dungeons and Dragons (Menu)");
-	//_window.setKeyRepeatEnabled(false);
-
-	menuDisplay();
-
-}
-
 void Display::builderDisplay() {
 
 	button1.setSize(_buttonsize); //setting buttons for the builder
@@ -118,97 +79,7 @@ void Display::builderDisplay() {
 
 }
 
-void Display::menuDisplay() {
-
-	//header
-	//play game
-	//item encyclopedia
-	//map creator
-
-	sf::RectangleShape header(_headersize);
-	header.setPosition(_headerposition);
-
-
-	button1.setSize(_buttonsize);
-	button2.setSize(_buttonsize);   //putting the buttons and boxes in place for a nice GUI
-	button3.setSize(_buttonsize);
-	button4.setSize(_buttonsize);
-
-	sf::Text buttonname;  //generate butttonname and set its attributes
-	buttonname.setFont(font);
-	buttonname.setFillColor(sf::Color::Black);
-	buttonname.setCharacterSize(20);
-
-	buttonname.setString("Dungeons and Dragons!");
-	buttonname.setPosition(_headerposition.x + _headersize.x*0.25 + 10, _headerposition.y + 15);
-
-	_window.draw(header);
-	_window.draw(buttonname);
-
-	for (int i = 0; i < 4; i++) {
-
-		std::cout << "drawing button: " << i << std::endl;
-
-		_buttonposition.y = PADDINGY + _buttonsize.y*i * 2 + _headerposition.y + _headersize.y;
-
-		if (i == 0) {
-			button1.setPosition(_buttonposition);
-			button1.setFillColor(sf::Color::Cyan);
-			button1.setOutlineThickness(4);
-			button1.setOutlineColor(sf::Color::Blue);
-
-			buttonname.setString("Play Game");
-			buttonname.setPosition(_buttonposition.x + 20, _buttonposition.y);
-
-			_window.draw(button1);
-			_window.draw(buttonname);
-		}
-
-		else if (i == 1) {
-			button2.setPosition(_buttonposition);
-			button2.setFillColor(sf::Color::Cyan);
-			button2.setOutlineThickness(4);
-			button2.setOutlineColor(sf::Color::Blue);
-
-			buttonname.setString("Item Encyclopedia");
-			buttonname.setPosition(_buttonposition.x + 20, _buttonposition.y);
-
-			_window.draw(button2);
-			_window.draw(buttonname);
-		}
-
-		else if (i == 2) {
-			button3.setPosition(_buttonposition);
-			button3.setFillColor(sf::Color::Cyan);
-			button3.setOutlineThickness(4);
-			button3.setOutlineColor(sf::Color::Blue);
-
-			buttonname.setString("Map Maker");
-			buttonname.setPosition(_buttonposition.x + 20, _buttonposition.y);
-
-			_window.draw(button3);
-			_window.draw(buttonname);
-		}
-
-		else if (i == 3) {
-			button4.setPosition(_buttonposition);
-			button4.setFillColor(sf::Color::Cyan);
-			button4.setOutlineThickness(4);
-			button4.setOutlineColor(sf::Color::Blue);
-
-			buttonname.setString("Exit");
-			buttonname.setPosition(_buttonposition.x + 20, _buttonposition.y);
-
-			_window.draw(button4);
-			_window.draw(buttonname);
-		}
-
-	}
-
-	_window.display();
-
-}
-
+//DELETE AFTER NEW IMPLEMENTAION FROM MENUDISPLAY
 void Display::buttonAction(int x, int y, bool isClick) {
 
 	//if (isClick)
@@ -504,28 +375,6 @@ void Display::run() {
 				//std::cout << "Clicked at X: " << _event.mouseButton.x << " Y: " << _event.mouseButton.y << std::endl;
 				if (_event.mouseButton.button == sf::Mouse::Left) {
 					gridHover(_event.mouseButton.x, _event.mouseButton.y);
-				}
-				break;
-			}
-		}
-
-		if (_type == 0) {
-			switch (_event.type) {
-
-			case sf::Event::Closed:
-				//delete this;
-				_window.close();
-				break;
-
-				//case sf::Event::MouseMoved:
-				//std::cout << "X: " << _event.mouseMove.x << " Y: " << _event.mouseMove.y << std::endl;
-				//buttonAction(_event.mouseMove.x, _event.mouseMove.y, false);
-				//break;
-
-			case sf::Event::MouseButtonPressed:
-				//std::cout << "Clicked at X: " << _event.mouseButton.x << " Y: " << _event.mouseButton.y << std::endl;
-				if (_event.mouseButton.button == sf::Mouse::Left) {
-					buttonAction(_event.mouseButton.x, _event.mouseButton.y, true);
 				}
 				break;
 			}
