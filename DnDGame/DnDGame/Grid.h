@@ -1,6 +1,7 @@
 #pragma once
 #define _AFXDLL
 #include <afx.h>
+
 #include <vector>
 #include <iostream>
 #include "Observer.h"
@@ -37,13 +38,13 @@ public:
 	//Map modification
 	void sizeMap();
 	void resizeMap(int width, int height);
-	
-	
+
+
 	void setCell(int col, int row, int set);
 	void setDoors();
-	
+
 	void move(int currentX, int  currentY, int nextX, int nextY);
-	
+
 	void update();
 	bool needRefresh();
 
@@ -54,6 +55,9 @@ public:
 	int getHeight();
 	int getEntranceX();
 	int getEntranceY();
+	int getExitX();
+	int getExitY();
+
 
 	//void setRow(int row, int set);
 	//void setCol(int col, int set);
@@ -68,6 +72,7 @@ public:
 	virtual void Serialize(CArchive&);
 	void save();
 	Grid* load();
+	int*** ppGridAutopathInfo;
 
 private:
 
@@ -78,7 +83,7 @@ private:
 	int _exit_row;
 	int _exit_col;
 	int dir; //
-	
+
 	bool isValid; //
 	bool refresh; //
 
@@ -90,3 +95,4 @@ private:
 	vector< vector<DNDObject*> > _gridData;
 
 };
+
