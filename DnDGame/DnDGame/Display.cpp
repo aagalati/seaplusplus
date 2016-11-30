@@ -3,7 +3,10 @@
 #include "Grid.h"
 #include "DNDObject.h"
 #include <string>
-#include <SFML/Graphics.hpp>
+
+int pppGridAutopathInfo[10][10][4] = { 0 };
+int gnMoveCount = 0;
+
 
 Display::Display(Grid *grid, int type)   //!!GAME
 {
@@ -25,6 +28,9 @@ Display::Display(Grid *grid, int type)   //!!GAME
 	_playerX = this->grid->getEntranceX();
 	_playerY = this->grid->getEntranceY();
 
+	_enemyX = this->grid->getExitX();
+	_enemyY = this->grid->getExitY();
+
 	_tilesource.x = 32;
 	_tilesource.y = Wall;
 
@@ -38,7 +44,7 @@ Display::Display(Grid *grid, int type)   //!!GAME
 	loadTextures();
 	loadSprites();
 
-	
+
 	_window.create(sf::VideoMode(_windowsize.x, _windowsize.y), "Dungeouns and Dragons");
 	//_window.setKeyRepeatEnabled(false);
 
@@ -54,7 +60,9 @@ Display::Display(Grid *grid, int type)   //!!GAME
 
 	}
 
-
+	goCharacter = FALSE;
+	isvisibleEnemy = FALSE;
+	bRemoveEnemy = FALSE;
 }
 
 Display::Display()   //!!MENU
@@ -88,7 +96,7 @@ Display::Display()   //!!MENU
 	_buttonposition.x = _windowsize.x*0.5 - _buttonsize.x*0.5;
 	_buttonposition.y = PADDINGY + _headerposition.y;
 
-	loadFonts();	
+	loadFonts();
 
 	_window.create(sf::VideoMode(_windowsize.x, _windowsize.y), "Dungeons and Dragons (Menu)");
 	//_window.setKeyRepeatEnabled(false);
@@ -100,18 +108,18 @@ Display::Display()   //!!MENU
 void Display::builderDisplay() {
 
 	button1.setSize(_buttonsize); //setting buttons for the builder
-	button2.setSize(_buttonsize); 
+	button2.setSize(_buttonsize);
 	button3.setSize(_buttonsize);
 	button4.setSize(_buttonsize);
 
-	update(); 
+	update();
 
 	_window.display();
 
 }
 
 void Display::menuDisplay() {
-	
+
 	//header
 	//play game
 	//item encyclopedia
@@ -120,43 +128,11 @@ void Display::menuDisplay() {
 	sf::RectangleShape header(_headersize);
 	header.setPosition(_headerposition);
 
-	int numofbuttons = 4;
-	std::string text;
 
-	for (int i = 0; i < numofbuttons; i++) {
-
-		std::cout << "drawing button: " << i << std::endl;
-
-		switch (i) {
-		case 0: 
-			text = "Play Game";
-			break;
-		case 1:
-			text = "Item Encyclopedia";
-			break;
-		case 2:
-			text = "Map Maker";
-			break;
-		case 3:
-			text = "Exit";
-			break;
-		default:
-			text = "Button";
-		}
-		_buttonposition.y = PADDINGY + _buttonsize.y*i * 2 + _headerposition.y + _headersize.y;
-
-		
-		textbuttons.push_back(new TextButton(_buttonsize, _buttonposition, text, font));
-
-		_window.draw(textbuttons[i]->draw());
-		//_window.draw(textbuttons[i]->drawText());
-
-	}
-	
-	//button1.setSize(_buttonsize);
-	//button2.setSize(_buttonsize);   //putting the buttons and boxes in place for a nice GUI
-	//button3.setSize(_buttonsize);
-	//button4.setSize(_buttonsize);
+	button1.setSize(_buttonsize);
+	button2.setSize(_buttonsize);   //putting the buttons and boxes in place for a nice GUI
+	button3.setSize(_buttonsize);
+	button4.setSize(_buttonsize);
 
 	sf::Text buttonname;  //generate butttonname and set its attributes
 	buttonname.setFont(font);
@@ -166,15 +142,14 @@ void Display::menuDisplay() {
 	buttonname.setString("Dungeons and Dragons!");
 	buttonname.setPosition(_headerposition.x + _headersize.x*0.25 + 10, _headerposition.y + 15);
 
-	_window.draw(header);  
+	_window.draw(header);
 	_window.draw(buttonname);
 
-	/*
 	for (int i = 0; i < 4; i++) {
 
-		
+		std::cout << "drawing button: " << i << std::endl;
 
-		//_buttonposition.y = PADDINGY + _buttonsize.y*i * 2 + _headerposition.y + _headersize.y;
+		_buttonposition.y = PADDINGY + _buttonsize.y*i * 2 + _headerposition.y + _headersize.y;
 
 		if (i == 0) {
 			button1.setPosition(_buttonposition);
@@ -230,8 +205,6 @@ void Display::menuDisplay() {
 
 	}
 
-	*/
-
 	_window.display();
 
 }
@@ -239,9 +212,9 @@ void Display::menuDisplay() {
 void Display::buttonAction(int x, int y, bool isClick) {
 
 	//if (isClick)
-		//std::cout << "clicked at x: " << x << " y: " << y << std::endl;
+	//std::cout << "clicked at x: " << x << " y: " << y << std::endl;
 	//else
-		//std::cout << "moved at x: " << x << " y: " << y << std::endl;
+	//std::cout << "moved at x: " << x << " y: " << y << std::endl;
 
 
 	//std::cout << "Position XLeft: " << button1.getPosition().x << " Position XRight: " << button1.getPosition().x + _buttonsize.x << " Position YUp: " << button1.getPosition().y << " Position YDown" << button1.getPosition().y + _buttonsize.y << std::endl;
@@ -307,12 +280,12 @@ void Display::loadSprites() {
 
 				_tilemap[i][j].setTexture(borderTexture);  //setting border texture
 
-														  //This line is for single box texture
-														  //tilemap[i][j].setTextureRect(sf::IntRect(0, 32, 32, 32));
+														   //This line is for single box texture
+														   //tilemap[i][j].setTextureRect(sf::IntRect(0, 32, 32, 32));
 
-														  //std::cout << "Creating border at " << i << ", " << j << std::endl;
+														   //std::cout << "Creating border at " << i << ", " << j << std::endl;
 
-														  //THIS CODE IS FOR FRAMED BORDER
+														   //THIS CODE IS FOR FRAMED BORDER
 
 				if (i == 0 && j == 0)
 					_tilemap[i][j].setTextureRect(sf::IntRect(0, _tilesize.y * tlcorner, _tilesize.x, _tilesize.y));
@@ -358,6 +331,8 @@ void Display::loadSprites() {
 					_tilesource.y = Exit;
 				else if (cellValue == Player)
 					_tilesource.y = Player;
+				else if (cellValue == Enemy)
+					_tilesource.y = Enemy;
 
 				//std::cout << "Texture will be " << tilesource.y << std::endl;
 
@@ -379,8 +354,6 @@ void Display::loadSprites() {
 void Display::update() {
 
 	if (_type == 1 || _type == 2) {
-
-
 
 		std::cout << "Update called in display" << std::endl;
 		std::cout << "PlayerX: " << _playerX << ", Player Y: " << _playerY << std::endl;
@@ -406,6 +379,8 @@ void Display::update() {
 						_tilesource.y = Exit;
 					else if (cellValue == Player)
 						_tilesource.y = Player;
+					else if (cellValue == Enemy)
+						_tilesource.y = Enemy;
 
 					//std::cout << "Texture will be " << tilesource.y << std::endl;
 
@@ -419,7 +394,7 @@ void Display::update() {
 		}
 
 	}
-	
+
 	if (_type == 2) {
 		for (int i = 0; i < 4; i++) {
 
@@ -438,7 +413,7 @@ void Display::update() {
 
 			else if (i == 1) {
 				button2.setPosition(_buttonposition);
-				button2.setFillColor(sf::Color(139,69,19));
+				button2.setFillColor(sf::Color(139, 69, 19));
 				button2.setOutlineThickness(4);
 				button2.setOutlineColor(sf::Color::White);
 
@@ -462,12 +437,10 @@ void Display::update() {
 
 				_window.draw(button4);
 			}
-
 		}
 	}
 
 	_window.display();
-
 }
 
 bool Display::windowOpen() {
@@ -478,8 +451,8 @@ bool Display::windowOpen() {
 
 void Display::run() {
 
-	if (_type == 2) 
-	update();
+	if (_type == 2)
+		update();
 
 	while (_window.pollEvent(_event)) {
 
@@ -502,6 +475,19 @@ void Display::run() {
 				gridHover(_event.mouseMove.x, _event.mouseMove.y);
 				break;
 
+			case sf::Event::MouseButtonPressed:
+				if (_event.mouseButton.button == sf::Mouse::Left) {
+					isvisibleEnemy = TRUE;
+					MoveHero(_event.mouseButton.x, _event.mouseButton.y);
+					if (IsCrash())
+					{
+						std::cout << "Player Crashed with Enemy !!!!!!!" << std::endl;
+						goCharacter = FALSE;
+						RemoveHero();
+						update();
+						isvisibleEnemy = FALSE;
+					}
+				}
 			}
 		}
 
@@ -520,50 +506,83 @@ void Display::run() {
 					gridHover(_event.mouseButton.x, _event.mouseButton.y);
 				}
 				break;
-
 			}
 		}
 
-			if (_type == 0) {
-				switch (_event.type) {
+		if (_type == 0) {
+			switch (_event.type) {
 
-				case sf::Event::Closed:
-					//delete this;
-					_window.close();
-					break;
+			case sf::Event::Closed:
+				//delete this;
+				_window.close();
+				break;
 
 				//case sf::Event::MouseMoved:
-					//std::cout << "X: " << _event.mouseMove.x << " Y: " << _event.mouseMove.y << std::endl;
-					//buttonAction(_event.mouseMove.x, _event.mouseMove.y, false);
-					//break;
+				//std::cout << "X: " << _event.mouseMove.x << " Y: " << _event.mouseMove.y << std::endl;
+				//buttonAction(_event.mouseMove.x, _event.mouseMove.y, false);
+				//break;
 
-				case sf::Event::MouseButtonPressed:
-					//std::cout << "Clicked at X: " << _event.mouseButton.x << " Y: " << _event.mouseButton.y << std::endl;
-					if (_event.mouseButton.button == sf::Mouse::Left) {
-						buttonAction(_event.mouseButton.x, _event.mouseButton.y, true);
-					}
-					break;
+			case sf::Event::MouseButtonPressed:
+				//std::cout << "Clicked at X: " << _event.mouseButton.x << " Y: " << _event.mouseButton.y << std::endl;
+				if (_event.mouseButton.button == sf::Mouse::Left) {
+					buttonAction(_event.mouseButton.x, _event.mouseButton.y, true);
 				}
-
+				break;
 			}
-
 		}
-		
 	}
+
+	if (goCharacter)
+	{
+		gnMoveCount++;
+		int nResult = AutoSearch();
+		if (nResult == 2)
+		{
+			std::cout << "Map Error!!" << std::endl;
+			goCharacter = FALSE;
+			isvisibleEnemy = FALSE;
+			return;
+		}
+		else if (nResult == 1)
+		{
+			std::cout << "Complete!!" << std::endl;
+			goCharacter = FALSE;
+			isvisibleEnemy = FALSE;
+			return;
+		}
+		else if (nResult == 3)
+		{
+			std::cout << "Player Crashed with Enemy !!!!!!!" << std::endl;
+			goCharacter = FALSE;
+			RemoveHero();
+			update();
+			isvisibleEnemy = FALSE;
+			return;
+		}
+	}
+	if (gnMoveCount >= 3)
+		goCharacter = false;
+
+	if (isvisibleEnemy)
+	{
+		ChangeEnemy();
+		update();
+	}
+}
 
 void Display::gridHover(int x, int y) { //this function needs the actual object to display the info
 
-	//std::cout << "Hover X: " << (x - PADDINGX - BORDER_SIZE*_tilesize.x)/_tilesize.x << " Hover Y: " << (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y << std::endl;
+										//std::cout << "Hover X: " << (x - PADDINGX - BORDER_SIZE*_tilesize.x)/_tilesize.x << " Hover Y: " << (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y << std::endl;
 
-	//std::cout << grid->getCellValue((x - PADDINGX - BORDER_SIZE*_tilesize.x) / _tilesize.x, (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y) << std::endl;
+										//std::cout << grid->getCellValue((x - PADDINGX - BORDER_SIZE*_tilesize.x) / _tilesize.x, (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y) << std::endl;
 
-	if(_type == 2)
+	if (_type == 2)
 		grid->setCell((x - PADDINGX - BORDER_SIZE*_tilesize.x) / _tilesize.x, (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y, 1);
 
 	if (_type == 1)
-	showInfo(grid->getCellValue((x - PADDINGX - BORDER_SIZE*_tilesize.x) / _tilesize.x, (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y));
+		showInfo(grid->getCellValue((x - PADDINGX - BORDER_SIZE*_tilesize.x) / _tilesize.x, (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y));
 
-} 
+}
 
 void Display::showInfo(DNDObject* hover) {
 
@@ -574,15 +593,15 @@ void Display::showInfo(DNDObject* hover) {
 
 	/* switch () {
 
-	case 5: 
-		text.setString("Player: Arnold\nStats: 2good4u\nClass: classyaf");
-		_window.clear();
-		break;
+	case 5:
+	text.setString("Player: Arnold\nStats: 2good4u\nClass: classyaf");
+	_window.clear();
+	break;
 
 	default:
-		text.setString("Hover over objects to view stats");
-		_window.clear();
-		break;
+	text.setString("Hover over objects to view stats");
+	_window.clear();
+	break;
 
 	} */
 
@@ -597,9 +616,40 @@ void Display::showInfo(DNDObject* hover) {
 
 void Display::keyPressed(sf::Event event) {
 
+	int nResult;
+
 	switch (event.key.code) {  //this code currently generates double events, not sure why, must fix (events trigger twice, ex. Left Left Right Right)
 
 							   //Checking if moving will be valid, if so, it will trigger the move function which will trigger Subject::Notify
+	case sf::Keyboard::S:
+		goCharacter = TRUE;
+		gnMoveCount = 0;
+		if (!isvisibleEnemy)
+			isvisibleEnemy = TRUE;
+		// 		nResult = AutoSearch();
+		break;
+
+	case sf::Keyboard::P:
+		goCharacter = FALSE;
+		break;
+
+	case sf::Keyboard::A:
+		// 		if (goCharacter)
+	{
+		int nOffsetX, nOffsetY;
+		nOffsetX = abs(_playerX - _enemyX);
+		nOffsetY = abs(_playerY - _enemyY);
+		//needs to change in terms of characters' weapon range
+		if (nOffsetX <= 1 && nOffsetY <= 1)
+		{
+			std::cout << "Attack Enemy!!!" << std::endl;
+			RemoveEnemy();
+			update();
+			isvisibleEnemy = FALSE;
+			bRemoveEnemy = TRUE;
+		}
+	}
+	break;
 
 	case sf::Keyboard::Up:
 		if (grid->getCellValue(_playerX, _playerY - 1)->type() == 0 || grid->getCellValue(_playerX, _playerY - 1)->type() == 2) {  //checking if next cell is open space or object, if so, player can move
@@ -646,11 +696,270 @@ void Display::keyPressed(sf::Event event) {
 		break;
 
 	}
-
-
 }
+
 
 Display::~Display()
 {
 
+}
+
+int Display::AutoSearch()
+{
+	int nDirect = -1;
+	int nLess = 0;
+	int nCase = 0;
+	int nResult2 = 2;
+	int nResult01 = 0;
+	int nMoveFlag = 0;
+
+	while (!nMoveFlag)
+	{
+		Sleep(100);
+		while (nDirect == -1)
+		{
+			if (IsEqual(0) || IsEqual(1))
+			{
+				srand(time(NULL));
+				nDirect = rand() % 4;
+			}
+			else if (IsEqual(2))
+				return 2; // haven't any direction!!
+			else
+			{
+				for (int i = 0; i < 4; i++)
+				{
+					if (pppGridAutopathInfo[_playerX][_playerY][nLess] > pppGridAutopathInfo[_playerX][_playerY][i])
+						nLess = i;
+				}
+				nDirect = nLess;
+			}
+		}
+		// move to direction
+		if (pppGridAutopathInfo[_playerX][_playerY][nDirect] >= 2)
+		{
+			nDirect = -1;
+			return 0;
+		}
+		pppGridAutopathInfo[_playerX][_playerY][nDirect] ++;
+
+		switch (nDirect)
+		{
+		case 0: // top
+			if (grid->getCellValue(_playerX, _playerY - 1)->type() == 0 || grid->getCellValue(_playerX, _playerY - 1)->type() == 2) {  //checking if next cell is open space or object, if so, player can move
+				grid->move(_playerX, _playerY, _playerX, _playerY - 1);
+				_playerY--;
+				update();
+				std::cout << "Up" << std::endl;
+				pppGridAutopathInfo[_playerX][_playerY][2] ++;
+				nMoveFlag = 1;
+			}
+			else
+				nDirect = -1;
+			break;
+
+		case 1: // right
+			if (grid->getCellValue(_playerX + 1, _playerY)->type() == 0 || grid->getCellValue(_playerX + 1, _playerY)->type() == 2) { //checking if next cell is open space or object, if so, player can move
+				grid->move(_playerX, _playerY, _playerX + 1, _playerY);
+				_playerX++;
+				update();
+				std::cout << "Right" << std::endl;
+				pppGridAutopathInfo[_playerX][_playerY][3] ++;
+				nMoveFlag = 1;
+			}
+			else
+				nDirect = -1;
+			break;
+
+		case 2: // bottom
+			if (grid->getCellValue(_playerX, _playerY + 1)->type() == 0 || grid->getCellValue(_playerX, _playerY + 1)->type() == 2) { //checking if next cell is open space or object, if so, player can move
+				grid->move(_playerX, _playerY, _playerX, _playerY + 1);
+				_playerY++;
+				update();
+				std::cout << "Down" << std::endl;
+				pppGridAutopathInfo[_playerX][_playerY][0] ++;
+				nMoveFlag = 1;
+			}
+			else
+				nDirect = -1;
+			break;
+
+		case 3: // left
+			if (grid->getCellValue(_playerX - 1, _playerY)->type() == 0 || grid->getCellValue(_playerX - 1, _playerY)->type() == 2) { //checking if next cell is open space or object, if so, player can move
+				grid->move(_playerX, _playerY, _playerX - 1, _playerY);
+				_playerX--;
+				update();
+				std::cout << "Left" << std::endl;
+				pppGridAutopathInfo[_playerX][_playerY][1] ++;
+				nMoveFlag = 1;
+			}
+			else
+				nDirect = -1;
+			break;
+		}
+
+		if (IsCrash())
+			return 3;
+
+		if (IsComplete())
+			return 1;
+	}
+	return 0;
+}
+
+
+BOOL Display::IsEqual(int nValue)
+{
+	if (pppGridAutopathInfo[_playerX][_playerY][0] == nValue &&
+		pppGridAutopathInfo[_playerX][_playerY][1] == nValue &&
+		pppGridAutopathInfo[_playerX][_playerY][2] == nValue &&
+		pppGridAutopathInfo[_playerX][_playerY][3] == nValue)
+		return TRUE;
+
+	return FALSE;
+}
+
+
+int Display::IsComplete()
+{
+	if (grid->getCellValue(_playerX, _playerY - 1)->type() == 4 ||
+		grid->getCellValue(_playerX, _playerY + 1)->type() == 4 ||
+		grid->getCellValue(_playerX - 1, _playerY)->type() == 4 ||
+		grid->getCellValue(_playerX + 1, _playerY)->type() == 4)
+		return 1;
+	return 0;
+}
+
+
+
+void Display::ChangeEnemy()
+{
+	if (bRemoveEnemy)
+		return;
+
+	Sleep(100);
+	srand(time(NULL));
+	int nDirect = rand() % 4;
+	switch (nDirect)
+	{
+	case 0: // top
+		if (grid->getCellValue(_enemyX, _enemyY - 1)->type() == 0 || grid->getCellValue(_enemyX, _enemyY - 1)->type() == 2) {  //checking if next cell is open space or object, if so, player can move
+			grid->move(_enemyX, _enemyY, _enemyX, _enemyY - 1);
+			_enemyY--;
+			update();
+		}
+		break;
+
+	case 1: // right
+		if (grid->getCellValue(_enemyX + 1, _enemyY)->type() == 0 || grid->getCellValue(_enemyX + 1, _enemyY)->type() == 2) { //checking if next cell is open space or object, if so, player can move
+			grid->move(_enemyX, _enemyY, _enemyX + 1, _enemyY);
+			_enemyX++;
+			update();
+		}
+		break;
+
+	case 2: // bottom
+		if (grid->getCellValue(_enemyX, _enemyY + 1)->type() == 0 || grid->getCellValue(_enemyX, _enemyY + 1)->type() == 2) { //checking if next cell is open space or object, if so, player can move
+			grid->move(_enemyX, _enemyY, _enemyX, _enemyY + 1);
+			_enemyY++;
+			update();
+		}
+		break;
+
+	case 3: // left
+		if (grid->getCellValue(_enemyX - 1, _enemyY)->type() == 0 || grid->getCellValue(_enemyX - 1, _enemyY)->type() == 2) { //checking if next cell is open space or object, if so, player can move
+			grid->move(_enemyX, _enemyY, _enemyX - 1, _enemyY);
+			_enemyX--;
+			update();
+		}
+		break;
+	}
+
+}
+
+
+
+BOOL Display::IsCrash()
+{
+	if (!isvisibleEnemy)
+		return FALSE;
+
+	int nOffsetX, nOffsetY;
+
+	nOffsetX = abs(_playerX - _enemyX);
+	nOffsetY = abs(_playerY - _enemyY);
+
+	if (nOffsetX <= 1 && nOffsetY <= 1)
+		return TRUE;
+
+	return FALSE;
+}
+
+
+void Display::RemoveEnemy()
+{
+	grid->setCell(_enemyX, _enemyY, 0);
+}
+
+void Display::RemoveHero()
+{
+	grid->setCell(_playerX, _playerY, 0);
+}
+
+
+void Display::MoveHero(int nMoveX, int nMoveY)
+{
+	int nMovePosX = (nMoveX - PADDINGX - BORDER_SIZE*_tilesize.x) / _tilesize.x;
+	int nMovePosY = (nMoveY - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y;
+	int nDirection, nStep;
+
+	if (_playerX == nMovePosX) { // horizontal
+		nStep = nMovePosY - _playerY;
+		nDirection = nStep  > 0 ? 2 : 0;
+	}
+	else if (_playerY == nMovePosY) { // vertical
+		nStep = nMovePosX - _playerX;
+		nDirection = nStep > 0 ? 1 : 3;
+	}
+	else
+		return;
+
+	for (int idx = 0; idx < abs(nStep); idx++)
+	{
+		Sleep(200);
+		switch (nDirection)
+		{
+		case 0: // top
+			if (grid->getCellValue(_playerX, _playerY - 1)->type() == 0 || grid->getCellValue(_playerX, _playerY - 1)->type() == 2) {  //checking if next cell is open space or object, if so, player can move
+				grid->move(_playerX, _playerY, _playerX, _playerY - 1);
+				_playerY--;
+				update();
+			}
+			break;
+
+		case 1: // right
+			if (grid->getCellValue(_playerX + 1, _playerY)->type() == 0 || grid->getCellValue(_playerX + 1, _playerY)->type() == 2) { //checking if next cell is open space or object, if so, player can move
+				grid->move(_playerX, _playerY, _playerX + 1, _playerY);
+				_playerX++;
+				update();
+			}
+			break;
+
+		case 2: // bottom
+			if (grid->getCellValue(_playerX, _playerY + 1)->type() == 0 || grid->getCellValue(_playerX, _playerY + 1)->type() == 2) { //checking if next cell is open space or object, if so, player can move
+				grid->move(_playerX, _playerY, _playerX, _playerY + 1);
+				_playerY++;
+				update();
+			}
+			break;
+
+		case 3: // left
+			if (grid->getCellValue(_playerX - 1, _playerY)->type() == 0 || grid->getCellValue(_playerX - 1, _playerY)->type() == 2) { //checking if next cell is open space or object, if so, player can move
+				grid->move(_playerX, _playerY, _playerX - 1, _playerY);
+				_playerX--;
+				update();
+			}
+			break;
+		}
+	}
 }
