@@ -11,6 +11,7 @@ public:
 	MenuDisplay();
 	~MenuDisplay();
 	void menuDisplay();
+	void drawHeader();
 	void drawButtons();
 	void update();
 	void run();

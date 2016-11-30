@@ -56,13 +56,16 @@ Future goals:
 #include <vector>
 #include "Grid.h"
 #include "Display.h"
-#include "Character.h"
 #include "MenuDisplay.h"
+#include "BuilderDisplay.h"
+#include "Character.h"
 
 
 
 void main()
 {
+
+
 	MenuDisplay *menu = new MenuDisplay();  //make a menu display
 	
 	while (menu->windowOpen()) {  //open the menu
@@ -70,9 +73,9 @@ void main()
 		menu->run();
 
 	}
-	/*
 	
-		if (menu->goplay) { //open play menu
+	
+		if (menu->getExitType() == 0) { //open play menu
 
 			Grid *grid = new Grid(10, 10, false);  //random grid
 
@@ -88,20 +91,18 @@ void main()
 
 		//else if (menu->goitem)
 
-		else if (menu->gobuilder) {
+		else if (menu->getExitType() == 2) {
 
-			Grid *grid = new Grid(10, 10, true);  //blank grid
+			BuilderDisplay *build = new  BuilderDisplay();
 
-			Display *build = new Display(grid, 2);
-
-			while (build->windowOpen()) {
+			while (build->windowOpen()) {  //open the menu
 
 				build->run();
 
 			}
 
 		}
-		*/
+
 
 }
 

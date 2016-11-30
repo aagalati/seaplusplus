@@ -2,23 +2,11 @@
 #include "MenuDisplay.h"
 
 
-MenuDisplay::MenuDisplay()
+MenuDisplay::MenuDisplay() : Display()
 {
-	//_type = menu;
-
-	BORDER_SIZE = 1;
-	BORDER = BORDER_SIZE * 2;
-	PADDINGX = 50;
+	
+	PADDINGX = 50; 
 	PADDINGY = 50;
-
-	_tilesource.x = 32;
-	_tilesource.y = Wall;
-
-	_tilesize.x = 32;
-	_tilesize.y = 32;
-
-	_windowsize.x = 1000;
-	_windowsize.y = 600;
 
 	_headersize.x = _windowsize.x*0.5;
 	_headersize.y = _windowsize.y*0.1;
@@ -35,11 +23,9 @@ MenuDisplay::MenuDisplay()
 	loadFonts();
 	
 	numofbuttons = 4;
-
-	
+	buttons.resize(numofbuttons);
 
 	_window.create(sf::VideoMode(_windowsize.x, _windowsize.y), "Dungeons and Dragons (Menu)");
-	//_window.setKeyRepeatEnabled(false);
 
 	menuDisplay();
 
@@ -54,23 +40,6 @@ void MenuDisplay::menuDisplay() {
 	//map creator
 
 	string bname;
-	buttons.resize(numofbuttons);
-
-	//MAKING HEADER
-		sf::RectangleShape header(_headersize);
-		header.setPosition(_headerposition);
-		
-		buttonname.setFont(font);
-		buttonname.setFillColor(sf::Color::Black);
-		buttonname.setCharacterSize(20);
-		buttonname.setString("Dungeons and Dragons!");
-		buttonname.setPosition(_headerposition.x + _headersize.x*0.25 + 10, _headerposition.y + 15);
-
-		_window.draw(header);
-		_window.draw(buttonname);
-	//HEADER IS MADE
-
-
 
 	//Making buttons
 
@@ -93,8 +62,23 @@ void MenuDisplay::menuDisplay() {
 
 	}
 
-	drawButtons();
-	_window.display();
+	update();
+
+}
+
+void MenuDisplay::drawHeader() {
+
+	sf::RectangleShape header(_headersize);
+	header.setPosition(_headerposition);
+
+	buttonname.setFont(font);
+	buttonname.setFillColor(sf::Color::Black);
+	buttonname.setCharacterSize(20);
+	buttonname.setString("Dungeons and Dragons!");
+	buttonname.setPosition(_headerposition.x + _headersize.x*0.25 + 10, _headerposition.y + 15);
+
+	_window.draw(header);
+	_window.draw(buttonname);
 
 }
 
@@ -119,7 +103,10 @@ void MenuDisplay::drawButtons() {
 
 void MenuDisplay::update() {
 
+	_window.clear();
+	drawHeader();
 	drawButtons();
+	_window.display();
 
 }
 
@@ -135,7 +122,7 @@ void MenuDisplay::run() {
 
 			case sf::Event::MouseMoved:
 				//std::cout << "X: " << _event.mouseMove.x << " Y: " << _event.mouseMove.y << std::endl;
-				//buttonAction(_event.mouseMove.x, _event.mouseMove.y, false);
+				buttonAction(_event.mouseMove.x, _event.mouseMove.y, false);
 				break;
 
 		case sf::Event::MouseButtonPressed:
@@ -160,7 +147,18 @@ void MenuDisplay::buttonAction(int x, int y, bool isclick) {
 				//std::cout << "You clicked button " << i << std::endl;
 			}
 
-		}
+		} else {
+
+				if (buttons[i]->isClicked(x, y)) {
+					buttons[i]->changeColor(sf::Color::Magenta);
+					update();
+				}
+				else {
+					buttons[i]->changeColor(sf::Color::White);
+					update();
+				}
+
+			}
 
 	}
 

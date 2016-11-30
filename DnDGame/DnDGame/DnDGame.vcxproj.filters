@@ -105,10 +105,10 @@
     <ClInclude Include="TextButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Astar.h">
+    <ClInclude Include="MenuDisplay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Node.h">
+    <ClInclude Include="BuilderDisplay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -200,10 +200,10 @@
     <ClCompile Include="TextButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Astar.cpp">
+    <ClCompile Include="MenuDisplay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Node.cpp">
+    <ClCompile Include="BuilderDisplay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

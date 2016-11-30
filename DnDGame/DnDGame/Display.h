@@ -19,7 +19,7 @@ public:
 	//Loading map visuals
 	void loadFonts();
 	void loadTextures();
-	void loadSprites();
+	virtual void loadSprites();
 
 	//Main menu
 	virtual void buttonAction(int x, int y, bool isClick);

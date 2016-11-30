@@ -4,10 +4,16 @@
 #include "DNDObject.h"
 #include <string>
 
+
 int pppGridAutopathInfo[10][10][4] = { 0 };
 int gnMoveCount = 0;
 
-Display::Display() {};
+Display::Display() {
+
+	_windowsize.x = 1000;
+	_windowsize.y = 600;
+
+}
 
 Display::Display(Grid *grid, int type)   //!!GAME
 {
@@ -31,6 +37,8 @@ Display::Display(Grid *grid, int type)   //!!GAME
 
 	_enemyX = this->grid->getExitX();
 	_enemyY = this->grid->getExitY();
+
+
 
 	_tilesource.x = 32;
 	_tilesource.y = Wall;

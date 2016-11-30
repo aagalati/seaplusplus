@@ -164,6 +164,7 @@
     <ClInclude Include="Belt.h" />
     <ClInclude Include="Boots.h" />
     <ClInclude Include="Builder.h" />
+    <ClInclude Include="BuilderDisplay.h" />
     <ClInclude Include="BullyFighterBuilder.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="CharacterBuilder.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="Belt.cpp" />
     <ClCompile Include="Boots.cpp" />
     <ClCompile Include="Builder.cpp" />
+    <ClCompile Include="BuilderDisplay.cpp" />
     <ClCompile Include="BullyFighterBuilder.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="CharacterBuilder.cpp" />
