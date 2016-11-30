@@ -28,6 +28,7 @@ Grid::Grid(int width, int height, bool blank) //constructor
 		fillMapBlank();
 	else
 		fillMapRandom(); //if the user wants the map to be blank then the map is not filled randomly
+
 	GridObserver *_gridObserver = new GridObserver();
 	_grid = _gridObserver;
 	_grid->Attach(this);
@@ -38,7 +39,7 @@ Grid::Grid(int width, int height, bool blank) //constructor
 Grid::Grid(Grid* grid) {
 
 	this->_width = grid->_width;
-	this->_height =grid->_height;
+	this->_height = grid->_height;
 	this->_gridData = grid->_gridData;
 	this->_entrance_col = grid->_entrance_col;
 	this->_entrance_row = grid->_entrance_row;
@@ -86,17 +87,17 @@ void Grid::fillMapRandom()  //this method fills the map randomly with walls, obj
 	Builder *build = new Builder();
 	DNDObject *make;
 
-	srand( time(NULL) );  //using srand for random numbers everytime
+	srand(time(NULL));  //using srand for random numbers everytime
 
 	for (int i = 0; i < _width; i++) { //iterating through the whole 2d matrix and inserting random numbers
 		for (int j = 0; j < _height; j++) {
 			t = rand() % 3;
-			 make = build->build(t);
+			make = build->build(t);
 			_gridData[i][j] = make;
 
 		}
 	}
-	
+
 	_entrance_col = rand() % _width;  //randomizing entrances and exits
 	_entrance_row = rand() % _height;
 
@@ -111,10 +112,12 @@ void Grid::fillMapRandom()  //this method fills the map randomly with walls, obj
 	make = build->build(4);
 	_gridData[_exit_col][_exit_row] = make;
 
+	make = build->build(6);
+	_gridData[_exit_col + 1][_exit_row + 1] = make;
+
 	_currentcell = _gridData[_entrance_col][_entrance_row]; //current cell is the door when you come into the map
 	make = build->build(5);
 	_gridData[_entrance_col][_entrance_row] = make;
-
 }
 
 bool Grid::checkValid() {
@@ -126,53 +129,53 @@ bool Grid::checkValid() {
 bool Grid::checkValid(int row, int col, int dir) {
 
 	//cout << "Checking at (" << row << "," << col << ") = " << _gridData[row][col] << endl;
-	
+
 	srand(time(NULL));
 
 	//int t; //testing purposes
 	//cin >> t;
 
 	if (_gridData[row][col]->type() == 4) { //base case, if exit is found, return true
-		//cout << "Found the exit, returning true" << endl;
+											//cout << "Found the exit, returning true" << endl;
 		return true;
 	}
 	else if (_gridData[row][col]->type() == 1) { //case that there is a wall we return false
-		//cout << "Wall in the way, returning false" << endl;
+												 //cout << "Wall in the way, returning false" << endl;
 		return false;
 	}
 	else {
-			//cout << "Checking empty space at (" << row << "," << col << ")" << endl;  //this code is for testing purposes
-			//printMapImage(row, col);
+		//cout << "Checking empty space at (" << row << "," << col << ")" << endl;  //this code is for testing purposes
+		//printMapImage(row, col);
 
-			//cout << "Direction = " << dir << endl;
+		//cout << "Direction = " << dir << endl;
 
-			if (col != 0 && dir != 2) {  //Checking left
-				//cout << "Going left" << endl; //debugging purposes
-				if (checkValid(row, col - 1, 1))
-					return true;
-			}
+		if (col != 0 && dir != 2) {  //Checking left
+									 //cout << "Going left" << endl; //debugging purposes
+			if (checkValid(row, col - 1, 1))
+				return true;
+		}
 
-			if (col != _width - 1 && dir != 1) { //checking right
-				//cout << "Going right" << endl;  //debugging purposes
-				if (checkValid(row, col + 1, 2))
-					return true;
-			}
+		if (col != _width - 1 && dir != 1) { //checking right
+											 //cout << "Going right" << endl;  //debugging purposes
+			if (checkValid(row, col + 1, 2))
+				return true;
+		}
 
-			int random2 = rand() % 2;
+		int random2 = rand() % 2;
 
-			//cout << "Random is: " << random2 << endl;
+		//cout << "Random is: " << random2 << endl;
 
-			if (row != 0 && dir != 4 && random2 == 0) { //checking up
-				//cout << "Going up" << endl; //debugging purposes
-				if (checkValid(row - 1, col, 3))
-					return true;
-			}
+		if (row != 0 && dir != 4 && random2 == 0) { //checking up
+													//cout << "Going up" << endl; //debugging purposes
+			if (checkValid(row - 1, col, 3))
+				return true;
+		}
 
-			if (row != _height - 1 && dir != 3 && random2 == 1) { //checking down
-				//cout << "Going down" << endl; //debugging purposes
-				if (checkValid(row + 1, col, 4))
-					return true;
-			}
+		if (row != _height - 1 && dir != 3 && random2 == 1) { //checking down
+															  //cout << "Going down" << endl; //debugging purposes
+			if (checkValid(row + 1, col, 4))
+				return true;
+		}
 
 	}
 
@@ -184,7 +187,7 @@ void Grid::printMapValues() {
 
 
 	for (int i = 0; i < _height - 2; i++) { //loop to create a header for the grid
-		if (i == (_height / 2) - 1 && _height%2 == 0) //different formatting for odd and even
+		if (i == (_height / 2) - 1 && _height % 2 == 0) //different formatting for odd and even
 			cout << "Current Map----";
 		else if (i == (_height / 2) - 1 && _height % 2 == 1)
 			cout << "--Current Map--";
@@ -224,14 +227,14 @@ void Grid::printMapImage() {  //prints the map as an image, Wall = $ = 1, Open s
 		for (int j = 0; j < _width; j++) {
 			switch (_gridData[j][i]->type()) {
 
-				case 0: cout << " "; //open space
-						break;
-				case 1: cout << "#"; //wall
-						break;
-				case 2: cout << "O"; //object
-						break;
-				default: cout << "D"; //door
-						 break;
+			case 0: cout << " "; //open space
+				break;
+			case 1: cout << "#"; //wall
+				break;
+			case 2: cout << "O"; //object
+				break;
+			default: cout << "D"; //door
+				break;
 
 			}
 
@@ -299,22 +302,22 @@ void Grid::setDoors() {
 	cout << "To begin, you must set an entrance and an exit!" << endl;
 	cout << "Let's start with the entrance." << endl;
 	cout << "You will need to enter the number of the column" << endl << "and row you want your entrance to be at" << endl;
-	
+
 	cout << "Column from 1 to " << _width << ": ";
 	cin >> x;
 	cout << "Row from 1 to " << _height << ": ";
 	cin >> y;
-	
+
 	setCell(x - 1, y - 1, -1);
-	
+
 	cout << "Now you will need to set the exit" << endl;
 	cout << "Column from 1 to " << _width << ": ";
-	
+
 	do {
 		cin >> x;
 		cout << "Row from 1 to " << _height << ": ";
 		cin >> y;
-	}  while (x == _entrance_col - 1 && y == _entrance_row - 1);
+	} while (x == _entrance_col - 1 && y == _entrance_row - 1);
 
 	setCell(x - 1, y - 1, -2);
 
@@ -371,9 +374,9 @@ void Grid::resizeMap(int width, int height) {
 
 DNDObject* Grid::getCellValue(int width, int height) {
 
-		Builder *build = new Builder();
-		DNDObject *make = build->build(-1);
-		return (width < 0 || height < 0 || width > _width - 1 || height > _height -1) ? make : _gridData[width][height];  //check for bounds
+	Builder *build = new Builder();
+	DNDObject *make = build->build(-1);
+	return (width < 0 || height < 0 || width > _width - 1 || height > _height - 1) ? make : _gridData[width][height];  //check for bounds
 
 }
 
@@ -386,6 +389,18 @@ int Grid::getEntranceX() {
 int Grid::getEntranceY() {
 
 	return _entrance_row;
+
+}
+
+int Grid::getExitX() {
+
+	return _exit_col + 1;
+
+}
+
+int Grid::getExitY() {
+
+	return _exit_row + 1;
 
 }
 
@@ -414,18 +429,18 @@ void Grid::update() {
 
 
 Grid::~Grid()
-	{
+{
 
-		_grid = NULL; //destroy observer
+	_grid = NULL; //destroy observer
 
-	}
+}
 
-void Grid:: Serialize(CArchive& archie)
+void Grid::Serialize(CArchive& archie)
 {
 	if (archie.IsStoring())
 	{
 		archie << _width << _height << _entrance_row << _entrance_col << _exit_row << _exit_col;
-		
+
 		for (int i = 0; i < _height; i++) { //iterating through the whole 2d matrix and inserting random numbers
 
 			for (int j = 0; j < _width; j++) {
@@ -453,16 +468,16 @@ void Grid:: Serialize(CArchive& archie)
 				}
 			}
 		}
-			
+
 	}
 
 	else
 	{
 		archie << _width << _height << _entrance_row << _entrance_col << _exit_row << _exit_col;
-		
+
 		for (int i = 0; i < _height; i++)
 		{
-			for (int j = 0; j < _width; j++) 
+			for (int j = 0; j < _width; j++)
 			{
 				int type;
 				archie >> type;
@@ -522,4 +537,5 @@ Grid* Grid::load()
 	load.Close();
 
 	return _grid;
+
 }
