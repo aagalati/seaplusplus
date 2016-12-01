@@ -20,3 +20,8 @@ void CharacterBuilder::createNewCharacter()
 {
 	t_character = new Character();
 }
+
+void CharacterBuilder::createNewCharacter(int level)
+{
+	t_character = new Character(level);
+}

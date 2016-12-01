@@ -162,6 +162,7 @@
   <ItemGroup>
     <ClInclude Include="Armor.h" />
     <ClInclude Include="Belt.h" />
+    <ClInclude Include="BFS.h" />
     <ClInclude Include="Boots.h" />
     <ClInclude Include="Builder.h" />
     <ClInclude Include="BuilderDisplay.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="ItemContainer.h" />
     <ClInclude Include="MenuDisplay.h" />
     <ClInclude Include="NimbleFighterBuilder.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="Ring.h" />
     <ClInclude Include="Shield.h" />
@@ -195,6 +197,7 @@
   <ItemGroup>
     <ClCompile Include="Armor.cpp" />
     <ClCompile Include="Belt.cpp" />
+    <ClCompile Include="BFS.cpp" />
     <ClCompile Include="Boots.cpp" />
     <ClCompile Include="Builder.cpp" />
     <ClCompile Include="BuilderDisplay.cpp" />

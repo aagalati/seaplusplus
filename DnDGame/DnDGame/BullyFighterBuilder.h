@@ -8,8 +8,7 @@ class BullyFighterBuilder : public CharacterBuilder
 public:
 	
 	virtual void buildCharacterType();
-
-	BullyFighterBuilder();
-	~BullyFighterBuilder();
+	virtual void buildCharacterType(int);
+	
 };
 

@@ -8,8 +8,8 @@ public:
 	void setCharacterBuilder(CharacterBuilder *);
 	Character* getCharacter();
 	void constructCharacter();
-	FighterDirector();
-	~FighterDirector();
+	void constructCharacter(int);
+	
 private:
 	CharacterBuilder* t_chBuilder;
 	
