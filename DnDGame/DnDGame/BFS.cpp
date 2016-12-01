@@ -43,6 +43,8 @@ std::vector<std::vector<Node>> BFS::search()
 		Node current = flag.front();
 		flag.pop();
 
+		if (current.getT() == goal)
+			break;
 		for (Node i : neighbor(current))
 		{
 			for (int x = 0; x < width; x++)
@@ -96,6 +98,9 @@ std::vector<Node> BFS::search(int haramboo)
 	{
 		Node current = flag.front();
 		flag.pop();
+
+		if (current.getT() == goal)
+			break;
 		for (Node i : neighbor(current))
 		{
 			for (vector<Node>::iterator iter = keepT.begin(); iter != keepT.end(); iter++)
