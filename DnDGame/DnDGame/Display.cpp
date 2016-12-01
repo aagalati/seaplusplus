@@ -566,8 +566,6 @@ int Display::AutoSearch()
 	int nDirect = -1;
 	int nLess = 0;
 	int nCase = 0;
-	int nResult2 = 2;
-	int nResult01 = 0;
 	int nMoveFlag = 0;
 
 	while (!nMoveFlag)
@@ -675,7 +673,21 @@ BOOL Display::IsEqual(int nValue)
 
 	return FALSE;
 }
+BOOL Display::IsCrash()
+{
+	if (!isvisibleEnemy)
+		return FALSE;
 
+	int nOffsetX, nOffsetY;
+
+	nOffsetX = abs(_playerX - _enemyX);
+	nOffsetY = abs(_playerY - _enemyY);
+
+	if (nOffsetX <= 1 && nOffsetY <= 1)
+		return TRUE;
+
+	return FALSE;
+}
 
 int Display::IsComplete()
 {
@@ -733,26 +745,6 @@ void Display::ChangeEnemy()
 	}
 
 }
-
-
-
-BOOL Display::IsCrash()
-{
-	if (!isvisibleEnemy)
-		return FALSE;
-
-	int nOffsetX, nOffsetY;
-
-	nOffsetX = abs(_playerX - _enemyX);
-	nOffsetY = abs(_playerY - _enemyY);
-
-	if (nOffsetX <= 1 && nOffsetY <= 1)
-		return TRUE;
-
-	return FALSE;
-}
-
-
 void Display::RemoveEnemy()
 {
 	grid->setCell(_enemyX, _enemyY, 0);
@@ -783,7 +775,7 @@ void Display::MoveHero(int nMoveX, int nMoveY)
 
 	for (int idx = 0; idx < abs(nStep); idx++)
 	{
-		Sleep(200);
+		Sleep(100);
 		switch (nDirection)
 		{
 		case 0: // top
