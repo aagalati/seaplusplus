@@ -32,6 +32,8 @@ public:
 	void pickupItem(int ItemNo, ItemContainer fromContainer, ItemContainer intoContainer);
 	void displayContainer();
 	void displayAndDropItem();
+	void levelUpContainer(int);
+	
 	
 	
 

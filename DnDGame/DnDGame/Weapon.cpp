@@ -7,9 +7,11 @@ Weapon::Weapon(std::string name, EnhancementType enhType, int enhBonus) : Item(n
 	itemType = 2;
 	range = 1;
 }
-Weapon::Weapon(std::string name, EnhancementType enhType, int enhBonus, int _range) : Weapon (name, enhType, _range)
+Weapon::Weapon(std::string name, EnhancementType enhType, int enhBonus, int _range, int x, int diceType) : Weapon (name, enhType, enhBonus)
 {
 	range = _range;
+	Dice d(x, diceType);
+	dmgRoll = d;
 }
 
 Weapon::Weapon(Item* i)
@@ -19,6 +21,7 @@ Weapon::Weapon(Item* i)
 	this->enhBonus = i->getEnhancementBonus();
 	this->range = i->getRange();
 	itemType = 2;
+	this->dmgRoll = i->getDmgRoll();
 }
 
 Weapon::Weapon(){}
@@ -53,5 +56,7 @@ const Weapon& Weapon:: operator=(const Weapon& i)
 	name = i.name;
 	enhType = i.enhType;
 	enhBonus = i.enhBonus;
+	range = i.range;
+	dmgRoll = i.dmgRoll;
 	return *this;
 }

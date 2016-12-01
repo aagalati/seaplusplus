@@ -32,6 +32,8 @@ Item::Item(const Item& orig) {
 	this->name = orig.name;
 	this->enhType = orig.enhType;
 	this->enhBonus = orig.enhBonus;
+	this->range = orig.range;
+	this->dmgRoll = orig.dmgRoll;
 }
 
 std::string Item::getItemName() const
@@ -63,6 +65,11 @@ std::string Item::getEnhancementTypeString() const {
 int Item::getEnhancementBonus() const
 {
 	return enhBonus;
+}
+
+Dice Item::getDmgRoll() const
+{
+	return dmgRoll;
 }
 
 std::string Item::getStringBonus()
@@ -148,7 +155,7 @@ std::string Item::toString()
 		break;
 	case 7:
 		item += "[Melee Damage + " + getStringBonus();
-		item += "]";
+		item += "] ";
 		break;
 	case 8:
 		item += "[Ranged Damage + " + getStringBonus();
@@ -156,10 +163,6 @@ std::string Item::toString()
 		break;
 	}
 
-	if (range == 1)
-		item += " Melee";
-	if (range >= 2)
-		item += "Ranged";
 
 	return item;
 }
@@ -173,6 +176,7 @@ const Item& Item::operator=(const Item& i)
 	name = i.name;
 	enhType = i.enhType;
 	enhBonus = i.enhBonus;
+	dmgRoll = i.dmgRoll;
 	return *this;
 }
 

@@ -76,6 +76,10 @@
 #include "Shield.h"
 #include "Weapon.h"
 #include "itemContainer.h"
+#include "Grid.h"
+#include "Treasure.h"
+
+
 
 //Serialization library
 #include <afx.h>
@@ -261,7 +265,6 @@ using std::string;
 		void setTankAttributes();
 
 
-		
 		//!Functions for modifiers
 		void setModifiers();
 		void setEquipmentModifiers() noexcept;
@@ -279,6 +282,10 @@ using std::string;
 		//Methods for map element adaptation
 		void levelUp() noexcept;
 		void levelUp(int) noexcept;
+		void levelDown() noexcept;
+		void levelDown(const int ) noexcept;
+
+		Grid* adapt(Grid*, Character) noexcept;
 
 		//!Printing Information 
 		void printCharacter() noexcept;

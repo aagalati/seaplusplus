@@ -8,10 +8,13 @@ Treasure::Treasure() : ItemContainer()
 }
 
 
+
 Treasure::~Treasure()
 {
 	
 }
+
+
 
 /*Treasure::Treasure(ItemContainer loot) : ItemContainer(loot)
 {

@@ -947,6 +947,76 @@ using std::string;
 			levelUp();
 	}
 
+	void Character::levelDown() noexcept
+	{
+		int lvl = getLevel();
+		setLevel(lvl--);
+		
+		if (lvl == 3 || lvl == 5 || lvl == 7 || lvl == 11 || lvl == 13 || lvl == 15 || lvl == 18)
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				int point = rand() % 6;
+				switch (point)
+				{
+				case 0:
+					setStrength(getStrength() - 1);
+				case 1:
+					setDexterity(getDexterity() - 1);
+
+				case 2:
+					setConstitution(getConstitution() - 1);
+				case 3:
+					setIntelligence(getIntelligence() - 1);
+				case 4:
+					setWisdom(getWisdom() - 1);
+				case 5:
+					setCharisma(getCharisma() - 1);
+				default:
+					break;
+				}
+			}
+		}
+	}
+
+	void Character::levelDown(const int x) noexcept
+	{
+		for (int i = 0; i < x; i++)
+			levelDown();
+	}
+
+	Grid* Character::adapt(Grid *g, Character hero) noexcept
+	{
+
+		for (int i = 0; i < g->getWidth(); i++)
+			for (int j = 0; i < g->getHeight(); i++)
+			{
+
+				if (g->getGridData()[i][j]->type() == 2)
+				{
+					Treasure* t = dynamic_cast<Treasure*> (g->getGridData()[i][j]);
+					t->levelUpContainer(hero.getLevel());
+					DNDObject* o = dynamic_cast<DNDObject*> (t);
+					g->getGridData()[i][j] = o;
+				}
+
+				if (g->getGridData()[i][j]->type() == 5)
+				{
+					Character* p = dynamic_cast<Character*> (g->getGridData()[i][j]);
+					int lvlDiff = hero.getLevel() - p->getLevel();
+					if (lvlDiff == 0)
+						continue;
+					if (lvlDiff >  0)
+						p->levelUp();
+					if (lvlDiff < 0)
+						p ->levelDown();
+					DNDObject* o = dynamic_cast<Character*> (p);
+					g->getGridData()[i][j] = p;
+				}
+			}
+		return g;
+	}
+
 	//This checks that the attributes of a character respect the DnD guidelines 
 	//(3 <= attribute <= 18)
 	bool Character::validateNewCharacter() noexcept
@@ -981,15 +1051,20 @@ using std::string;
 		Armor chainmail("Chain Mail", Item::ArmorClass, 0);
 		setArmorClass(16);
 
-		Weapon longsword("Longsword", Item::AttackBonus , 0, 1);
+		Weapon longsword("Longsword", Item::AttackBonus , 0, 1, 1, 8);
 		Shield shield("Iron Shield", Item::ArmorClass, 1);
 		Boots boots("Leather Boots", Item::Dexterity, 0);
 		Ring ring("Papa's Ring", Item::Constitution, 1);
 		Belt belt("Mama's Belt", Item::Intelligence, 1);
 		Helmet helmet("Harambe's Wisdom", Item::Wisdom, 2);
 
-		setArmor(chainmail); setWeapon(longsword); setShield(shield);
-		setBoots(boots); setRing(ring); setBelt(belt); setHelmet(helmet);
+		setArmor(chainmail); 
+		setWeapon(longsword);
+		setShield(shield);
+		setBoots(boots);
+		setRing(ring);
+		setBelt(belt);
+		setHelmet(helmet);
 		
 		storeEquipment();
 
@@ -1128,7 +1203,8 @@ using std::string;
 		i += ("\n Melee Attack Bonus +" + std::to_string(getMeleeAttackBonus())); i += ("    Melee Damage Bonus: +" + std::to_string(getMeleeAttackDamage()));
 		i += ("\n Ranged Attack Bonus: +" + std::to_string(getRangedAttackBonus())); i += ("    Ranged Damage Bonus: +" + std::to_string(getRangedAttackDamage()));
 		i += ("\n Equipment:\n Armor: "); i += getArmor().toString(); // i += " ("; i += getArmor().getEnhancementType()
-		i += ("\n Shield: " + (getShield().toString())); i += ("\n Weapon: " + (getWeapon().toString()));
+		i += ("\n Shield: " + (getShield().toString())); i += ("\n Weapon: " + (getWeapon().toString())); 
+		i += getWeapon().getDmgRoll().toString();
 		i += ("\n Boots: " + (getBoots().toString())); i += ("\n Belt: " + (getBelt().toString()));
 		i += ("\n Ring: " + (getRing().toString())); i += ("\n Helmet: " + (getHelmet().toString()));
 		return i;

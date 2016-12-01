@@ -94,6 +94,13 @@ void ItemContainer::displayAndDropItem() {
 		std::cout << "Wrong # input, no Item will be dropped.";
 }
 
+void ItemContainer::levelUpContainer(int lvl)
+{
+	for (std::vector<Item>::iterator iter = contained.begin(); iter != contained.end(); iter++)
+		iter->levelUp(lvl);
+	
+}
+
 std::string ItemContainer::toString()
 {
 	std::string content = "";
