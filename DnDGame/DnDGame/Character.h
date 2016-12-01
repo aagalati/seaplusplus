@@ -79,22 +79,17 @@
 #include "Grid.h"
 #include "Treasure.h"
 
-
-
 //Serialization library
 #include <afx.h>
-
 
 using std::rand;
 using std::cout;
 using std::string;
-
 	
 	//Class must be a subclass of CObject for MFC Serialization
 	class Character : public Observer , public CObject, public DNDObject
 	{
 	private:
-
 		
 		//!Statistics 
 		int level;

@@ -12,7 +12,6 @@ Display::Display() {
 
 	_windowsize.x = 1000;
 	_windowsize.y = 600;
-
 }
 
 Display::Display(Grid *grid, int type)   //!!GAME
@@ -339,6 +338,7 @@ void Display::run() {
 
 			case sf::Event::Closed:
 				delete this;
+				exit(0);
 				_window.close();
 				break;
 
@@ -484,7 +484,8 @@ void Display::keyPressed(sf::Event event) {
 		break;
 
 	case sf::Keyboard::P: //move character
-		goCharacter = TRUE;
+		goCharacter = FALSE;
+		isvisibleEnemy = FALSE;
 		break;
 
 	case sf::Keyboard::A:
