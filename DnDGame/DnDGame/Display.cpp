@@ -38,8 +38,6 @@ Display::Display(Grid *grid, int type)   //!!GAME
 	_enemyX = this->grid->getExitX();
 	_enemyY = this->grid->getExitY();
 
-
-
 	_tilesource.x = 32;
 	_tilesource.y = Wall;
 
@@ -356,7 +354,7 @@ void Display::run() {
 
 			case sf::Event::MouseButtonPressed:
 				if (_event.mouseButton.button == sf::Mouse::Left) {
-					isvisibleEnemy = TRUE;
+					isvisibleEnemy = FALSE;
 					MoveHero(_event.mouseButton.x, _event.mouseButton.y);
 					if (IsCrash())
 					{
@@ -479,15 +477,14 @@ void Display::keyPressed(sf::Event event) {
 
 							   //Checking if moving will be valid, if so, it will trigger the move function which will trigger Subject::Notify
 	case sf::Keyboard::S:
-		goCharacter = TRUE;
+		goCharacter = FALSE;
 		gnMoveCount = 0;
 		if (!isvisibleEnemy)
 			isvisibleEnemy = TRUE;
-		// 		nResult = AutoSearch();
 		break;
 
-	case sf::Keyboard::P:
-		goCharacter = FALSE;
+	case sf::Keyboard::P: //move character
+		goCharacter = TRUE;
 		break;
 
 	case sf::Keyboard::A:
@@ -496,8 +493,8 @@ void Display::keyPressed(sf::Event event) {
 		int nOffsetX, nOffsetY;
 		nOffsetX = abs(_playerX - _enemyX);
 		nOffsetY = abs(_playerY - _enemyY);
-		//needs to change in terms of characters' weapon range
-		if (nOffsetX <= 1 && nOffsetY <= 1)
+
+		if (nOffsetX <= 1 && nOffsetY <= 1) //range
 		{
 			std::cout << "Attack Enemy!!!" << std::endl;
 			RemoveEnemy();
@@ -661,8 +658,6 @@ int Display::AutoSearch()
 	}
 	return 0;
 }
-
-
 BOOL Display::IsEqual(int nValue)
 {
 	if (pppGridAutopathInfo[_playerX][_playerY][0] == nValue &&
@@ -683,7 +678,7 @@ BOOL Display::IsCrash()
 	nOffsetX = abs(_playerX - _enemyX);
 	nOffsetY = abs(_playerY - _enemyY);
 
-	if (nOffsetX <= 1 && nOffsetY <= 1)
+	if (nOffsetX <= 1 & nOffsetY <= 1)
 		return TRUE;
 
 	return FALSE;
@@ -698,8 +693,6 @@ int Display::IsComplete()
 		return 1;
 	return 0;
 }
-
-
 
 void Display::ChangeEnemy()
 {
