@@ -27,11 +27,11 @@ public:
 	int getContainerSize();
 	//Treasure toTreasure(const ItemContainer&);
 
-	void storeItem(const Item &it);
+	void storeItem(Item*);
 	void dropItem(int itemNo);
 	void pickupItem(int ItemNo, ItemContainer fromContainer, ItemContainer intoContainer);
-	void displayContainer();
-	void displayAndDropItem();
+	void levelUpContainer(int);
+	
 	
 	
 
@@ -46,7 +46,7 @@ public:
 	ItemContainer* load();
 
 	//These are supposed to be protected, will be switched back after propper debugging
-	std::vector<Item> contained;
+	std::vector<Item*> contained;
 	std::string containerName;
 	bool accessible;
 

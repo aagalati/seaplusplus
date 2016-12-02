@@ -5,7 +5,9 @@
 #define _AFXDLL
 #include <afx.h>
 #include "DNDObject.h"
-#include < iostream>
+#include <iostream>
+#include "Dice.h"
+
 using std::cout;
 using std::cin;
 using std::string;
@@ -32,12 +34,21 @@ public:
 
 	//Accessor
 	std::string getItemName() const;
+	
 	EnhancementType getEnhancementType() const;
+	
 	std::string getEnhancementTypeString() const;
+	
 	int getEnhancementBonus() const;
+	
+	Dice getDmgRoll() const;
+	
 	std::string getStringBonus();
+	
 	virtual std::string getItemType() const;
+	
 	virtual int getRange();
+	
 	int type();
 
 	//Mutators
@@ -65,6 +76,7 @@ protected:
 	// 1 = armor, 2 = weapon, 3 = shield, 4 = boots, 5 = belt, 6 = ring, 7 = helmet
 	int itemType;
 	int range;
+	Dice dmgRoll;
 
 };
 

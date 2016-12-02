@@ -17,11 +17,7 @@ void FighterDirector::constructCharacter()
 	t_chBuilder->buildCharacterType();
 }
 
-FighterDirector::FighterDirector()
+void FighterDirector::constructCharacter(int level)
 {
-}
-
-
-FighterDirector::~FighterDirector()
-{
+	t_chBuilder->buildCharacterType(level);
 }

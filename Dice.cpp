@@ -1,3 +1,4 @@
+
 /**
 * @file DiceRoll.cpp
 * @brief: 
@@ -14,61 +15,29 @@
 * @date 21/10/2016
 */
 
+#include "Dice.h"
 
-#include <regex>
-#include <string>
-#include <iostream>
-#include <vector>
-#include <ctime>
-#include <cstdlib>
-/**
-* forward declaration for the roll dice method
-*/
-int rollDice(int& rolls, int& sides, int& extra);
-int main()
-{	//regular expression for user input
-	std::regex e{ R"-((\d{1,3})[Dd](4|6|12|20|100)\[(\d{1,3})\])-" };
-	
-	std::cout << "Welcome to Dungeons and Dragons Dice Rolling Simulation" << std::endl;
-	std::cout << "Use the format xdy[z], x for times rolled, y for dice type and z for additional" << std::endl;
-	std::cout << "Enter dice roll: " << std::flush;
-
-	std::string line;
-	std::getline(std::cin, line);
-	//checks if regex is a match
-	std::smatch m;
-	if (!std::regex_match(line, m, e))
-	{
-		std::cout << "Error: bad format, please use: xdy[z]" << '\n';
-		return(0);
-	}
-	int rolls = std::stoi(m[1]);
-	int sides = std::stoi(m[2]);
-	int extra = std::stoi(m[3]);
-	//roll dice method
-	roll(rolls, sides, extra);
-											
-	return 0;
+Dice::Dice(int s)
+{
+	sides = s;
 }
-//roll dice method
-int roll(int& rolls, int& sides, int& extra)
-{	//double check to see if all the values are good to go
-	if ((rolls < 1 | rolls > 999) | (sides != (4 | 6 | 12 | 20 | 100)) | (rolls < 1 | rolls > 999)) 
-	{
-		std::cout << "Error: Invalid inputs exiting" << '\n';
-		return(0);
-	}
 
-	std::cout << "Rolls: " << rolls << '\n';
-	std::cout << "Sides: " << sides << '\n';
-	std::cout << "Extra: " << extra << '\n';
-	//switch case for the sides of dice
+
+//roll dice method
+int roll(int rolls);
+{	//double check to see if all the values are good to go
+	if ((rolls < 1 | rolls > 999) | (sides != (4 | 6 | 8 | 12 | 20 | 100)) | (rolls < 1 | rolls > 999))
+		return(0);
+
+	
 	switch (sides)
 	{
 		case '4':
 			sides = 4;
 		case '6':
 			sides = 6;
+		case '8':
+			sides = 8;
 		case '12':
 			sides = 12;
 		case '20':

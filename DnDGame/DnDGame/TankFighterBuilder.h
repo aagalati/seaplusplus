@@ -7,9 +7,9 @@ class TankFighterBuilder : public CharacterBuilder
 
 public:
 
-	void buildCharacterType();
+	virtual void buildCharacterType();
+	virtual void buildCharacterType(int);
 
-	TankFighterBuilder();
-	~TankFighterBuilder();
+	
 };
 
