@@ -1,5 +1,3 @@
-
-
 #include "stdafx.h"
 #include "Grid.h"
 #include <iostream>
@@ -7,7 +5,6 @@
 #include <ctime>
 #include "Builder.h"
 
-using namespace std;
 
 IMPLEMENT_SERIAL(Grid, CObject, 7)
 
