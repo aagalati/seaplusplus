@@ -117,6 +117,7 @@ void MenuDisplay::run() {
 		switch (_event.type) {
 
 		case sf::Event::Closed:
+			_window.clear();
 			_window.close();
 			break;
 
