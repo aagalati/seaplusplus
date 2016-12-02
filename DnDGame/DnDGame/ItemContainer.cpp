@@ -10,6 +10,8 @@ ItemContainer::ItemContainer()
 
 ItemContainer::~ItemContainer()
 {
+	for (std::vector<Item*>::iterator iter = contained.begin(); iter != contained.end(); iter++)
+		delete (*iter);
 }
 
 ItemContainer::ItemContainer(std::string containerName) {
@@ -59,6 +61,7 @@ ItemContainer::ItemContainer(ItemContainer* i)
 void ItemContainer::storeItem(Item* it){
 	contained.push_back(it);
 }
+
 
 void ItemContainer::dropItem(int itemNo){
 	contained.erase(contained.begin()+itemNo);

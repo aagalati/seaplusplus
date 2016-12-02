@@ -270,7 +270,7 @@ using std::string;
 
 		//!Functions for modifiers
 		void setModifiers();
-		void setEquipmentModifiers(ItemContainer) noexcept;
+		void setEquipmentModifiers() noexcept;
 		int modifierCalculation(int) noexcept;
 		
 		void defaultEquip() noexcept;

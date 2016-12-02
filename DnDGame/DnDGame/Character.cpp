@@ -867,7 +867,7 @@ using std::string;
 		setRangedAttackBonus(getDexterityModifier());
 		setRangedAttackDamage(getDexterityModifier());
 
-		setEquipmentModifiers(getEquipment());
+		setEquipmentModifiers();
 
 	}
 
@@ -1086,24 +1086,24 @@ using std::string;
 	void Character::storeEquipment() noexcept
 	{
 
-		Armor* a = new Armor(getArmor());
-		Shield* b = new Shield(getShield());
-		Weapon* c = new Weapon(getWeapon());
-		Boots* d = new Boots(getBoots());
-		Ring* e = new Ring(getRing());
-		Belt* f = new Belt(getBelt());
-		Helmet* g = new Helmet(getHelmet());
+		Item* a = new Armor(getArmor());
+		Item* b = new Shield(getShield());
+		Item* c = new Weapon(getWeapon());
+		Item* d = new Boots(getBoots());
+		Item* e = new Ring(getRing());
+		Item* f = new Belt(getBelt());
+		Item* g = new Helmet(getHelmet());
 		
-		getEquipment().contained.clear();
-		getEquipment().storeItem(a); 
-		getEquipment().storeItem(b); 
-		getEquipment().storeItem(c);
-		getEquipment().storeItem(d);
-		getEquipment().storeItem(e);
-		getEquipment().storeItem(f);
-		getEquipment().storeItem(g);
+		equipment.contained.clear();
+		equipment.contained.push_back(a);
+		equipment.contained.push_back(b);
+		equipment.contained.push_back(c);
+		equipment.contained.push_back(d);
+		equipment.contained.push_back(e);
+		equipment.contained.push_back(f);
+		equipment.contained.push_back(g);
 
-		setEquipmentModifiers(getEquipment());
+		setEquipmentModifiers();
 	}
 
 	void Character::equip(Item* i) noexcept
@@ -1169,9 +1169,9 @@ using std::string;
 	
 
 	
-	void Character::setEquipmentModifiers(ItemContainer e) noexcept
+	void Character::setEquipmentModifiers() noexcept
 	{
-		for (int i = 0; i < e.contained.size(); i++)
+		for (int i = 0; i < equipment.contained.size(); i++)
 		{
 			int type = equipment.contained[i]->getEnhancementType();
 			int bonus = equipment.contained[i]->getEnhancementBonus();
