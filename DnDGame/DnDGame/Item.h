@@ -7,10 +7,12 @@
 #include "DNDObject.h"
 #include <iostream>
 #include "Dice.h"
+#include <vector>
 
 using std::cout;
 using std::cin;
 using std::string;
+using std::vector;
 
 class Item : public DNDObject, public CObject
 {
@@ -64,6 +66,7 @@ public:
 	virtual void Serialize(CArchive& ar);
 	void save(int);
 	Item* load(int);
+	std::vector<Item*> load();
 
 
 	const Item& operator=(const Item&);

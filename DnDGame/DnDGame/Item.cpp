@@ -187,13 +187,13 @@ void Item::Serialize(CArchive& archie)
 	if (archie.IsStoring())
 	{
 		CString n(name.c_str());
-		archie << n << (int)enhType << enhBonus;
+		archie << n << (int)enhType << enhBonus << range << dmgRoll.getRolls() << dmgRoll.getSides();
 	}
 
 	else
 	{
-		CString n; int type;
-		archie >> n >> type >> enhBonus;
+		CString n; int type, rolls, sides;
+		archie >> n >> type >> enhBonus >> rolls >> sides;
 
 		CT2CA converter(n);
 		std::string nameTemp(converter);
@@ -229,6 +229,9 @@ void Item::Serialize(CArchive& archie)
 			enhType = DamageBonus;
 			break;
 		}
+
+		dmgRoll.setRolls(rolls);
+		dmgRoll.setSides(rolls);
 
 	}
 
@@ -297,4 +300,27 @@ Item* Item::load(int _case)
 	}
 
 
+}
+std::vector<Item*> Item::load()
+{
+	CFile load;
+	load.Open(_T("ItemSaved.txt"), CFile::modeRead);
+	CArchive archie(&load, CArchive::load);
+
+	vector<Item*> listItems;
+	try 
+	{
+		while (true)
+		{
+			Item* _item = new Item();
+			_item->Serialize(archie);
+			listItems.push_back(_item);
+		}
+	}
+	catch (std::exception e)
+	{
+		return listItems;
+	}
+	
+	return listItems;
 }
