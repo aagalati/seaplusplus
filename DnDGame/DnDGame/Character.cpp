@@ -1273,24 +1273,43 @@ using std::string;
 
 		if (arch.IsStoring())
 		{
+			
 			CString n(name.c_str());
 			arch << n << level << strength << dexterity << constitution << wisdom 
 				<< intelligence << charisma << strengthModifier << dexterityModifier 
 				<< constitutionModifier << wisdomModifier << intelligenceModifier 
 				<< charismaModifier << hitPoints << armorClass << meleeAttackBonus 
-				<< meleeAttackDamage << rangedAttackBonus << rangedAttackDamage;
+				<< meleeAttackDamage << rangedAttackBonus << rangedAttackDamage
+				<< nbOfAttacks << movement;
+		    ItemContainer* e = &equipment;
+			ItemContainer* b = &backpack;
+			e->Serialize(arch);
+			b->Serialize(arch);
+
+			delete e;
+			delete b;
 			
 		}
 
 		else
 		{
+			
 			CString n;
 			arch >> n >> level >> strength >> dexterity >> constitution >> wisdom
 				>> intelligence >> charisma >> strengthModifier >> dexterityModifier
 				>> constitutionModifier >> wisdomModifier >> intelligenceModifier
 				>> charismaModifier >> hitPoints >> armorClass >> meleeAttackBonus
-				>> meleeAttackDamage >> rangedAttackBonus >> rangedAttackDamage;
-			
+				>> meleeAttackDamage >> rangedAttackBonus >> rangedAttackDamage 
+				>> nbOfAttacks >> movement;
+			ItemContainer* e = new ItemContainer();
+			ItemContainer* b = new ItemContainer();
+			e->Serialize(arch);
+			equipment = *e;
+			b->Serialize(arch);
+			backpack = *b;
+
+			delete e;
+			delete b;
 			
 			CT2CA converter(n);
 			string nameTemp(converter);

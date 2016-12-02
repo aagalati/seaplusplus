@@ -2,6 +2,7 @@
 #include "Campaign.h"
 #include <iostream>
 
+IMPLEMENT_SERIAL(Campaign, CObject, 8)
 
 Campaign::Campaign()
 {
@@ -11,13 +12,14 @@ Campaign::Campaign()
 
 Campaign::~Campaign()
 {
+	
 }
 
 Campaign::Campaign(std::string campaignName)
 {
 	this->campaignName = campaignName;
-
 }
+
 
 Campaign::Campaign(const Campaign& orig) : gridlist(orig.gridlist.size()) {
 	for (std::size_t i = 0; i < orig.gridlist.size(); ++i)
@@ -31,17 +33,25 @@ std::string Campaign::getCampaignName() const
 	return campaignName;
 }
 
-void Campaign::addGrid(Grid* g)
+int Campaign::getCampaignSize()
 {
-	gridlist.push_back(g);
+	return gridlist.size();
 }
+
+void Campaign::addGrid(Grid g)
+{
+	Grid* gptr = &g;
+	gridlist.push_back(gptr);
+}
+
+
 
 void Campaign::removeGrid(int i)
 {
 	gridlist.erase(gridlist.begin() + i);
 }
 
-void Campaign::editCampaign(int n)
+/*void Campaign::editCampaign(int n)
 {
 
-}
+}*/

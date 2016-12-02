@@ -1,4 +1,5 @@
 #pragma once
+#define _AFXDLL
 #include <afx.h>
 
 #include <iostream>
@@ -9,9 +10,10 @@
 
 using std::string;
 
-class Campaign
+class Campaign : public CObject
 {
 public:
+	DECLARE_SERIAL(Campaign)
 
 	//Constructors
 	Campaign();
@@ -23,16 +25,21 @@ public:
 	
 	//Accessor
 	std::string getCampaignName() const;
+	int getCampaignSize();
 
 	//Mutators
-	void addGrid(Grid* g);
+	void addGrid(Grid g);
+	//void addGrid(int i, Grid* g);
 	void removeGrid(int i);
-	void editCampaign(int n); 
+	//void editCampaign(int n); 
+	
 
 
 
 private:
 	std::vector<Grid*> gridlist;
 	std::string campaignName;
+	//int nEdges;
+	//std::vector< std::vector<Grid*> > adjlist;
 };
 
