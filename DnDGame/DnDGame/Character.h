@@ -59,7 +59,7 @@
 
 */
 
-
+#pragma once
 #ifndef CHARACTER_H
 #define CHARACTER_H
 #define _AFXDLL
@@ -78,6 +78,8 @@
 #include "itemContainer.h"
 #include "Grid.h"
 #include "Treasure.h"
+#include "Combat.h"
+#include "Dice.h"
 
 
 
@@ -146,6 +148,9 @@ using std::string;
 		//!Other Information
 		std::string name;
 
+		Combat combatStats;
+		
+
 	public:
 		
 		DECLARE_SERIAL(Character)
@@ -192,6 +197,8 @@ using std::string;
 
 		void setAbilityScores(int, int) noexcept;
 		void setAbilityScores(int, int, int, int, int, int) noexcept;
+		
+		void setCombat(Combat);
 
 		//!Statistics Accessors
 		inline int getLevel();
@@ -241,6 +248,7 @@ using std::string;
 		
 		int* getAbilityScores();
 
+		Combat getCombat();
 
 		//!Constructor
 		Character() noexcept;
@@ -267,7 +275,7 @@ using std::string;
 
 		//!Functions for modifiers
 		void setModifiers();
-		void setEquipmentModifiers() noexcept;
+		void setEquipmentModifiers(ItemContainer) noexcept;
 		int modifierCalculation(int) noexcept;
 		
 		void defaultEquip() noexcept;

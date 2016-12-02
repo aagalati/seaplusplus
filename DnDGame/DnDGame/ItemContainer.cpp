@@ -56,7 +56,7 @@ ItemContainer::ItemContainer(ItemContainer* i)
 	}
 }
 
-void ItemContainer::storeItem(const Item &it){
+void ItemContainer::storeItem(Item* it){
 	contained.push_back(it);
 }
 
@@ -69,44 +69,21 @@ void ItemContainer::pickupItem(int itemNo, ItemContainer fromContainer, ItemCont
 	fromContainer.dropItem(itemNo);
 }
 
-void ItemContainer::displayContainer(){
-	std::cout << "INVENTORY OF " << containerName << std::endl;
-	int i = 0;
-	for (std::vector<Item>::iterator iter = contained.begin(); iter != contained.end(); ++iter) {
-		std::cout << i << " | ";
-		iter->displayItem();
-		i++;
-	}
-	std::cout << std::endl;
-}
 
-void ItemContainer::displayAndDropItem() {
-	this->displayContainer();
-	std::cout << "Input # of Item you wish to drop: ";
-	int dropNo;
-	std::cin >> dropNo;
-	if (dropNo >= 0 && dropNo < contained.size()) {
-
-		this->dropItem(dropNo);
-		this->displayContainer();
-	}
-	else
-		std::cout << "Wrong # input, no Item will be dropped.";
-}
 
 void ItemContainer::levelUpContainer(int lvl)
 {
-	for (std::vector<Item>::iterator iter = contained.begin(); iter != contained.end(); iter++)
-		iter->levelUp(lvl);
+	for (std::vector<Item*>::iterator iter = contained.begin(); iter != contained.end(); iter++)
+		(*iter)->levelUp(lvl);
 	
 }
 
 std::string ItemContainer::toString()
 {
 	std::string content = "";
-	for (std::vector<Item>::iterator iter = contained.begin(); iter != contained.end(); ++iter)
+	for (std::vector<Item*>::iterator iter = contained.begin(); iter != contained.end(); ++iter)
 	{
-		content += iter->toString();
+		content += (*iter)->toString();
 		content += "\n ";
 	}
 	return content;
@@ -114,7 +91,7 @@ std::string ItemContainer::toString()
 
 const ItemContainer& ItemContainer:: operator=(const ItemContainer& i)
 {
-	std::vector<Item> iV = i.contained;
+	std::vector<Item*> iV = i.contained;
 
 	for (int i = 0; i < iV.size(); i++)
 	{
@@ -131,9 +108,9 @@ void ItemContainer::Serialize(CArchive& archie)
 	{
 		archie << accessible;
 		archie << getContainerSize();
-		for (std::vector<Item>::iterator iter = contained.begin(); iter != contained.end(); ++iter)
+		for (std::vector<Item*>::iterator iter = contained.begin(); iter != contained.end(); ++iter)
 		{
-			iter->Serialize(archie);
+			(*iter)->Serialize(archie);
 		}
 	}
 	else
@@ -145,7 +122,7 @@ void ItemContainer::Serialize(CArchive& archie)
 		{
 			Item* item = new Item();
 			item->Serialize(archie);
-			storeItem(*item);
+			storeItem(item);
 			delete item;
 		}
 

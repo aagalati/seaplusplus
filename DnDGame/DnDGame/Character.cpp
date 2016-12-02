@@ -192,7 +192,7 @@ using std::string;
 		void Character::setLevel(const int l) noexcept
 	{
 		level = l;
-		checkState();
+		//checkState();
 	}
 
 	void Character::setStrength(const int s) noexcept
@@ -200,7 +200,7 @@ using std::string;
 		if (validateStatistic(s))
 		{
 			strength = s;
-			checkState();
+			//checkState();
 		}
 	}
 
@@ -209,7 +209,7 @@ using std::string;
 		if (validateStatistic(c))
 		{
 			constitution = c;
-			checkState();
+			//checkState();
 		}
 	}
 
@@ -218,7 +218,7 @@ using std::string;
 		if (validateStatistic(d))
 		{
 			dexterity = d;
-			checkState();
+			//checkState();
 		}
 	}
 
@@ -227,7 +227,7 @@ using std::string;
 		if (validateStatistic(w))
 		{
 			wisdom = w;
-			checkState();
+			//checkState();
 		}
 	}
 
@@ -236,7 +236,7 @@ using std::string;
 		if (validateStatistic(ch))
 		{
 			charisma = ch;
-			checkState();
+			//checkState();
 		}
 	}
 
@@ -245,7 +245,7 @@ using std::string;
 		if (validateStatistic(i))
 		{
 			intelligence = i;
-			checkState();
+			//checkState();
 		}
 	}
 
@@ -253,37 +253,37 @@ using std::string;
 	void Character::setStrengthModifier(const int sM) noexcept
 	{
 		strengthModifier = sM;
-		checkState();
+		//checkState();
 	}
 
 	void Character::setConstitutionModifier(const int cM) noexcept
 	{
 		constitutionModifier = cM;
-		checkState();
+		//checkState();
 	}
 
 	void Character::setDexterityModifier(const int dM) noexcept
 	{
 		dexterityModifier = dM;
-		checkState();
+		//checkState();
 	}
 
 	void Character::setWisdomModifier(const int wM) noexcept
 	{
 		wisdomModifier = wM;
-		checkState();
+		//checkState();
 	}
 
 	void Character::setCharismaModifier(const int chM) noexcept
 	{
 		charismaModifier = chM;
-		checkState();
+		//checkState();
 	}
 
 	void Character::setIntelligenceModifier(const int iM) noexcept
 	{
 		intelligenceModifier = iM;
-		checkState();
+		//checkState();
 	}
 
 
@@ -291,44 +291,44 @@ using std::string;
 	void Character::setHitPoints(const int hP) noexcept
 	{
 		hitPoints = hP;
-		checkState();
+		//checkState();
 	}
 
 	void Character::setCurrentHitPoints(const int cHP) noexcept
 	{
 		currentHitPoints = cHP;
-		checkState();
+		//checkState();
 	}
 
 	void Character::setArmorClass(const int aC) noexcept
 	{
 		armorClass = aC;
-		checkState();
+		//checkState();
 	}
 
 	void Character::setMeleeAttackBonus(const int mAB) noexcept
 	{
 
 		meleeAttackBonus = mAB;
-		checkState();
+		//checkState();
 	}
 
 	void Character::setMeleeAttackDamage(const int mAD) noexcept
 	{
 		meleeAttackDamage = mAD;
-		checkState();
+		//checkState();
 	}
 
 	void Character::setRangedAttackBonus(const int rAB) noexcept
 	{
 		rangedAttackBonus = rAB;
-		checkState();
+		//checkState();
 	}
 
 	void Character::setRangedAttackDamage(const int rAD) noexcept
 	{
 		rangedAttackDamage = rAD;
-		checkState();
+		//checkState();
 	}
 
 	void Character::setMovement(const int m) noexcept
@@ -461,6 +461,11 @@ using std::string;
 
 	}
 	
+
+	void Character::setCombat(Combat e)
+	{
+		combatStats = e;
+	}
 	
 	///////Statistics Accessors////////
 	//!Ability Scores and Level
@@ -646,6 +651,10 @@ using std::string;
 		return abScores;
 	}
 	
+	Combat Character::getCombat()
+	{
+		return combatStats;
+	}
 
 	
 
@@ -661,7 +670,7 @@ using std::string;
 	int Character::hitPointsGenerator(const int lvl) noexcept 
 	{
 		int hP = 0;
-		if (lvl == 0);
+		if (lvl == 0)
 			hP = hP + rand() % 10 + getConstitutionModifier();
 		
 		
@@ -858,6 +867,8 @@ using std::string;
 		setRangedAttackBonus(getDexterityModifier());
 		setRangedAttackDamage(getDexterityModifier());
 
+		setEquipmentModifiers(getEquipment());
+
 	}
 
 	int Character::modifierCalculation(const int stat) noexcept 
@@ -905,6 +916,8 @@ using std::string;
 	void Character::hit(const int dmg) noexcept
 	{
 		currentHitPoints = currentHitPoints - dmg;
+		if (currentHitPoints < 0)
+			currentHitPoints = 0;
 	}
 
 	
@@ -1067,19 +1080,30 @@ using std::string;
 		setHelmet(helmet);
 		
 		storeEquipment();
-
+	
 	}
 
 	void Character::storeEquipment() noexcept
 	{
+
+		Armor* a = new Armor(getArmor());
+		Shield* b = new Shield(getShield());
+		Weapon* c = new Weapon(getWeapon());
+		Boots* d = new Boots(getBoots());
+		Ring* e = new Ring(getRing());
+		Belt* f = new Belt(getBelt());
+		Helmet* g = new Helmet(getHelmet());
+		
 		getEquipment().contained.clear();
-		getEquipment().storeItem(getArmor()); 
-		getEquipment().storeItem(getShield()); 
-		getEquipment().storeItem(getWeapon());
-		getEquipment().storeItem(getBoots());
-		getEquipment().storeItem(getRing());
-		getEquipment().storeItem(getBelt());
-		getEquipment().storeItem(getHelmet());
+		getEquipment().storeItem(a); 
+		getEquipment().storeItem(b); 
+		getEquipment().storeItem(c);
+		getEquipment().storeItem(d);
+		getEquipment().storeItem(e);
+		getEquipment().storeItem(f);
+		getEquipment().storeItem(g);
+
+		setEquipmentModifiers(getEquipment());
 	}
 
 	void Character::equip(Item* i) noexcept
@@ -1088,45 +1112,52 @@ using std::string;
 
 		if (type == 1)
 		{
-			getBackpack().storeItem(getArmor());
+			Armor* a = new Armor(getArmor());
+			getBackpack().storeItem(a);
 			Armor newArmor(i);
 			setArmor(newArmor);
 		}
 
 		else if (type == 2)
 		{
-			getBackpack().storeItem(getWeapon());
+			Weapon* a = new Weapon(getWeapon());
+			getBackpack().storeItem(a);
 			Weapon newWeapon(i);
 			setWeapon(newWeapon);
 		}
 
 		else if (type == 3)
 		{
-			getBackpack().storeItem(getShield());
+			Shield* a = new Shield(getShield());
+			getBackpack().storeItem(a);
 			Shield newShield(i);
 			setShield(newShield);
 		}
 		else if (type == 4)
 		{
-			getBackpack().storeItem(getBoots());
+			Boots* a = new Boots(getBoots());
+			getBackpack().storeItem(a);
 			Boots newBoots(i);
 			setBoots(newBoots);
 		}
 		else if (type == 5)
 		{
-			getBackpack().storeItem(getBelt());
+			Belt* a = new Belt(getBelt());
+			getBackpack().storeItem(a);
 			Belt newBelt(i);
 			setBelt(newBelt);
 		}
 		else if (type == 6)
 		{
-			getBackpack().storeItem(getRing());
+			Ring* a = new Ring(getRing());
+			getBackpack().storeItem(a);
 			Ring newRing(i);
 			setRing(newRing);
 		}
 		else if (type == 7)
 		{
-			getBackpack().storeItem(getHelmet());
+			Helmet* a = new Helmet(getHelmet());
+			getBackpack().storeItem(a);
 			Helmet newHelmet(i);
 			setHelmet(i);
 		}
@@ -1138,13 +1169,12 @@ using std::string;
 	
 
 	
-	void Character::setEquipmentModifiers() noexcept
+	void Character::setEquipmentModifiers(ItemContainer e) noexcept
 	{
-		
-		for (int i = 0; i < 7; i++)
+		for (int i = 0; i < e.contained.size(); i++)
 		{
-			int type = equipment.contained[i].getEnhancementType();
-			int bonus = equipment.contained[i].getEnhancementBonus();
+			int type = equipment.contained[i]->getEnhancementType();
+			int bonus = equipment.contained[i]->getEnhancementBonus();
 			switch (type)
 			{
 			case 0:
