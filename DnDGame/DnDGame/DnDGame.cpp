@@ -95,7 +95,7 @@ void main()
 
 			BuilderDisplay *build = new  BuilderDisplay();
 
-			while (build->windowOpen()) {  //open the menu
+			while (build->windowOpen()) {
 
 				build->run();
 
