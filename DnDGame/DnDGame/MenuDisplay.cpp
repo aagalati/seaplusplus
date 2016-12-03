@@ -22,7 +22,7 @@ MenuDisplay::MenuDisplay() : Display()
 
 	loadFonts();
 	
-	numofbuttons = 4;
+	numofbuttons = 5;
 	buttons.resize(numofbuttons);
 
 	exitType = 3;
@@ -54,7 +54,9 @@ void MenuDisplay::menuDisplay() {
 			break;
 		case 2: bname = "Map Maker";
 			break;
-		case 3: bname = "Exit";
+		case 3: bname = "Character Maker";
+			break;
+		case 4: bname = "Exit";
 			break;
 		default: bname = "Button!";
 

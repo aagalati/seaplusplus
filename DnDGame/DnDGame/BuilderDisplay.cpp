@@ -323,7 +323,14 @@ void BuilderDisplay::buttonAction(int x, int y, bool isclick) {
 									drawSprites();
 									break;
 							
-							case 7: break;
+							case 7: 
+								brush = 0;
+								for (int i = 0; i < gridlist[workingGrid]->getWidth(); i++) {
+									for (int j = 0; j < gridlist[workingGrid]->getHeight(); j++) {
+										paint(i, j);
+									}
+								}
+								break;
 
 						}
 					}

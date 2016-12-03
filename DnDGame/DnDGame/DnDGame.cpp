@@ -63,9 +63,9 @@ Important info:
 void main()
 {
 
-	/*int exitType = -1;
+	int exitType = -1;
 
-	while (exitType != 3) {
+	while (exitType != 4) {
 
 		if (exitType = -1) {
 
@@ -119,7 +119,8 @@ void main()
 
 		}
 
-	}*/
+	}
+
 	std::string b("Jesus");
 	Armor barbie(b, Item::ArmorClass, 0);
 	barbie.save(0);

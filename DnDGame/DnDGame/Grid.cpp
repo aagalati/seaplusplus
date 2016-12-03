@@ -486,7 +486,7 @@ void Grid::update() {
 
 	//printMapImage();
 	std::cout << "Updating Grid in Grid" << std::endl;
-	refresh == true;
+	//refresh == true;
 
 }
 
