@@ -325,6 +325,7 @@ std::vector<Item*> Item::load()
 			Item* _item = new Item();
 			_item->Serialize(archie);
 			listItems.push_back(_item);
+			
 		}
 	}
 	catch (std::exception e)
