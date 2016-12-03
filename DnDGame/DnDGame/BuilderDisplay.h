@@ -29,6 +29,7 @@ public:
 
 	void drawButtons();
 	void drawSprites();
+	void seButton();
 	void drawSameSprites();
 	void drawEditButtons(Grid* grid);
 
@@ -43,6 +44,7 @@ private:
 
 	std::vector< GameButton* > buttons;
 	std::vector< GameButton* > editButtons;
+	GameButton* saveandexit;
 
 	sf::Vector2f _tilesize2;
 

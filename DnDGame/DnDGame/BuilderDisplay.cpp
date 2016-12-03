@@ -63,6 +63,7 @@ void  BuilderDisplay::drawSprites() {
 	for (int i = 0; i < _tilemaps.size(); i++) {
 
 		createButton(i);
+		seButton();
 
 		for (int j = 0; j < _tilemaps[i].size(); j++) {
 
@@ -109,6 +110,27 @@ void  BuilderDisplay::drawSprites() {
 	drawButtons();
 	_window.display();  //REMOVE IF MOVED TO UPDATE
 
+}
+
+void BuilderDisplay::seButton() {
+
+	sf::Vector2f s, p;
+	sf::Text buttonname;
+	buttonname.setFont(font);
+	buttonname.setFillColor(sf::Color::Black);
+	buttonname.setCharacterSize(20);
+	string name = "Save and Exit";
+	s.x = 300;
+	s.y = 50;
+	p.x = 350;
+	p.y = 500;
+
+	saveandexit = new GameButton(s, p, name, sf::Color::Green);
+	buttonname.setString(name);
+	buttonname.setPosition(435, 510);
+
+	_window.draw(saveandexit->draw());
+	_window.draw(buttonname);
 }
 
 void BuilderDisplay::drawSameSprites() {
@@ -216,6 +238,12 @@ void BuilderDisplay::paint(int x, int  y) {
 void BuilderDisplay::buttonAction(int x, int y, bool isclick) {
 
 	if (buildMode == 0) {
+	
+		if (isclick && saveandexit->isClicked(x, y)) {
+
+			std::cout << "SAVING AND EXITING" << std::endl;
+
+		}
 
 		for (int i = 0; i < numofmapbuttons; i++) {
 
@@ -227,6 +255,8 @@ void BuilderDisplay::buttonAction(int x, int y, bool isclick) {
 					workingGrid = i;
 					buildDisplay(gridlist[workingGrid]);
 				}
+
+				
 
 			}
 			else {
@@ -474,6 +504,7 @@ void BuilderDisplay::update()
 
 	if (buildMode == 0) {
 		_window.clear();
+		seButton();
 		drawSameSprites();
 		drawButtons();
 	}
