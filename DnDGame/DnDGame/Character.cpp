@@ -805,7 +805,8 @@ using std::string;
 
 	//The modifiers are set as per the DnD guidelines by calling the
 	//modifierCalculation() function. 
-	//Take note that the seemingly over-complex implementation of
+	//Take note that the seemin
+	//y over-complex implementation of
 	//these attributes is to facilitate the development of the
 	//classe project in the long run.
 	void Character::setModifiers() {

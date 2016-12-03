@@ -40,7 +40,6 @@
     <ClCompile Include="ItemChoiceDisplay.cpp" />
     <ClCompile Include="AllItemDisplay.cpp" />
     <ClCompile Include="ItemBuildDisplay.cpp" />
-    <ClCompile Include="Gameloggg.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Armor.h" />
@@ -83,7 +82,6 @@
     <ClInclude Include="ItemChoiceDisplay.h" />
     <ClInclude Include="AllItemDisplay.h" />
     <ClInclude Include="ItemBuildDisplay.h" />
-    <ClInclude Include="Gameloggg.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
