@@ -1311,9 +1311,8 @@ using std::string;
 			delete e;
 			delete b;
 			
-			CT2CA converter(n);
-			string nameTemp(converter);
-			name = nameTemp;
+			std::string tempName(CW2A(n.GetString()));
+			name = tempName;
 		}
 	}
 
