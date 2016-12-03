@@ -475,7 +475,7 @@ void Display::keyPressed(sf::Event event) {
 
 	switch (event.key.code) {  //this code currently generates double events, not sure why, must fix (events trigger twice, ex. Left Left Right Right)
 
-							   //Checking if moving will be valid, if so, it will trigger the move function which will trigger Subject::Notify
+	//start the move   Checking if moving will be valid, if so, it will trigger the move function which will trigger Subject::Notify
 	case sf::Keyboard::S:
 		goCharacter = FALSE;
 		gnMoveCount = 0;
@@ -487,7 +487,7 @@ void Display::keyPressed(sf::Event event) {
 		goCharacter = FALSE;
 		isvisibleEnemy = FALSE;
 		break;
-
+		//attack the enemy
 	case sf::Keyboard::A:
 		// 		if (goCharacter)
 	{
@@ -558,7 +558,7 @@ Display::~Display()
 {
 
 }
-
+//player search and exit
 int Display::AutoSearch()
 {
 	int nDirect = -1;
@@ -659,6 +659,7 @@ int Display::AutoSearch()
 	}
 	return 0;
 }
+//decide the direction of the player
 BOOL Display::IsEqual(int nValue)
 {
 	if (pppGridAutopathInfo[_playerX][_playerY][0] == nValue &&
@@ -669,6 +670,7 @@ BOOL Display::IsEqual(int nValue)
 
 	return FALSE;
 }
+//player crashed by enemy
 BOOL Display::IsCrash()
 {
 	if (!isvisibleEnemy)
@@ -684,7 +686,7 @@ BOOL Display::IsCrash()
 
 	return FALSE;
 }
-
+//search for exit
 int Display::IsComplete()
 {
 	if (grid->getCellValue(_playerX, _playerY - 1)->type() == 4 ||
@@ -694,7 +696,7 @@ int Display::IsComplete()
 		return 1;
 	return 0;
 }
-
+//auto move the enemy
 void Display::ChangeEnemy()
 {
 	if (bRemoveEnemy)
@@ -739,17 +741,18 @@ void Display::ChangeEnemy()
 	}
 
 }
+//kill the enemy
 void Display::RemoveEnemy()
 {
 	grid->setCell(_enemyX, _enemyY, 0);
 }
-
+//kill and remove ze enemy
 void Display::RemoveHero()
 {
 	grid->setCell(_playerX, _playerY, 0);
 }
 
-
+//move hero by mouse click
 void Display::MoveHero(int nMoveX, int nMoveY)
 {
 	int nMovePosX = (nMoveX - PADDINGX - BORDER_SIZE*_tilesize.x) / _tilesize.x;

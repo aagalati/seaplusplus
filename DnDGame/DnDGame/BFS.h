@@ -5,10 +5,6 @@
 using std::vector;
 #include <queue>
 
-
-
-
-
 class BFS
 {
 public:
