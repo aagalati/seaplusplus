@@ -163,6 +163,9 @@ std::string Item::toString()
 		break;
 	}
 
+	if (itemType == 2)
+		item += dmgRoll.toString();
+
 
 	return item;
 }

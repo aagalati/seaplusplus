@@ -1190,7 +1190,6 @@ using std::string;
 		i += ("\n Ranged Attack Bonus: +" + std::to_string(getRangedAttackBonus())); i += ("    Ranged Damage Bonus: +" + std::to_string(getRangedAttackDamage()));
 		i += ("\n Equipment:\n Armor: "); i += getArmor().toString(); // i += " ("; i += getArmor().getEnhancementType()
 		i += ("\n Shield: " + (getShield().toString())); i += ("\n Weapon: " + (getWeapon().toString())); 
-		i += getWeapon().getDmgRoll().toString();
 		i += ("\n Boots: " + (getBoots().toString())); i += ("\n Belt: " + (getBelt().toString()));
 		i += ("\n Ring: " + (getRing().toString())); i += ("\n Helmet: " + (getHelmet().toString()));
 		return i;
