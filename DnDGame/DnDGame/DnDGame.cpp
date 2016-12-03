@@ -59,6 +59,7 @@ Important info:
 #include "ItemChoiceDisplay.h"
 #include "CharChoiceDisplay.h"
 #include "CampChooseDisplay.h"
+#include "Gamelogg.h";
 
 
 
@@ -66,7 +67,7 @@ void main()
 {
 	
 	int exitType = -1;
-
+	GL1 << "Dungeons & Dragons Game has loaded.\n";
 	while (exitType != 4) {
 		
 		if (exitType == -1) {

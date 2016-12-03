@@ -13,12 +13,6 @@ class Gamelogg
 public:
 	Gamelogg();
 	~Gamelogg();
-	//void GameLog1(bool log1); // game setup, map loading and campaign progress, player turns switching, end phase
-	//void GameLog2(bool log2); // every movement made on the map
-	//void GameLog3(bool log3); // every attack attempted including all factors involved in its calculation and its result
-	//void GameLog4(bool log4); // every dice roll
-
-
 
 	void operator <<(const std::string input);
 
