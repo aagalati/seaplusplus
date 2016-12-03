@@ -65,11 +65,11 @@ Important info:
 void main()
 {
 	
-	int exitType = 4;
+	int exitType = -1;
 
-	while (true) {
+	while (exitType != 4) {
 		
-		if (exitType = 4) {
+		if (exitType == -1) {
 
 			MenuDisplay *menu = new MenuDisplay();  //make a menu display
 
