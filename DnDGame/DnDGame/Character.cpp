@@ -1355,8 +1355,6 @@ using std::string;
 		
 	}
 	
-
-	
 	std::vector<Character*> Character::load()
 	{
 

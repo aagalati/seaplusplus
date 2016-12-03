@@ -17,7 +17,7 @@ Weapon::Weapon(std::string name, EnhancementType enhType, int enhBonus, int _ran
 Weapon::Weapon(Item* i)
 {
 	
-	->name = i->getItemName();
+	this->name = i->getItemName();
 	this->enhType = i->getEnhancementType();
 	this->enhBonus = i->getEnhancementBonus();
 	this->range = i->getRange();

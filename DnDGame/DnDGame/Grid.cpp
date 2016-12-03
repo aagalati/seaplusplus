@@ -560,8 +560,7 @@ void Grid::save()
 	save.Open(_T("MapSave.txt"), CFile::modeCreate | CFile::modeWrite | CFile::modeNoTruncate);
 	CArchive archie(&save, CArchive::store);
 
-	Grid* _grid = new Grid(
-	);
+	Grid* _grid = new Grid(this	);
 	_grid->Serialize(archie);
 
 	delete _grid;

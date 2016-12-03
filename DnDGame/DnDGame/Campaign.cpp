@@ -4,10 +4,7 @@
 
 IMPLEMENT_SERIAL(Campaign, CObject, 8)
 
-Campaign::Campaign()
-{
-	
-}
+Campaign::Campaign(){}
 
 
 Campaign::~Campaign()
