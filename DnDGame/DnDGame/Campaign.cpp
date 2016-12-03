@@ -19,7 +19,7 @@ Campaign::Campaign(std::string campaignName)
 
 
 Campaign::Campaign(const Campaign& orig) : 
-(orig.gridlist.size()) {
+	gridlist(orig.gridlist.size()) {
 	for (std::size_t i = 0; i < orig.gridlist.size(); ++i)
 		gridlist[i] = new Grid(orig.gridlist[i]); 
 	this->campaignName = orig.campaignName;

@@ -337,8 +337,7 @@ void Display::run() {
 			switch (_event.type) {
 
 			case sf::Event::Closed:
-				delete 
-					;
+				delete this;
 				exit(0);
 				_window.close();
 				break;

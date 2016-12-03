@@ -47,6 +47,5 @@ const Dice& Dice::operator=(const Dice& d)
 	rolls = d.rolls;
 	sides = d.sides;
 	value = d.value;
-	return *
-		;
+	return *this;
 }
