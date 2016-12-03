@@ -460,9 +460,6 @@ vector< vector<DNDObject*> >& Grid::getGridData()
 }
 
 void Grid::move(int currentX, int  currentY, int nextX, int nextY) {
-	GL2 << "Hero moves from ("; 	GL2 << to_string(currentX); GL2 << ", ";
-	GL2 << to_string(currentY); GL2 << ") to ("; GL2 << to_string(nextX);
-	GL2 << ", "; GL2 << to_string(nextY); GL2 << ").";
 	DNDObject *temp;
 	temp = _currentcell;
 	if (temp->type() == 2)
@@ -642,9 +639,7 @@ void Grid::save()
 
 Grid* Grid::load()
 {
-	GL1 << "Map ";
-	GL1 << getGridName();
-	GL1 << " is loading.";
+
 	CFile load;
 	load.Open(_T("MapSave.txt"), CFile::modeRead);
 	CArchive archie(&load, CArchive::load);
