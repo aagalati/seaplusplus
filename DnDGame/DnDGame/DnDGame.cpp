@@ -63,7 +63,7 @@ Important info:
 void main()
 {
 
-	int exitType = -1;
+	/*int exitType = -1;
 
 	while (exitType != 3) {
 
@@ -119,7 +119,14 @@ void main()
 
 		}
 
-	}
+	}*/
+	std::string b("Jesus");
+	Armor barbie(b, Item::ArmorClass, 0);
+	barbie.save(0);
+	Weapon barbie1("Tony", Item::Constitution, 1);
+	barbie1.save(0);
+
+
 
 }
 
