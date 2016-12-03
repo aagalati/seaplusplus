@@ -48,6 +48,12 @@ public:
 	void update();
 	bool needRefresh();
 
+
+	//Map control
+	std::vector<DNDObject*>* treasureList();
+	std::vector<DNDObject*>* characterList();
+
+
 	//Grid Accessor
 	DNDObject* getCellValue(int width, int height);
 

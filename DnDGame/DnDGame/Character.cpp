@@ -340,11 +340,20 @@ using std::string;
 		movement = m;
 	}
 
+	void Character::setRemMovement(int m) noexcept
+	{
+		remMovement = m;
+	}
+
 	void Character::setNbOfAttacks(const int nb) noexcept
 	{
 		nbOfAttacks = nb;
 	}
 
+	void Character::setNbOfAttacksLeft(int b) noexcept
+	{
+		nbOfAttacksLeft = b;
+	}
 	void Character::setCharacterType(const int st) noexcept
 	{
 		if (st < 5 || st > 7)
@@ -580,9 +589,19 @@ using std::string;
 		return movement;
 	}
 
+	inline int Character::getRemMovement()
+	{
+		return remMovement;
+	}
+
 	inline int Character::getNbOfAttacks()
 	{
 		return nbOfAttacks;
+	}
+
+	inline int Character::getNbOfAttacksLeft()
+	{
+		return nbOfAttacksLeft;
 	}
 
 
