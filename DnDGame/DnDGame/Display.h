@@ -64,6 +64,7 @@ protected:
 
 	sf::Texture tileTexture;
 	sf::Texture borderTexture;
+	sf::Texture itemTexture;
 
 	sf::Font font;
 	sf::Text text;

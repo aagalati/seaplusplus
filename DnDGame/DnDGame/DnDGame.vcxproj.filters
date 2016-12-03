@@ -1,245 +1,89 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="Armor.cpp" />
+    <ClCompile Include="Belt.cpp" />
+    <ClCompile Include="BFS.cpp" />
+    <ClCompile Include="Boots.cpp" />
+    <ClCompile Include="Builder.cpp" />
+    <ClCompile Include="BuilderDisplay.cpp" />
+    <ClCompile Include="BullyFighterBuilder.cpp" />
+    <ClCompile Include="Campaign.cpp" />
+    <ClCompile Include="CampaignBuilder.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="CharacterBuilder.cpp" />
+    <ClCompile Include="CharacterObserver.cpp" />
+    <ClCompile Include="Combat.cpp" />
+    <ClCompile Include="Dice.cpp" />
+    <ClCompile Include="Display.cpp" />
+    <ClCompile Include="DnDGame.cpp" />
+    <ClCompile Include="DNDObject.cpp" />
+    <ClCompile Include="FighterDirector.cpp" />
+    <ClCompile Include="GameButton.cpp" />
+    <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="GridObserver.cpp" />
+    <ClCompile Include="Helmet.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemContainer.cpp" />
+    <ClCompile Include="MenuDisplay.cpp" />
+    <ClCompile Include="NimbleFighterBuilder.cpp" />
+    <ClCompile Include="Observer.cpp" />
+    <ClCompile Include="Ring.cpp" />
+    <ClCompile Include="Shield.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Structure.cpp" />
+    <ClCompile Include="Subject.cpp" />
+    <ClCompile Include="TankFighterBuilder.cpp" />
+    <ClCompile Include="TextButton.cpp" />
+    <ClCompile Include="Treasure.cpp" />
+    <ClCompile Include="Weapon.cpp" />
+    <ClCompile Include="ItemChoiceDisplay.cpp" />
+    <ClCompile Include="AllItemDisplay.cpp" />
+    <ClCompile Include="ItemBuildDisplay.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Armor.h" />
+    <ClInclude Include="Belt.h" />
+    <ClInclude Include="BFS.h" />
+    <ClInclude Include="Boots.h" />
+    <ClInclude Include="Builder.h" />
+    <ClInclude Include="BuilderDisplay.h" />
+    <ClInclude Include="BullyFighterBuilder.h" />
+    <ClInclude Include="Campaign.h" />
+    <ClInclude Include="CampaignBuilder.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="CharacterBuilder.h" />
+    <ClInclude Include="CharacterObserver.h" />
+    <ClInclude Include="Combat.h" />
+    <ClInclude Include="Dice.h" />
+    <ClInclude Include="Display.h" />
+    <ClInclude Include="DNDObject.h" />
+    <ClInclude Include="FighterDirector.h" />
+    <ClInclude Include="GameButton.h" />
+    <ClInclude Include="Grid.h" />
+    <ClInclude Include="GridObserver.h" />
+    <ClInclude Include="Helmet.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemContainer.h" />
+    <ClInclude Include="MenuDisplay.h" />
+    <ClInclude Include="NimbleFighterBuilder.h" />
+    <ClInclude Include="Node.h" />
+    <ClInclude Include="Observer.h" />
+    <ClInclude Include="Ring.h" />
+    <ClInclude Include="Shield.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Structure.h" />
+    <ClInclude Include="Subject.h" />
+    <ClInclude Include="TankFighterBuilder.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="TextButton.h" />
+    <ClInclude Include="Treasure.h" />
+    <ClInclude Include="Weapon.h" />
+    <ClInclude Include="ItemChoiceDisplay.h" />
+    <ClInclude Include="AllItemDisplay.h" />
+    <ClInclude Include="ItemBuildDisplay.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Grid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Observer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Subject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GridObserver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Display.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Builder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CharacterObserver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DNDObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Structure.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Treasure.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Character.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shield.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Weapon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Armor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Belt.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Boots.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Helmet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemContainer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ring.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CharacterBuilder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BullyFighterBuilder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NimbleFighterBuilder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TankFighterBuilder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FighterDirector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameButton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TextButton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuDisplay.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BuilderDisplay.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="Campaign.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CampaignBuilder.h">
-=======
-    <ClInclude Include="BFS.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Node.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Combat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dice.h">
->>>>>>> origin/master
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DnDGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Grid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Observer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Subject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GridObserver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Display.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Builder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CharacterObserver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DNDObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Structure.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Treasure.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Shield.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Weapon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Armor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Belt.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Boots.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Helmet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemContainer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ring.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CharacterBuilder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BullyFighterBuilder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NimbleFighterBuilder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TankFighterBuilder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FighterDirector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameButton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TextButton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuDisplay.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BuilderDisplay.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="Campaign.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CampaignBuilder.cpp">
-=======
-    <ClCompile Include="BFS.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Combat.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dice.cpp">
->>>>>>> origin/master
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

@@ -48,6 +48,8 @@ public:
 	std::string getStringBonus();
 	
 	virtual std::string getItemType() const;
+
+	int getIntItemType();
 	
 	virtual int getRange();
 	
