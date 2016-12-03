@@ -22,13 +22,15 @@ public:
 	void listDisplay();
 
 	void run();
+	void paint(int x, int y);
 	void update();
 	void buttonAction(int x, int y, bool isclick);
 	~BuilderDisplay();
 
 	void drawButtons();
 	void drawSprites();
-	void drawEditButtons();
+	void drawSameSprites();
+	void drawEditButtons(Grid* grid);
 
 private:
 
@@ -45,7 +47,9 @@ private:
 	sf::Vector2f _tilesize2;
 
 	int buildMode;
-	
+	int workingGrid;
+	int brush;
+
 	int exitType;
 
 	

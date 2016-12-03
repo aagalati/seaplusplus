@@ -330,14 +330,38 @@ void Grid::setCell(int col, int row, int set) {  //set a cell as a desired col a
 	Builder *build = new Builder();
 	DNDObject *make;
 
-	if (col <= _width && row <= _height) {
+	if (col < _width & row < _height) {
 		make = build->build(set);
 		_gridData[col][row] = make;
+		std::cout << _gridData[col][row]->toString() << std::endl;
 	}
 	else {
 		cout << "Error: Cell doesn't exist in the map (out of bounds)" << endl;
 		cout << "       Cell (" << col << "," << row << ") is not in the map" << endl;
 	}
+
+	//checkValid(); //after we make a switch we must check if this switch was valid
+
+}
+
+Grid* Grid::setCell(int col, int row, int set, Grid* grid) {  //set a cell as a desired col and  row
+
+	Builder *build = new Builder();
+	DNDObject *make;
+
+	if (col < _width & row < _height) {
+		make = build->build(set);
+		_gridData[col][row] = make;
+		std::cout << _gridData[col][row]->toString() << std::endl;
+		return this;
+	}
+	else {
+		cout << "Error: Cell doesn't exist in the map (out of bounds)" << endl;
+		cout << "       Cell (" << col << "," << row << ") is not in the map" << endl;
+
+		return grid;
+	}
+
 
 	//checkValid(); //after we make a switch we must check if this switch was valid
 

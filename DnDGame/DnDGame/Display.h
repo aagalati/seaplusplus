@@ -110,5 +110,6 @@ public:
 	void RemoveEnemy();
 	void RemoveHero();
 	void MoveHero(int nMoveX, int nMoveY);
+
 };
 

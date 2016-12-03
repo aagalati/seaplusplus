@@ -15,9 +15,11 @@ BuilderDisplay::BuilderDisplay() : Display()
 	numofmapbuttons = gridlist.size();
 	buttons.resize(numofmapbuttons);
 
-	numofeditbuttons = 0;
+	numofeditbuttons = 8;
+	editButtons.resize(numofeditbuttons);
 
 	buildMode = 0;
+	brush = -1;
 
 	_window.create(sf::VideoMode(_windowsize.x, _windowsize.y), "Dungeouns and Dragons");
 	_window.clear();
@@ -52,7 +54,7 @@ BuilderDisplay::BuilderDisplay(std::vector<Grid*> gridlist) : Display()
 	numofmapbuttons = gridlist.size();
 	buttons.resize(numofmapbuttons);
 
-	numofeditbuttons = 0;
+	numofeditbuttons = 5;
 }
 
 void  BuilderDisplay::drawSprites() {
@@ -108,6 +110,24 @@ void  BuilderDisplay::drawSprites() {
 
 }
 
+void BuilderDisplay::drawSameSprites() {
+
+	for (int i = 0; i < _tilemaps.size(); i++) {
+
+		for (int j = 0; j < _tilemaps[i].size(); j++) {
+
+			for (int k = 0; k < _tilemaps[i][j].size(); k++) {
+
+				_window.draw(_tilemaps[i][j][k]);
+
+			}
+
+		}
+
+	}
+
+}
+
 void BuilderDisplay::createButton(int i) {
 
 	sf::Vector2f size, position;
@@ -126,8 +146,6 @@ void BuilderDisplay::createButton(int i) {
 
 
 	buttons[i] = new GameButton(size, position, sf::Color::Transparent);
-
-		//_tilesize.x * j + PADDINGX + i*_tilemaps[i].size()*20, _tilesize.y * k + PADDINGY
 
 
 }
@@ -165,7 +183,9 @@ void BuilderDisplay::run() {
 
 		case sf::Event::MouseMoved:
 			//std::cout << "X: " << _event.mouseMove.x << " Y: " << _event.mouseMove.y << std::endl;
-			buttonAction(_event.mouseMove.x, _event.mouseMove.y, false);
+			if (buildMode == 0) {
+				buttonAction(_event.mouseMove.x, _event.mouseMove.y, false);
+			}
 			break;
 
 		case sf::Event::MouseButtonPressed:
@@ -178,34 +198,90 @@ void BuilderDisplay::run() {
 	}
 }
 
+void BuilderDisplay::paint(int x, int  y) {
+
+	int width = (x - PADDINGX - BORDER_SIZE*_tilesize2.x) / _tilesize2.x;
+	int height = (y - PADDINGY - BORDER_SIZE*_tilesize2.y) / _tilesize2.y;
+	
+	//std::cout << "Grid X: " << width << std::endl;
+	//std::cout << "Grid Y: " << height << std::endl;
+
+	gridlist[workingGrid] = gridlist[workingGrid]->setCell(width, height, brush, gridlist[workingGrid]);
+	buildDisplay(gridlist[workingGrid]);
+	update();
+
+}
+
 void BuilderDisplay::buttonAction(int x, int y, bool isclick) {
 
-	for (int i = 0; i < numofmapbuttons; i++) {
+	if (buildMode == 0) {
 
-		if (isclick) {
+		for (int i = 0; i < numofmapbuttons; i++) {
 
-			if (buttons[i]->isClicked(x, y)) {
-				_window.clear();
-				buildMode = 1;
-				buildDisplay(gridlist[i]);
-			}
+			if (isclick) {
 
-		}
-		else {
+				if (buttons[i]->isClicked(x, y)) {
+					_window.clear();
+					buildMode = 1;
+					workingGrid = i;
+					buildDisplay(gridlist[workingGrid]);
+				}
 
-			if (buttons[i]->isClicked(x, y)) {
-				buttons[i]->changeOutlineColor(sf::Color::Red);
-				update();
 			}
 			else {
-				buttons[i]->changeOutlineColor(sf::Color::White);
-				update();
+
+				if (buttons[i]->isClicked(x, y)) {
+					buttons[i]->changeOutlineColor(sf::Color::Red);
+					update();
+				}
+				else {
+					buttons[i]->changeOutlineColor(sf::Color::White);
+					update();
+				}
+
 			}
 
 		}
-
 	}
 
+	if (buildMode == 1) {
+
+		_window.clear();
+
+		for (int i = 0; i < numofeditbuttons; i++) {
+
+			if (isclick) {
+
+				if (editButtons[i]->isClicked(x, y)) {
+					
+					std::cout << "You clicked " << editButtons[i]->getText() << std::endl;
+
+					if (i < 6)
+						brush = i;
+					else {
+						switch (i) {
+							case 6:  _window.clear();
+									buildMode = 0;
+									brush = -1;
+									drawSprites();
+									break;
+							
+							case 7: break;
+
+						}
+					}
+				}
+
+			}
+		}
+
+		if (isclick) {
+			paint(_event.mouseButton.x, _event.mouseButton.y);
+		}
+
+		update();
+
+	}
 }
 
 void BuilderDisplay::sizeTilemap() {
@@ -251,7 +327,7 @@ void BuilderDisplay::buildDisplay(Grid* grid)
 														   //This line is for single box texture
 														   //tilemap[i][j].setTextureRect(sf::IntRect(0, 32, 32, 32));
 
-														   std::cout << "Creating border at " << i << ", " << j << std::endl;
+														   //std::cout << "Creating border at " << i << ", " << j << std::endl;
 
 														   //THIS CODE IS FOR FRAMED BORDER
 
@@ -317,14 +393,72 @@ void BuilderDisplay::buildDisplay(Grid* grid)
 
 	}
 
-	drawEditButtons();
+	drawEditButtons(grid);
 	_window.display();
 
 }
 
-void BuilderDisplay::drawEditButtons() {
+void BuilderDisplay::drawEditButtons(Grid* grid) {
 
+	sf::Vector2f size, position;
+	sf::Text buttonname;
+	string name;
+	sf::Color color;
+	buttonname.setFont(font);
+	buttonname.setFillColor(sf::Color::White);
+	buttonname.setCharacterSize(20);
 
+	size.x = 150;
+	size.y = 75;
+
+	position.x = grid->getWidth() * _tilesize2.x + PADDINGX * 6;
+
+	for (int i = 0; i < numofeditbuttons; i++) {
+
+		if (i < 4) {
+				position.y = PADDINGY * 2 + i * size.y;
+			}
+		else
+			{
+				position.y = PADDINGY * 2 + (i - 4) * size.y;
+				position.x = grid->getWidth() * _tilesize2.x + PADDINGX * 6 + 200;
+			}
+		switch (i) {
+			case 0: name = "Floor";
+				color = sf::Color::Black;
+				break;
+			case 1: name = "Wall";
+				color = sf::Color(40, 45, 125, 255);
+				break;
+			case 2: name = "Treasure";
+				color = sf::Color(242, 226, 0, 255);
+				break;
+			case 3: name = "Entrance";
+				color = sf::Color(111, 53, 15, 255);
+				break;
+			case 4: name = "Exit";
+				color = sf::Color(111, 53, 15, 255);
+				break;
+			case 5: name = "Enemy";
+				color = sf::Color(200, 0, 0, 255);
+				break;
+			case 6: name = "Save and Exit";
+				color = sf::Color::Green;
+				break;
+			case 7: name = "Erase all";
+				color = sf::Color::Black;
+				break;
+
+		}
+		
+		editButtons[i] = new GameButton(size, position, name, color);
+		buttonname.setString(name);
+		buttonname.setPosition(position.x + 10, position.y + 20);
+
+		_window.draw(editButtons[i]->draw());
+		_window.draw(buttonname);
+
+	}
 
 }
 
@@ -335,6 +469,17 @@ void BuilderDisplay::listDisplay()
 
 void BuilderDisplay::update()
 {
+
+
+	if (buildMode == 0) {
+		_window.clear();
+		drawSameSprites();
+		drawButtons();
+	}
+
+	_window.display();
+
+
 }
 
 

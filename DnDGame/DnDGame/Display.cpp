@@ -429,7 +429,7 @@ void Display::gridHover(int x, int y) { //this function needs the actual object 
 
 										//std::cout << "Hover X: " << (x - PADDINGX - BORDER_SIZE*_tilesize.x)/_tilesize.x << " Hover Y: " << (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y << std::endl;
 
-										//std::cout << grid->getCellValue((x - PADDINGX - BORDER_SIZE*_tilesize.x) / _tilesize.x, (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y) << std::endl;
+										std::cout << grid->getCellValue((x - PADDINGX - BORDER_SIZE*_tilesize.x) / _tilesize.x, (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y) << std::endl;
 
 	if (_type == 2)
 		grid->setCell((x - PADDINGX - BORDER_SIZE*_tilesize.x) / _tilesize.x, (y - PADDINGY - BORDER_SIZE*_tilesize.y) / _tilesize.y, 1);

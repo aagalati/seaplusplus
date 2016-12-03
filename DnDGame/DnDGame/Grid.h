@@ -39,8 +39,8 @@ public:
 	void sizeMap();
 	void resizeMap(int width, int height);
 
-
 	void setCell(int col, int row, int set);
+	Grid* setCell(int col, int row, int set, Grid* grid);
 	void setDoors();
 
 	void move(int currentX, int  currentY, int nextX, int nextY);
