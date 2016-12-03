@@ -57,17 +57,20 @@ Important info:
 #include "BuilderDisplay.h"
 #include "Character.h"
 #include "ItemChoiceDisplay.h"
+<<<<<<< HEAD
 #include "CharChoiceDisplay.h"
 #include "CampChooseDisplay.h"
+=======
+>>>>>>> 1bbe02e75ebf3bd3680517ae34fce62025777276
 
 
 
 void main()
 {
-
+	/*
 	int exitType = -1;
 
-	while (exitType != 4) {
+	while (true) {
 
 		if (exitType = -1) {
 
@@ -121,44 +124,13 @@ void main()
 			
 		}
 
-		if (exitType == 3) {
-
-			CharChoiceDisplay *ch = new CharChoiceDisplay();
-
-			while (ch->windowOpen()) {
-
-				ch->run();
-
-			}
-
-		}
-
 	}
+	*/
+	ItemContainer a = new ItemContainer();
+	Weapon swag("Harambe", Item::Strength, 3, 1, 1, 8);
+	Item* ab = &swag;
+	a.contained.push_back(ab);
+	a.save(0);
 
-		Shield bobby("memes", Item::ArmorClass, 4);
-		Helmet bobby1("wholesome", Item::ArmorClass, 5);
-		Ring bobby2("dank", Item::Wisdom, 4);
-		Belt bobby3("Snakey", Item::Charisma, 3);
-		Weapon bobby4("Epic Trooll", Item::AttackBonus, 3, 1, 2, 8);
-		Armor bobby5("No hurt me plz", Item::ArmorClass, 1);
-		Boots bobby7("Sanic", Item::Dexterity, 5);
-		Weapon bobby8("Ez unly gem", Item::Intelligence, 0, 1, 4, 20);
-		Armor bobby9("kk", Item::Constitution, 3);
-		Shield bobby10("no dmg if u hit this", Item::Charisma, 0);
-
-		bobby1.save(0);
-		bobby.save(0);
-		bobby2.save(0);
-		bobby3.save(0);
-		bobby4.save(0);
-		bobby5.save(0);
-		bobby7.save(0);
-		bobby8.save(0);
-		bobby9.save(0);
-		bobby10.save(0);
-
-
-
-	}
-
+}
 

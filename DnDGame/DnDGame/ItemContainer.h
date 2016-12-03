@@ -41,8 +41,9 @@ public:
 
 	//serialization stuff
 	virtual void Serialize(CArchive& ar);
-	void save();
-	ItemContainer* load();
+	void save(int);
+	ItemContainer* load(int);
+	
 
 	//These are supposed to be protected, will be switched back after propper debugging
 	std::vector<Item*> contained;
