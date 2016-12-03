@@ -345,6 +345,30 @@ void Grid::setCell(int col, int row, int set) {  //set a cell as a desired col a
 }
 
 Grid* Grid::setCell(int col, int row, int set, Grid* grid) {  //set a cell as a desired col and  row
+	
+	if (set == 3)
+	{
+		for (int i = 0; i < getWidth(); i++)
+		{
+			for (int j = 0; j < getHeight(); j++)
+			{
+				if (_gridData[i][j]->type() == 3)
+					return grid;
+			}
+		}
+	}
+
+	if (set == 4)
+	{
+		for (int i = 0; i < getWidth(); i++)
+		{
+			for (int j = 0; j < getHeight(); j++)
+			{
+				if (_gridData[i][j]->type() == 4)
+					return grid;
+			}
+		}
+	}
 
 	Builder *build = new Builder();
 	DNDObject *make;
@@ -508,73 +532,94 @@ void Grid::Serialize(CArchive& archie)
 {
 	if (archie.IsStoring())
 	{
-		archie << _width << _height << _entrance_row << _entrance_col << _exit_row << _exit_col;
+		CString n(gridName.c_str());
+		try
+		{
+			archie << n << _width << _height << _entrance_row << _entrance_col << _exit_row << _exit_col;
 
-		for (int i = 0; i < _height; i++) { //iterating through the whole 2d matrix and inserting random numbers
 
-			for (int j = 0; j < _width; j++) {
-				int type;
-				type = _gridData[i][j]->type();
+			for (int i = 0; i < _width; i++)
+			{ //iterating through the whole 2d matrix and inserting random numbers
 
-				if (type == 2)
-				{
-					ItemContainer* ic = dynamic_cast<ItemContainer*>(_gridData[i][j]);
-					archie << 700;
-					ic->Serialize(archie);
-				}
+				for (int j = 0; j < _height; j++) {
+					int type;
+					type = _gridData[i][j]->type();
 
-				if (type == 5)
-				{
-					Character* ch = dynamic_cast<Character*>(_gridData[i][j]);
-					archie << 800;
-					ch->Serialize(archie);
-				}
-				else
-				{
-					Structure* st = dynamic_cast<Structure*>(_gridData[i][j]);
-					archie << 900;
-					st->Serialize(archie);
+					if (type == 2)
+					{
+						ItemContainer* ic = dynamic_cast<ItemContainer*>(_gridData[i][j]);
+						archie << 700;
+						ic->Serialize(archie);
+					}
+
+					else if (type == 5)
+					{
+						Character* ch = dynamic_cast<Character*>(_gridData[i][j]);
+						archie << 800;
+						ch->Serialize(archie);
+					}
+					else
+					{
+
+						Structure* st = dynamic_cast<Structure*>(_gridData[i][j]);
+						if (st == NULL)
+							continue;
+						archie << 900;
+						st->Serialize(archie);
+					}
 				}
 			}
 		}
+		catch(std::out_of_range e)
+		{
+			return;
+		}
+		
+		cout << "test";
 
 	}
 
 	else
 	{
-		archie << _width << _height << _entrance_row << _entrance_col << _exit_row << _exit_col;
-
-		for (int i = 0; i < _height; i++)
+		CString n;
+		archie >> _width >> _height >> _entrance_row >> _entrance_col >> _exit_row >> _exit_col;
+		resizeMap(_width, _height);
+		for (int i = 0; i < _width; i++)
 		{
-			for (int j = 0; j < _width; j++)
+			for (int j = 0; j < _height; j++)
 			{
 				int type;
 				archie >> type;
 
 				if (type == 700)
 				{
-					ItemContainer * ic = new ItemContainer;
+					ItemContainer * ic = new ItemContainer();
 					ic->Serialize(archie);
-					_gridData[i][j] = ic;
+					DNDObject* o = ic;
+					_gridData[i][j] = o;
 				}
 
 				if (type == 800)
 				{
-					Character* ch = new Character;
+					Character* ch = new Character();
 					ch->setInConstructor(true);
 					ch->Serialize(archie);
-					_gridData[i][j] = ch;
+					DNDObject* o = ch;
+					_gridData[i][j] = o;
 				}
 
 				if (type == 900)
 				{
-					Structure *st = new Structure;
+					Structure *st = new Structure();
 					st->Serialize(archie);
-					_gridData[i][j] = st;
+					DNDObject* o = st;
+					_gridData[i][j] = o;
 				}
 
 			}
 		}
+		std::string tempName(CW2A(n.GetString()));
+		gridName = tempName;
 	}
 }
 

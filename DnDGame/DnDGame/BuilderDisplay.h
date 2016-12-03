@@ -23,6 +23,7 @@ public:
 
 	void run();
 	void paint(int x, int y);
+	void saveGrids();
 	void update();
 	void buttonAction(int x, int y, bool isclick);
 	~BuilderDisplay();
