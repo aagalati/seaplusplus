@@ -5,8 +5,9 @@
 BuilderDisplay::BuilderDisplay() : Display()
 {
 
-	Grid* g = new Grid();
-	gridlist.push_back(g->load());
+	
+
+	gridlist.push_back(new Grid(10, 10, true));
 
 	numofmapbuttons = gridlist.size();
 	buttons.resize(numofmapbuttons);
@@ -324,12 +325,12 @@ void BuilderDisplay::buttonAction(int x, int y, bool isclick) {
 									break;
 							
 							case 7: 
-								brush = 0;
-								for (int i = 0; i < gridlist[workingGrid]->getWidth(); i++) {
-									for (int j = 0; j < gridlist[workingGrid]->getHeight(); j++) {
-										paint(i, j);
-									}
-								}
+								//brush = 0;
+								//for (int i = 0; i < gridlist[workingGrid]->getWidth(); i++) {
+									//for (int j = 0; j < gridlist[workingGrid]->getHeight(); j++) {
+										//paint(i, j);
+									//}
+								//}
 								break;
 
 						}

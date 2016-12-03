@@ -123,6 +123,7 @@ void MenuDisplay::run() {
 
 		case sf::Event::Closed:
 			_window.clear();
+			exitType = 4;
 			_window.close();
 			break;
 

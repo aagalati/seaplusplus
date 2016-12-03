@@ -12,6 +12,7 @@ AllItemDisplay::AllItemDisplay()
 
 	loadFonts();
 	loadTextures();
+	loadItems();
 
 	numofmovebuttons = 3;
 	moveButtons.resize(numofmovebuttons);
