@@ -43,6 +43,7 @@
     <ClCompile Include="CharChoiceDisplay.cpp" />
     <ClCompile Include="EditCharDisplay.cpp" />
     <ClCompile Include="CampChooseDisplay.cpp" />
+    <ClCompile Include="GameChoiceDisplay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Armor.h" />
@@ -88,6 +89,7 @@
     <ClInclude Include="CharChoiceDisplay.h" />
     <ClInclude Include="EditCharDisplay.h" />
     <ClInclude Include="CampChooseDisplay.h" />
+    <ClInclude Include="GameChoiceDisplay.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

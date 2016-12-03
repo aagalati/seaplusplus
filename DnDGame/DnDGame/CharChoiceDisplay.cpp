@@ -126,6 +126,11 @@ void CharChoiceDisplay::openAll() {
 void CharChoiceDisplay::openEdit() {
 
 
+	EditCharDisplay *ecd = new EditCharDisplay();
+
+	while (ecd->windowOpen()) {
+		ecd->run();
+	}
 
 }
 

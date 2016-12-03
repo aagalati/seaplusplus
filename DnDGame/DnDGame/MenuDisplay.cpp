@@ -29,7 +29,6 @@ MenuDisplay::MenuDisplay() : Display()
 
 	_window.create(sf::VideoMode(_windowsize.x, _windowsize.y), "Dungeons and Dragons (Menu)");
 
-
 	menuDisplay();
 
 }

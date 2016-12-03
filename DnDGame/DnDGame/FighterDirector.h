@@ -2,7 +2,7 @@
 #include "Character.h"
 #include "CharacterBuilder.h"
 
-class FighterDirector : public CharacterBuilder
+class FighterDirector
 {
 public:
 	void setCharacterBuilder(CharacterBuilder *);
