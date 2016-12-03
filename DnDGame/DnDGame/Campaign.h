@@ -34,6 +34,10 @@ public:
 	//void editCampaign(int n); 
 	
 
+	virtual void Serialize(CArchive&);
+	void save();
+	Campaign* load();
+
 
 
 private:

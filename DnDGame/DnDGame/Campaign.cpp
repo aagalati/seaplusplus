@@ -53,3 +53,69 @@ void Campaign::removeGrid(int i)
 {
 
 }*/
+
+void Campaign::Serialize(CArchive& archie)
+{
+	if (archie.IsStoring())
+	{
+		CString n(campaignName.c_str());
+
+		archie << n;
+		for (std::vector<Grid*>::iterator iter = gridlist.begin(); iter != gridlist.end(); iter++)
+		{
+			Grid* g = *iter;
+			g->Serialize(archie);
+	
+		}
+	}
+	if (archie.IsLoading())
+	{
+		CString n;
+		archie >> n;
+
+		Grid* g = new Grid();
+		g->Serialize(archie);
+
+	}
+	
+}
+
+void Campaign::save()
+{
+	CFile save;
+	save.Open(_T("CampaignSaved.txt"), CFile::modeCreate | CFile::modeWrite | CFile::modeNoTruncate);
+	CArchive archie(&save, CArchive::store);
+
+	Campaign* _campaign = new Campaign(*this);
+	_campaign->Serialize(archie);
+
+	delete _campaign;
+
+	archie.Close();
+	save.Close();
+}
+
+Campaign* Campaign::load()
+{
+	CFile load;
+	load.Open(_T("CampaignSaved.txt"), CFile::modeRead);
+	CArchive archie(&load, CArchive::load);
+
+	Campaign* campaign = new Campaign();
+
+	try
+	{
+		while (true)
+		{
+			Grid* g = new Grid();
+			g->Serialize(archie);
+			campaign->addGrid(g);
+		}
+	}
+	catch (exception e)
+	{
+		return campaign;
+	}
+	return campaign;
+
+}
