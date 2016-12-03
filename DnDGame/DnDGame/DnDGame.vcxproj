@@ -182,7 +182,11 @@
     <ClInclude Include="EditCharDisplay.h" />
     <ClInclude Include="FighterDirector.h" />
     <ClInclude Include="GameButton.h" />
+<<<<<<< HEAD
     <ClInclude Include="GameChoiceDisplay.h" />
+=======
+    <ClInclude Include="Gamelogg.h" />
+>>>>>>> d82de2b9eb82ea48740530f87b7b0550d3da47d3
     <ClInclude Include="Grid.h" />
     <ClInclude Include="GridObserver.h" />
     <ClInclude Include="Helmet.h" />
@@ -229,7 +233,11 @@
     <ClCompile Include="EditCharDisplay.cpp" />
     <ClCompile Include="FighterDirector.cpp" />
     <ClCompile Include="GameButton.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="GameChoiceDisplay.cpp" />
+=======
+    <ClCompile Include="Gamelogg.cpp" />
+>>>>>>> d82de2b9eb82ea48740530f87b7b0550d3da47d3
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="GridObserver.cpp" />
     <ClCompile Include="Helmet.cpp" />

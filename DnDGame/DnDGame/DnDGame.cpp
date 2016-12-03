@@ -59,17 +59,18 @@ Important info:
 #include "ItemChoiceDisplay.h"
 #include "CharChoiceDisplay.h"
 #include "CampChooseDisplay.h"
+#include "Gamelogg.h";
 
 
 
 void main()
 {
 	
-	int exitType = 4;
-
-	while (true) {
+	int exitType = -1;
+	GL1 << "Dungeons & Dragons Game has loaded.\n";
+	while (exitType != 4) {
 		
-		if (exitType = 4) {
+		if (exitType == -1) {
 
 			MenuDisplay *menu = new MenuDisplay();  //make a menu display
 

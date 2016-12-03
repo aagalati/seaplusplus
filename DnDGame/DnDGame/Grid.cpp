@@ -460,6 +460,11 @@ vector< vector<DNDObject*> >& Grid::getGridData()
 }
 
 void Grid::move(int currentX, int  currentY, int nextX, int nextY) {
+	
+	GL2 << "Hero moves from ("; 	GL2 << to_string(currentX); GL2 << ", ";
+	GL2 << to_string(currentY); GL2 << ") to ("; GL2 << to_string(nextX);
+	GL2 << ", "; GL2 << to_string(nextY); GL2 << ").\n";
+
 	DNDObject *temp;
 	temp = _currentcell;
 	if (temp->type() == 2)
