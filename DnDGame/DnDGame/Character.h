@@ -116,7 +116,9 @@ using std::string;
 		int rangedAttackDamage;
 
 		int nbOfAttacks;
+		int nbOfAttacksLeft;
 		int movement;
+		int remMovement;
 
 		//Integer type used for grid recognition of object type;
 		int characterType;
@@ -172,7 +174,9 @@ using std::string;
 		void setRangedAttackDamage(int) noexcept;
 
 		void setMovement(int) noexcept;
+		void setRemMovement(int) noexcept;
 		void setNbOfAttacks(int) noexcept;
+		void setNbOfAttacksLeft(int) noexcept;
 		
 		void setCharacterType(int) noexcept;
 
@@ -220,7 +224,9 @@ using std::string;
 		inline int getRangedAttackDamage();
 
 		inline int getMovement();
+		inline int getRemMovement();
 		inline int getNbOfAttacks();
+		inline int getNbOfAttacksLeft();
 		
 		//State of Characters -> 5 is Player, 6 is Enemy NPC, 7 is Friendly NPC
 		int type();

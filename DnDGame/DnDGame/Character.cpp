@@ -82,17 +82,23 @@ using std::string;
 		defaultEquip();
 		setCharacterType(5);
 		setMovement(3);
+		setRemMovement(3);
 		setLevel(1);
 		extraAttacks(1);
+		setNbOfAttacksLeft(getNbOfAttacks());
 	}
 	Character::Character(int lvl) noexcept
 	{
 		setInConstructor(true);
 		defaultEquip();
 		setCharacterType(5);
+
 		setMovement(3);
+		setRemMovement(3);
+
 		setLevel(lvl);
 		extraAttacks(lvl);
+		setNbOfAttacksLeft(getNbOfAttacks());
 	}
 
 
