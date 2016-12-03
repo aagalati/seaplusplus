@@ -193,11 +193,13 @@ void Item::Serialize(CArchive& archie)
 	else
 	{
 		CString n; int type, rolls, sides;
-		archie >> n >> type >> enhBonus >> rolls >> sides;
+		archie >> n >> type >> enhBonus >> range >> rolls >> sides;
 
-		CT2CA converter(n);
-		std::string nameTemp(converter);
-		name = nameTemp;
+		
+		std::string tempName(CW2A(n.GetString()));
+		name = tempName;
+
+
 		
 		switch (type)
 		{
