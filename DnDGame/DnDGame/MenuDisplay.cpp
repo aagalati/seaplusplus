@@ -25,7 +25,10 @@ MenuDisplay::MenuDisplay() : Display()
 	numofbuttons = 4;
 	buttons.resize(numofbuttons);
 
+	exitType = 3;
+
 	_window.create(sf::VideoMode(_windowsize.x, _windowsize.y), "Dungeons and Dragons (Menu)");
+
 
 	menuDisplay();
 
@@ -57,7 +60,7 @@ void MenuDisplay::menuDisplay() {
 
 		}
 		
-		buttons[i] = new GameButton(_buttonsize, _buttonposition, bname);
+		buttons[i] = new GameButton(_buttonsize, _buttonposition, bname, sf::Color::White);
 		_buttonposition.y += 60;
 
 	}
@@ -155,7 +158,7 @@ void MenuDisplay::buttonAction(int x, int y, bool isclick) {
 					update();
 				}
 				else {
-					buttons[i]->changeColor(sf::Color::White);
+					buttons[i]->changeColorDefault();
 					update();
 				}
 

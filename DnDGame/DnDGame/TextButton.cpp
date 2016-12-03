@@ -10,7 +10,7 @@ TextButton::TextButton(){
 }
 
 TextButton::TextButton(sf::Vector2f size, sf::Vector2f position, std::string buttonname, sf::Font font) 
-: GameButton(size, position)
+: GameButton(size, position, sf::Color::White)
 {
 	
 	name.setFont(font);

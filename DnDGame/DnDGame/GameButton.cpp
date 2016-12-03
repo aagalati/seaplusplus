@@ -8,11 +8,15 @@ GameButton::GameButton() {
 
 }
 
-GameButton::GameButton(sf::Vector2f size, sf::Vector2f position)
+GameButton::GameButton(sf::Vector2f size, sf::Vector2f position, sf::Color defaultColor)
 {
 
 	shape.setSize(size);
 	shape.setPosition(position);
+	shape.setFillColor(defaultColor);
+	shape.setOutlineThickness(3);
+
+	defColor = defaultColor;
 
 	//coordinates are in clockwise order
 
@@ -30,7 +34,7 @@ GameButton::GameButton(sf::Vector2f size, sf::Vector2f position)
 
 }
 
-GameButton::GameButton(sf::Vector2f size, sf::Vector2f position, std::string name) : GameButton(size, position)
+GameButton::GameButton(sf::Vector2f size, sf::Vector2f position, std::string name, sf::Color defaultColor) : GameButton(size, position, defaultColor)
 {
 
 	buttonname = name;
@@ -73,5 +77,19 @@ void GameButton::changeColor(sf::Color color)
 {
 
 	shape.setFillColor(color);
+
+}
+
+void GameButton::changeColorDefault()
+{
+
+	shape.setFillColor(defColor);
+
+}
+
+void GameButton::changeOutlineColor(sf::Color color)
+{
+
+	shape.setOutlineColor(color);
 
 }

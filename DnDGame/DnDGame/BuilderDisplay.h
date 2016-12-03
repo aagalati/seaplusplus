@@ -15,24 +15,40 @@ public:
 
 	BuilderDisplay();
 	BuilderDisplay(std::vector< Grid*> gridlist);
-	void drawSprites();
+	
+	void createButton(int i);
 	void sizeTilemap();
-	void buildDisplay();
+	void buildDisplay(Grid* grid);
 	void listDisplay();
-	void drawButtons();
+
 	void run();
 	void update();
 	void buttonAction(int x, int y, bool isclick);
 	~BuilderDisplay();
 
+	void drawButtons();
+	void drawSprites();
+	void drawEditButtons();
+
 private:
 
 	std::vector< Grid* > gridlist;
+	vector < vector < vector < sf::Sprite > > > _tilemaps;
+
 	sf::Text buttonname;
-	int numofbuttons;
+	int numofmapbuttons;
+	int numofeditbuttons;
+
+	std::vector< GameButton* > buttons;
+	std::vector< GameButton* > editButtons;
+
+	sf::Vector2f _tilesize2;
+
+	int buildMode;
+	
 	int exitType;
 
-	vector < vector < vector < sf::Sprite > > > _tilemaps;
+	
 
 };
 
