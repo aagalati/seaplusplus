@@ -532,9 +532,10 @@ void Grid::Serialize(CArchive& archie)
 {
 	if (archie.IsStoring())
 	{
+		CString n(gridName.c_str());
 		try
 		{
-			archie << _width << _height << _entrance_row << _entrance_col << _exit_row << _exit_col;
+			archie << n << _width << _height << _entrance_row << _entrance_col << _exit_row << _exit_col;
 
 
 			for (int i = 0; i < _width; i++)
@@ -580,8 +581,9 @@ void Grid::Serialize(CArchive& archie)
 
 	else
 	{
-		archie << _width << _height << _entrance_row << _entrance_col << _exit_row << _exit_col;
-
+		CString n;
+		archie >> _width >> _height >> _entrance_row >> _entrance_col >> _exit_row >> _exit_col;
+		resizeMap(_width, _height);
 		for (int i = 0; i < _width; i++)
 		{
 			for (int j = 0; j < _height; j++)
@@ -591,28 +593,33 @@ void Grid::Serialize(CArchive& archie)
 
 				if (type == 700)
 				{
-					ItemContainer * ic = new ItemContainer;
+					ItemContainer * ic = new ItemContainer();
 					ic->Serialize(archie);
-					_gridData[i][j] = ic;
+					DNDObject* o = ic;
+					_gridData[i][j] = o;
 				}
 
 				if (type == 800)
 				{
-					Character* ch = new Character;
+					Character* ch = new Character();
 					ch->setInConstructor(true);
 					ch->Serialize(archie);
-					_gridData[i][j] = ch;
+					DNDObject* o = ch;
+					_gridData[i][j] = o;
 				}
 
 				if (type == 900)
 				{
-					Structure *st = new Structure;
+					Structure *st = new Structure();
 					st->Serialize(archie);
-					_gridData[i][j] = st;
+					DNDObject* o = st;
+					_gridData[i][j] = o;
 				}
 
 			}
 		}
+		std::string tempName(CW2A(n.GetString()));
+		gridName = tempName;
 	}
 }
 

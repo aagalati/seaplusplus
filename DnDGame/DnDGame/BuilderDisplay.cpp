@@ -5,12 +5,8 @@
 BuilderDisplay::BuilderDisplay() : Display()
 {
 
-	gridlist.push_back(new Grid(10, 10, false));
-	gridlist.push_back(new Grid(10, 11, true));
-	gridlist.push_back(new Grid(10, 12, true));
-	gridlist.push_back(new Grid(10, 11, true));
-	gridlist.push_back(new Grid(10, 12, true));
-	gridlist.push_back(new Grid(10, 10, true));
+	Grid* g = new Grid();
+	gridlist.push_back(g->load());
 
 	numofmapbuttons = gridlist.size();
 	buttons.resize(numofmapbuttons);
