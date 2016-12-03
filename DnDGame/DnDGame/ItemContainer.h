@@ -14,7 +14,7 @@ class ItemContainer : public DNDObject, public CObject
 {
 public:
 
-	DECLARE_SERIAL(ItemContainer,CObject, 2);
+	DECLARE_SERIAL(ItemContainer);
 
 	//Constructors
 	ItemContainer();
@@ -25,7 +25,6 @@ public:
 	ItemContainer(ItemContainer*);
 	
 	int getContainerSize();
-	//Treasure toTreasure(const ItemContainer&);
 
 	void storeItem(Item*);
 	void dropItem(int itemNo);

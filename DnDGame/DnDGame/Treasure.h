@@ -16,10 +16,12 @@ private:
 public:
 
 	Treasure();
-	//Treasure(ItemContainer);
+	Treasure(ItemContainer);
 	~Treasure();
 
 	int type();
+
+	Treasure toTreasure(ItemContainer);
 	std::string toString();
 };
 

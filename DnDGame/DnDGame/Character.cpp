@@ -82,17 +82,23 @@ using std::string;
 		defaultEquip();
 		setCharacterType(5);
 		setMovement(3);
+		setRemMovement(3);
 		setLevel(1);
 		extraAttacks(1);
+		setNbOfAttacksLeft(getNbOfAttacks());
 	}
 	Character::Character(int lvl) noexcept
 	{
 		setInConstructor(true);
 		defaultEquip();
 		setCharacterType(5);
+
 		setMovement(3);
+		setRemMovement(3);
+
 		setLevel(lvl);
 		extraAttacks(lvl);
+		setNbOfAttacksLeft(getNbOfAttacks());
 	}
 
 
@@ -1311,9 +1317,8 @@ using std::string;
 			delete e;
 			delete b;
 			
-			CT2CA converter(n);
-			string nameTemp(converter);
-			name = nameTemp;
+			std::string tempName(CW2A(n.GetString()));
+			name = tempName;
 		}
 	}
 

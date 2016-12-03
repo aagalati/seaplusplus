@@ -43,6 +43,7 @@ Grid::Grid(Grid* grid) {
 	this->_exit_col = grid->_exit_col;
 	this->_exit_row = grid->_exit_row;
 	this->_currentcell = grid->_currentcell;
+	this->gridName = gridName;
 
 	GridObserver *_gridObserver = new GridObserver();
 	_grid = _gridObserver;
@@ -57,6 +58,10 @@ int Grid::getWidth() {
 
 int Grid::getHeight() {
 	return _height;
+}
+
+string Grid::getGridName() {
+	return gridName;
 }
 
 void Grid::validRandom() {

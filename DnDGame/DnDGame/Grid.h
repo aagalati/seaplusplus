@@ -58,6 +58,7 @@ public:
 	int getExitX();
 	int getExitY();
 	vector< vector<DNDObject*> >& getGridData();
+	string getGridName();
 
 
 	//void setRow(int row, int set);
@@ -88,6 +89,8 @@ private:
 
 	bool isValid; //
 	bool refresh; //
+
+	string gridName;
 
 	GridObserver *_grid;
 

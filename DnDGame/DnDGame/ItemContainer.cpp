@@ -27,11 +27,7 @@ ItemContainer::ItemContainer(int i)
 	accessible = false;
 }
 
-/*Treasure ItemContainer::toTreasure(const ItemContainer &loot)
-{
-	Treasure treasure(loot);
-	return treasure;
-}*/
+
 
 ItemContainer::ItemContainer(const ItemContainer& i)
 {
