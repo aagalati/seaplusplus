@@ -65,7 +65,7 @@ void main()
 
 	int exitType = -1;
 
-	while (true) {
+	while (exitType != 3) {
 
 		if (exitType = -1) {
 

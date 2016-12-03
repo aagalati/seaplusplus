@@ -115,7 +115,11 @@ void ItemChoiceDisplay::update() {
 
 void ItemChoiceDisplay::openAll() {
 
+	AllItemDisplay *all = new AllItemDisplay();
 
+	while (all->windowOpen()) {
+		all->run();
+	}
 
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "Display.h"
 #include "GameButton.h"
+#include "AllItemDisplay.h"
 
 class ItemChoiceDisplay :
 	public Display
