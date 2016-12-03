@@ -5,7 +5,8 @@
 
 Note To Dr. Taleb,
 
-This version of the game is not as complete as we wish it could have been due to time limitations. As of now, the game:
+
+ version of the game is not as complete as we wish it could have been due to time limitations. As of now, the game:
 -Is presented to the user as a basic GUI
 -Creates a menu with 2 working button, which generates the map.
 -Is randomly generated, and its validity is verified.

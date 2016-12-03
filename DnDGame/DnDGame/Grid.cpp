@@ -439,7 +439,13 @@ void Grid::move(int currentX, int  currentY, int nextX, int nextY) {
 
 	DNDObject *temp;
 	temp = _currentcell;
-
+	if (temp->type() == 2)
+	{
+		_gridData[currentX][currentY] = treasureToCharacter(temp, _gridData[currentX][currentY]);
+		Structure s(0);
+		Structure* sp = &s;
+		DNDObject* o = sp;
+	}
 	_currentcell = _gridData[nextX][nextY];
 	_gridData[nextX][nextY] = _gridData[currentX][currentY];
 	_gridData[currentX][currentY] = temp;
@@ -458,7 +464,37 @@ void Grid::update() {
 
 }
 
+std::vector<DNDObject*> Grid::characterList()
+{
 
+	vector<DNDObject*> cList;
+	for (int i = 0; i < getWidth(); i++)
+	{
+		for (int j = 0; j < getHeight(); j++)
+		{
+			if (_gridData[i][j]->type() == 5 || _gridData[i][j]->type() == 6)
+			{
+				DNDObject* character = _gridData[i][j];
+				cList.push_back(character);
+			}
+		}
+	}
+	return cList;
+}
+
+DNDObject* Grid::treasureToCharacter(DNDObject* t, DNDObject* chara)
+{
+	Treasure* tr = dynamic_cast<Treasure*> (t);
+	Character* ch = dynamic_cast<Character*> (chara);
+	
+	for (vector<Item*>::iterator iter = tr->contained.begin(); iter != tr->contained.end(); iter++)
+	{
+		ch->getBackpack().storeItem((*iter));
+	}
+	
+	chara = ch;
+	return chara;
+}
 
 
 Grid::~Grid()

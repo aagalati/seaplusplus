@@ -9,6 +9,7 @@ Boots::Boots(std::string name, EnhancementType enhType, int enhBonus) : Item(nam
 
 Boots::Boots(Item* i)
 {
+	
 	this->name = i->getItemName();
 	this->enhType = i->getEnhancementType();
 	this->enhBonus = i->getEnhancementBonus();

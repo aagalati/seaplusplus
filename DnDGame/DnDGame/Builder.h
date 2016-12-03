@@ -5,7 +5,6 @@
 #include "DNDObject.h"
 
 
-
 class Builder
 {
 private:

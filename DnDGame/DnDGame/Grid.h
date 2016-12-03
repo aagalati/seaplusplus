@@ -50,8 +50,8 @@ public:
 
 
 	//Map control
-	std::vector<DNDObject*>* treasureList();
-	std::vector<DNDObject*>* characterList();
+	DNDObject* treasureToCharacter(DNDObject*, DNDObject*);
+	std::vector<DNDObject*> characterList();
 
 
 	//Grid Accessor
