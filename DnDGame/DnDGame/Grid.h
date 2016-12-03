@@ -7,7 +7,7 @@
 #include "Observer.h"
 #include "GridObserver.h"
 #include "DNDObject.h"
-#include "Gamelogg.h"
+#include "Gameloggg.h"
 
 using namespace std;
 

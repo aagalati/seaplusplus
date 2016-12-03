@@ -9,11 +9,11 @@ using std::cout;
 using std::string;
 
 
-class Gamelogg
+class Gameloggg
 {
 public:
-	Gamelogg();
-	~Gamelogg();
+	Gameloggg();
+	~Gameloggg();
 	//void GameLog1(bool log1); // game setup, map loading and campaign progress, player turns switching, end phase
 	//void GameLog2(bool log2); // every movement made on the map
 	//void GameLog3(bool log3); // every attack attempted including all factors involved in its calculation and its result
@@ -26,13 +26,14 @@ public:
 	void toggleOnOff();
 
 
-	Gamelogg(bool toggled);
+	Gameloggg(bool toggled);
 private:
 	std::ostream* oss;
 	bool toggled;
 };
 
-	Gamelogg GL1; // game setup, map loading and campaign progress, player turns switching, end phase
-	Gamelogg GL2; // every movement made on the map
-	Gamelogg GL3; // every attack attempted including all factors involved in its calculation and its result
-	Gamelogg GL4; // every dice roll
+Gameloggg GL1; // game setup, map loading and campaign progress, player turns switching, end phase
+Gameloggg GL2; // every movement made on the map
+Gameloggg GL3; // every attack attempted including all factors involved in its calculation and its result
+Gameloggg GL4; // every dice roll
+
