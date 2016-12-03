@@ -180,6 +180,7 @@
     <ClInclude Include="DNDObject.h" />
     <ClInclude Include="FighterDirector.h" />
     <ClInclude Include="GameButton.h" />
+    <ClInclude Include="Gamelogg.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="GridObserver.h" />
     <ClInclude Include="Helmet.h" />
@@ -224,6 +225,7 @@
     <ClCompile Include="DNDObject.cpp" />
     <ClCompile Include="FighterDirector.cpp" />
     <ClCompile Include="GameButton.cpp" />
+    <ClCompile Include="Gamelogg.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="GridObserver.cpp" />
     <ClCompile Include="Helmet.cpp" />
