@@ -92,10 +92,8 @@ using std::string;
 		setInConstructor(true);
 		defaultEquip();
 		setCharacterType(5);
-
 		setMovement(3);
 		setRemMovement(3);
-
 		setLevel(lvl);
 		extraAttacks(lvl);
 		setNbOfAttacksLeft(getNbOfAttacks());
