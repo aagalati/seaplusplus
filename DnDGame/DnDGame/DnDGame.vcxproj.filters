@@ -41,6 +41,8 @@
     <ClCompile Include="AllItemDisplay.cpp" />
     <ClCompile Include="ItemBuildDisplay.cpp" />
     <ClCompile Include="CharChoiceDisplay.cpp" />
+    <ClCompile Include="EditCharDisplay.cpp" />
+    <ClCompile Include="CampChooseDisplay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Armor.h" />
@@ -84,6 +86,8 @@
     <ClInclude Include="AllItemDisplay.h" />
     <ClInclude Include="ItemBuildDisplay.h" />
     <ClInclude Include="CharChoiceDisplay.h" />
+    <ClInclude Include="EditCharDisplay.h" />
+    <ClInclude Include="CampChooseDisplay.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

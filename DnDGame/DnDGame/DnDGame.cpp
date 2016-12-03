@@ -58,6 +58,7 @@ Important info:
 #include "Character.h"
 #include "ItemChoiceDisplay.h"
 #include "CharChoiceDisplay.h"
+#include "CampChooseDisplay.h"
 
 
 
@@ -110,14 +111,14 @@ void main()
 
 		if (exitType == 2) {
 
-			BuilderDisplay *build = new  BuilderDisplay();
+			CampChooseDisplay *camp = new CampChooseDisplay();
 
-			while (build->windowOpen()) {
+			while (camp->windowOpen()) {
 
-				build->run();
+				camp->run();
 
 			}
-
+			
 		}
 
 		if (exitType == 3) {
