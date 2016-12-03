@@ -57,22 +57,19 @@ Important info:
 #include "BuilderDisplay.h"
 #include "Character.h"
 #include "ItemChoiceDisplay.h"
-<<<<<<< HEAD
 #include "CharChoiceDisplay.h"
 #include "CampChooseDisplay.h"
-=======
->>>>>>> 1bbe02e75ebf3bd3680517ae34fce62025777276
 
 
 
 void main()
 {
-	/*
-	int exitType = -1;
+	
+	int exitType = 4;
 
 	while (true) {
-
-		if (exitType = -1) {
+		
+		if (exitType = 4) {
 
 			MenuDisplay *menu = new MenuDisplay();  //make a menu display
 
@@ -124,13 +121,19 @@ void main()
 			
 		}
 
-	}
-	*/
-	ItemContainer a = new ItemContainer();
-	Weapon swag("Harambe", Item::Strength, 3, 1, 1, 8);
-	Item* ab = &swag;
-	a.contained.push_back(ab);
-	a.save(0);
+		if (exitType == 3) {
 
+			CharChoiceDisplay *ch = new CharChoiceDisplay();
+
+			while (ch->windowOpen()) {
+
+				ch->run();
+
+			}
+
+		}
+
+	}
+	
 }
 

@@ -33,7 +33,10 @@ void AllItemDisplay::loadItems()
 
 	Item* item = new Item();
 
-	container = item->load();
+	ItemContainer* temp = new ItemContainer();
+
+	container = temp->load(0);
+
 
 }
 
@@ -41,10 +44,10 @@ void AllItemDisplay::displayfour(int a) {
 
 	int count = 0;
 	int typevalue;
-	for (int i = a; i < container.size() && count < 4; i++) {
+	for (int i = a; i < container->contained.size() && count < 4; i++) {
 		count++;
-		itemname[i].setString(container[i]->toString());
-		typevalue = container[i]->getIntItemType();
+		itemname[i].setString(container->contained[i]->toString());
+		typevalue = container->contained[i]->getIntItemType();
 		source = typevalue - 1;
 		itempack[i].setTextureRect(sf::IntRect(0, _tilesize.y*source, _tilesize.x, _tilesize.y));
 		
@@ -163,7 +166,7 @@ void AllItemDisplay::buttonAction(int x, int y, bool isclick) {
 				case 0: if (currentShow != 0)
 							currentShow -= 4;
 					break;
-				case 1: if (currentShow + 4 < container.size())
+				case 1: if (currentShow + 4 < container->contained.size())
 							currentShow += 4;
 					break;
 				case 2: _window.close();
