@@ -81,7 +81,7 @@ void main()
 
 		}
 
-		else if (exitType == 0) { //open play 
+		if (exitType == 0) { //open play 
 
 			Grid *grid = new Grid(10, 10, false);  //random grid
 
@@ -95,7 +95,7 @@ void main()
 
 		}
 
-		else if (exitType == 1) {
+		if (exitType == 1) {
 
 			ItemChoiceDisplay *item = new ItemChoiceDisplay();
 
@@ -107,7 +107,7 @@ void main()
 
 		}
 
-		else if (exitType == 2) {
+		if (exitType == 2) {
 
 			BuilderDisplay *build = new  BuilderDisplay();
 
