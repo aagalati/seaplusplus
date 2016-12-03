@@ -1242,8 +1242,6 @@ using std::string;
 			e->Serialize(arch);
 			b->Serialize(arch);
 
-			delete e;
-			delete b;
 			
 		}
 
@@ -1264,9 +1262,7 @@ using std::string;
 			b->Serialize(arch);
 			backpack = *b;
 
-			delete e;
-			delete b;
-			
+		
 			std::string tempName(CW2A(n.GetString()));
 			name = tempName;
 		}

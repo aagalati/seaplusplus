@@ -6,11 +6,11 @@ BuilderDisplay::BuilderDisplay() : Display()
 {
 
 	gridlist.push_back(new Grid(10, 10, false));
-	gridlist.push_back(new Grid(10, 11, false));
-	gridlist.push_back(new Grid(10, 12, false));
-	gridlist.push_back(new Grid(10, 11, false));
-	gridlist.push_back(new Grid(10, 12, false));
-	gridlist.push_back(new Grid(10, 10, false));
+	gridlist.push_back(new Grid(10, 11, true));
+	gridlist.push_back(new Grid(10, 12, true));
+	gridlist.push_back(new Grid(10, 11, true));
+	gridlist.push_back(new Grid(10, 12, true));
+	gridlist.push_back(new Grid(10, 10, true));
 
 	numofmapbuttons = gridlist.size();
 	buttons.resize(numofmapbuttons);
@@ -44,18 +44,37 @@ BuilderDisplay::BuilderDisplay() : Display()
 
 BuilderDisplay::BuilderDisplay(std::vector<Grid*> gridlist) : Display()
 {
-	loadFonts();
-	loadTextures();
-	sizeTilemap();
-	drawSprites();
 
-	
 	this->gridlist = gridlist;
 
 	numofmapbuttons = gridlist.size();
 	buttons.resize(numofmapbuttons);
 
-	numofeditbuttons = 5;
+	numofeditbuttons = 8;
+	editButtons.resize(numofeditbuttons);
+
+	buildMode = 0;
+	brush = -1;
+
+	_window.create(sf::VideoMode(_windowsize.x, _windowsize.y), "Dungeouns and Dragons");
+	_window.clear();
+
+	_tilesource.x = 16;
+	_tilesource.y = Wall;
+
+	_tilesize.x = 16;
+	_tilesize.y = 16;
+	_tilesize2.x = _tilesize.x * 2;
+	_tilesize2.y = _tilesize.y * 2;
+
+	PADDINGX = 16;
+	PADDINGY = 16;
+
+	loadFonts();
+	loadTextures();
+	sizeTilemap();
+	drawSprites();
+
 }
 
 void  BuilderDisplay::drawSprites() {
@@ -235,6 +254,15 @@ void BuilderDisplay::paint(int x, int  y) {
 
 }
 
+void BuilderDisplay::saveGrids()
+{
+	for (vector< Grid*>::iterator iter = gridlist.begin(); iter != gridlist.end(); iter++)
+	{
+		Grid g(*iter);
+		g.save();
+	}
+}
+
 void BuilderDisplay::buttonAction(int x, int y, bool isclick) {
 
 	if (buildMode == 0) {
@@ -242,6 +270,8 @@ void BuilderDisplay::buttonAction(int x, int y, bool isclick) {
 		if (isclick && saveandexit->isClicked(x, y)) {
 
 			std::cout << "SAVING AND EXITING" << std::endl;
+
+			saveGrids();
 
 		}
 
