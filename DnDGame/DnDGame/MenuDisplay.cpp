@@ -154,7 +154,7 @@ void MenuDisplay::buttonAction(int x, int y, bool isclick) {
 		} else {
 
 				if (buttons[i]->isClicked(x, y)) {
-					buttons[i]->changeColor(sf::Color::Magenta);
+					buttons[i]->changeColor(sf::Color(150, 150, 150, 255));
 					update();
 				}
 				else {

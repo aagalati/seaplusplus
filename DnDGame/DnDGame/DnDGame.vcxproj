@@ -160,6 +160,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AllItemDisplay.h" />
     <ClInclude Include="Armor.h" />
     <ClInclude Include="Belt.h" />
     <ClInclude Include="BFS.h" />
@@ -182,6 +183,8 @@
     <ClInclude Include="GridObserver.h" />
     <ClInclude Include="Helmet.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemBuildDisplay.h" />
+    <ClInclude Include="ItemChoiceDisplay.h" />
     <ClInclude Include="ItemContainer.h" />
     <ClInclude Include="MenuDisplay.h" />
     <ClInclude Include="NimbleFighterBuilder.h" />
@@ -199,6 +202,7 @@
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AllItemDisplay.cpp" />
     <ClCompile Include="Armor.cpp" />
     <ClCompile Include="Belt.cpp" />
     <ClCompile Include="BFS.cpp" />
@@ -222,6 +226,8 @@
     <ClCompile Include="GridObserver.cpp" />
     <ClCompile Include="Helmet.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemBuildDisplay.cpp" />
+    <ClCompile Include="ItemChoiceDisplay.cpp" />
     <ClCompile Include="ItemContainer.cpp" />
     <ClCompile Include="MenuDisplay.cpp" />
     <ClCompile Include="NimbleFighterBuilder.cpp" />

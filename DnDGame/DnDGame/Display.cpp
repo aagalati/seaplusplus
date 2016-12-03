@@ -129,6 +129,11 @@ void Display::loadTextures() {
 		std::cout << "Error: Border texture not loaded" << std::endl;
 	else
 		std::cout << "Border texture loaded.." << std::endl;
+	
+	if (!itemTexture.loadFromFile("texture/itemtexture.png"))  //load and verify textures
+		std::cout << "Error: Border texture not loaded" << std::endl;
+	else
+		std::cout << "Border texture loaded.." << std::endl;
 
 }
 

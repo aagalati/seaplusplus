@@ -41,9 +41,6 @@ Important info:
 						 (This tutorial is extremely helpful http://www.cplusplus.com/forum/beginner/95295/#msg511543 see 9) Configure Visual Studio)
 
 
-Future goals:
-	-Implement A* pathing for any character/enemy and for better optimized Grid::checkValid()
-
 */
 
 //
@@ -59,23 +56,32 @@ Future goals:
 #include "MenuDisplay.h"
 #include "BuilderDisplay.h"
 #include "Character.h"
+#include "ItemChoiceDisplay.h"
 
 
 
 void main()
 {
 
+	int exitType = -1;
 
-	MenuDisplay *menu = new MenuDisplay();  //make a menu display
-	
-	while (menu->windowOpen()) {  //open the menu
+	while (true) {
 
-		menu->run();
+		if (exitType = -1) {
 
-	}
-	
-	
-		if (menu->getExitType() == 0) { //open play menu
+			MenuDisplay *menu = new MenuDisplay();  //make a menu display
+
+			while (menu->windowOpen()) {  //open the menu
+
+				menu->run();
+
+			}
+
+			exitType = menu->getExitType();
+
+		}
+
+		else if (exitType == 0) { //open play 
 
 			Grid *grid = new Grid(10, 10, false);  //random grid
 
@@ -89,9 +95,19 @@ void main()
 
 		}
 
-		//else if (menu->goitem)
+		else if (exitType == 1) {
 
-		else if (menu->getExitType() == 2) {
+			ItemChoiceDisplay *item = new ItemChoiceDisplay();
+
+			while (item->windowOpen()) {
+
+				item->run();
+
+			}
+
+		}
+
+		else if (exitType == 2) {
 
 			BuilderDisplay *build = new  BuilderDisplay();
 
@@ -103,6 +119,7 @@ void main()
 
 		}
 
+	}
 
 }
 
