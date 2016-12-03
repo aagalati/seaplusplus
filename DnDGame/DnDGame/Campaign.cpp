@@ -72,7 +72,6 @@ void Campaign::Serialize(CArchive& archie)
 	{
 		CString n;
 		archie >> n;
-
 		Grid* g = new Grid();
 		g->Serialize(archie);
 
