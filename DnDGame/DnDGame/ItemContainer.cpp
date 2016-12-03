@@ -10,8 +10,8 @@ ItemContainer::ItemContainer()
 
 ItemContainer::~ItemContainer()
 {
-	for (std::vector<Item*>::iterator iter = contained.begin(); iter != contained.end(); iter++)
-		delete (*iter);
+	//for (std::vector<Item*>::iterator iter = contained.begin(); iter != contained.end(); iter++)
+		//delete (*iter);
 }
 
 ItemContainer::ItemContainer(std::string containerName) {
@@ -35,9 +35,9 @@ ItemContainer::ItemContainer(const ItemContainer& i)
 	
 	contained = i.contained;
 	
-	for (int i = 0; i < contained.size(); i++)
+	for (int j = 0; j < i.contained.size(); j++)
 	{
-		storeItem(contained[i]);
+		storeItem(contained[j]);
 	}
 
 }
@@ -131,35 +131,62 @@ void ItemContainer::Serialize(CArchive& archie)
 
 
 
-void ItemContainer::save()
+void ItemContainer::save(int a)
 {
+	if (a == 0)
+	{
+		CFile save;
+		save.Open(_T("ItemSaved.txt"), CFile::modeCreate | CFile::modeWrite | CFile::modeNoTruncate);
+		CArchive archie(&save, CArchive::store);
 
-	
-	CFile save;
-	save.Open(_T("MapSave.txt"), CFile::modeCreate | CFile::modeWrite | CFile::modeNoTruncate);
-	CArchive archie(&save, CArchive::store);
+		ItemContainer* _itemContainer = new ItemContainer(*this);
+		_itemContainer->Serialize(archie);
 
-	ItemContainer* _itemContainer = new ItemContainer(*this);
-	_itemContainer->Serialize(archie);
+		delete _itemContainer;
+		archie.Close();
+		save.Close();
+	}
+	else {
+		CFile save;
+		save.Open(_T("MapSave.txt"), CFile::modeCreate | CFile::modeWrite | CFile::modeNoTruncate);
+		CArchive archie(&save, CArchive::store);
 
-	delete _itemContainer;
-	archie.Close();
-	save.Close();
+		ItemContainer* _itemContainer = new ItemContainer(*this);
+		_itemContainer->Serialize(archie);
 
+		delete _itemContainer;
+		archie.Close();
+		save.Close();
+	}
 }
 
-ItemContainer* ItemContainer::load()
+ItemContainer* ItemContainer::load(int a)
 {
-	CFile load;
-	load.Open(_T("MapSave.txt"), CFile::modeRead);
-	CArchive archie(&load, CArchive::load);
+	if (a == 0)
+	{
+		CFile load;
+		load.Open(_T("ItemSave.txt"), CFile::modeRead);
+		CArchive archie(&load, CArchive::load);
 
-	ItemContainer* _itemContainer = new ItemContainer();
-	_itemContainer->Serialize(archie);
+		ItemContainer* _itemContainer = new ItemContainer();
+		_itemContainer->Serialize(archie);
 
-	archie.Close();
-	load.Close();
+		archie.Close();
+		load.Close();
 
-	return _itemContainer;
+		return _itemContainer;
+	}
+	else {
+		CFile load;
+		load.Open(_T("MapSave.txt"), CFile::modeRead);
+		CArchive archie(&load, CArchive::load);
 
+		ItemContainer* _itemContainer = new ItemContainer();
+		_itemContainer->Serialize(archie);
+
+		archie.Close();
+		load.Close();
+
+		return _itemContainer;
+	}
 }

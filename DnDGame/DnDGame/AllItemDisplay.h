@@ -3,6 +3,7 @@
 #include "Item.h"
 #include <vector>
 #include "GameButton.h"
+#include "ItemContainer.h"
 
 class AllItemDisplay :
 	public Display
@@ -20,7 +21,7 @@ public:
 
 private:
 
-	std::vector < Item* > container;
+	ItemContainer* container;
 	std::vector < sf::Sprite > itempack;
 	std::vector < sf::Text > itemname;
 

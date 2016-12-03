@@ -41,7 +41,12 @@
     <ClCompile Include="AllItemDisplay.cpp" />
     <ClCompile Include="ItemBuildDisplay.cpp" />
     <ClCompile Include="CharChoiceDisplay.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="Gamelogg.cpp" />
+=======
+    <ClCompile Include="EditCharDisplay.cpp" />
+    <ClCompile Include="CampChooseDisplay.cpp" />
+>>>>>>> 35d83f9d5b94d45fe8e8830a6699a0e7c1429b39
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Armor.h" />
@@ -85,7 +90,12 @@
     <ClInclude Include="AllItemDisplay.h" />
     <ClInclude Include="ItemBuildDisplay.h" />
     <ClInclude Include="CharChoiceDisplay.h" />
+<<<<<<< HEAD
     <ClInclude Include="Gamelogg.h" />
+=======
+    <ClInclude Include="EditCharDisplay.h" />
+    <ClInclude Include="CampChooseDisplay.h" />
+>>>>>>> 35d83f9d5b94d45fe8e8830a6699a0e7c1429b39
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
