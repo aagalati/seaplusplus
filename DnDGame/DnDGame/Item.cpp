@@ -82,6 +82,11 @@ std::string Item::getItemType() const
 	return "Item";
 }
 
+int Item::getIntItemType()
+{
+	return itemType;
+}
+
 int Item::getRange()
 {
 	return range;
