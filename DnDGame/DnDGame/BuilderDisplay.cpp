@@ -47,7 +47,8 @@ BuilderDisplay::BuilderDisplay(std::vector<Grid*> gridlist) : Display()
 	sizeTilemap();
 	drawSprites();
 
-	this->gridlist = gridlist;
+	
+	->gridlist = gridlist;
 
 	numofmapbuttons = gridlist.size();
 	buttons.resize(numofmapbuttons);

@@ -1053,7 +1053,7 @@ using std::string;
 		return g;
 	}
 
-	//This checks that the attributes of a character respect the DnD guidelines 
+	//checks that the attributes of a character respect the DnD guidelines 
 	//(3 <= attribute <= 18)
 	bool Character::validateNewCharacter() noexcept
 	{
@@ -1357,8 +1357,7 @@ using std::string;
 	
 
 	
-	std::
-		<Character*> Character::load()
+	std::vector<Character*> Character::load()
 	{
 
 		std::vector <Character*> characters;
